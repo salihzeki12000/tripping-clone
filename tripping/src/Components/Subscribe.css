@@ -1,0 +1,19 @@
+.bg-orange {
+   background-color: orange;
+}
+
+.text-orange {
+    color: orange;
+}
+
+.bg-pink {
+  background-color: rgb(250, 246, 247);
+}
+
+.font-size {
+  font-size: 18px;
+}
+
+.fontSize-p {
+  font-size: 20px;
+}
