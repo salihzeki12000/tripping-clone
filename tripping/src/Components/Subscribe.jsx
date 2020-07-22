@@ -5,7 +5,7 @@ export default function Subscribe() {
         <div className='container mt-3'>
         <div className='row mx-5 bg-pink p-3'>
             <div className='col-6'>
-                <h4 className='font-weight-bold text-secondary'>Receive exclusive offers, inspirational stories and travel regulational updates.</h4>
+                <h5 className='font-weight-bold '>Receive exclusive offers, inspirational stories and travel regulational updates.</h5>
                 <p className='text-secondary fontSize-p'>Become a subscriber* and receive great tips on travel planning set to your inbox!</p>
             </div>
             <div className='col-6'>
