@@ -30,7 +30,7 @@ class Register extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            // emailFlag:false,
+            emailFlag:false,
             email:''
         }
     }
@@ -40,12 +40,21 @@ class Register extends React.Component {
         console.log('enter')
 
         this.props.emailValidation(this.state.email)
+        if(!this.props.checkEmailFlag) {
+            this.setState({
+                emailFlag: true
+            })
+        }else {
+            this.setState({
+                emailFlag: false
+            })
+        }
     }
     render() {
         let {emailFlag, email} = this.state
         // console.log(email)
         let {checkEmailFlag} = this.props
-        
+        console.log(emailFlag)
         return (
             <div className='container marginTop-Reg'>
                 <div className='row '>
@@ -53,9 +62,14 @@ class Register extends React.Component {
                         <h4 className='text-left'>Create your account</h4>
                         <p className='text-left'>Create an account to use Tripping.com services easily.</p>
                         <div className='mb-3'>
-                            <p className='text-left'>Email</p>
                            
-                            {checkEmailFlag == false && <> <input type='text' className='form-control ' value={email} onChange={(e)=>this.setState({email:e.target.value})} /></>}
+                           
+                            {!checkEmailFlag && <> 
+                             <p className='text-left'>Email</p>
+                              <input type='email' className='form-control ' value={email} onChange={(e)=>this.setState({email:e.target.value})} />
+                              {emailFlag && <small className='text-danger warningSize'>Make sure the email address you entered is correct.</small>}
+                              </>}
+                           
                          {checkEmailFlag && <>
                             <p className='text-left'>Create password</p>
                             <input type='password' className='form-control' />
@@ -64,8 +78,8 @@ class Register extends React.Component {
                             </>
                             }
                         </div>
-                        {!checkEmailFlag && <button onClick={()=>this.handleGetStarted()} className='btn form-control bg-orange text-white'>Get started</button> }
-                        
+                        {!checkEmailFlag && <button onClick={()=>this.handleGetStarted()} className='btn px-5 bg-orange text-white btnWidth'>Get started</button> }
+                       
                         {checkEmailFlag && <button onClick={()=>this.handleGetStarted()} className='btn form-control bg-orange text-white'>Create Account</button> }
 
                         <small className='text-muted text-center '>or sign in with one click</small>
@@ -94,7 +108,6 @@ class Register extends React.Component {
                                     onSuccess={responseGoogle}
                                     onFailure={responseGoogle}
                                     cookiePolicy={'single_host_origin'}
-
                                 />
                             </div>
                         </div>
