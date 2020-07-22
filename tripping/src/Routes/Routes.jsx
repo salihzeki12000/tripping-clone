@@ -5,8 +5,10 @@ import Home from './Home'
 function Routes() {
     return (
         <div>
-            <Route path='/' exact componet={Home} />
+            <Route path='/' exact component={Home} />
             <Route path='/vacation-rentals'  />
         </div>
     )
 }
+
+export default Routes
