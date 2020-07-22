@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
+import SearchBar from './Components/SearchBar';
 
 function App() {
   return (
     <div className="App">
-    
-   hello
+      <SearchBar />
     </div>
   );
 }
