@@ -1,1 +1,0 @@
-SQLALCHEMY_DATABASE_URI = 'mysql://root:Eshwer@12@localhost/reviews'
