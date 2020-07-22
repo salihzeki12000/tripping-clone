@@ -3,7 +3,7 @@ import './PopularDestinations.css'
 
 export default function PopularDestinations() {
     return (
-        <div className='container mt-5 '>
+        <div className='container mt-5 p-4'>
             <h2 className='font-weight-bold margin-left'>Popular Destinations</h2>
             <div className='row mx-5 mt-3'>
                 <div className='col-6 bgImage-Berlin  px-5'>

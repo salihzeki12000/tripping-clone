@@ -3,7 +3,7 @@ import React from 'react'
 export default function TopCountries() {
     return (
 
-        <div className='container mt-5'>
+        <div className='container mt-5 p-4'>
             <h2 className='font-weight-bold margin-left'>Top Countries</h2>
             <div className='row text-secondary mt-3 mx-4'>
                 <div className='col-3 '>
