@@ -1,4 +1,4 @@
-import {GOOGLE_SIGNIN, EMAIL_VALID} from './actionTypes'
+import {GOOGLE_SIGNIN, EMAIL_VALID, PASS_VALID} from './actionTypes'
 
 export const googleSignin = payload => ({
      type:GOOGLE_SIGNIN,
@@ -9,5 +9,10 @@ export const emailValidation = payload => ({
      
      type:EMAIL_VALID,
      payload 
+})
+
+export const passValidation = payload => ({
+     type: PASS_VALID,
+     payload
 })
 

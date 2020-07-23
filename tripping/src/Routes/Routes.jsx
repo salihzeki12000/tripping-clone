@@ -6,6 +6,7 @@ import Register from './Register.jsx'
 function Routes() {
     return (
         <div>
+
             <Switch>
             <Route path='/' exact render={()=> <Home />} />
             <Route path='/vacation-rentals'  />

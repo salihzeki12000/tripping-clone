@@ -1,14 +1,23 @@
-import {GOGOGLE_SIGNIN, EMAIL_VALID} from './actionTypes'
+import {GOGOGLE_SIGNIN, EMAIL_VALID, PASS_VALID} from './actionTypes'
 
 
+var emailValidator = require("email-validator");
+var passwordValidator = require('password-validator')
 
+var schema = new passwordValidator()
 
-var validator = require("email-validator");
+schema.is().min(8)
+schema.has().digits()
+schema.has().uppercase()
+schema.has().lowercase()
+schema.has().symbols() 
+schema.has().not().spaces() 
  
 
 const initState = {
   authFlag:false,
   checkEmailFlag:false,
+  checkPassFlag:false
 }
 
 const reducer = (state=initState, {type,payload}) => {
@@ -19,10 +28,19 @@ const reducer = (state=initState, {type,payload}) => {
 
         case EMAIL_VALID :{
           console.log(payload)
-         var checkEmail =  validator.validate(payload)
+         var checkEmail =  emailValidator.validate(payload)
             return {
               ...state,
               checkEmailFlag:checkEmail
+            }
+        }
+
+        case PASS_VALID :{
+          console.log(payload)
+         var checkPass =  schema.validate(payload)
+            return {
+              ...state,
+              checkPassFlag:checkPass
             }
         }
 
