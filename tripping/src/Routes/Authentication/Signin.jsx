@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { emailValidation } from '../../Redux/authentication/Validations/action'
-import {signinUserCheck} from '../../Redux/authentication/Signin/action'
+import { signinUserCheck } from '../../Redux/authentication/Signin/action'
+
+import GoogleAuthLogin from './GoogleLogin';
+import FacebookAuthLogin from './FacebookLogin';
+import { Link } from 'react-router-dom';
 
 
 class Signin extends Component {
@@ -11,7 +15,7 @@ class Signin extends Component {
         this.state = {
             email: '',
             emailFlag: false,
-            password:'',
+            password: '',
             // isLogin:'abc'
 
         }
@@ -19,7 +23,7 @@ class Signin extends Component {
 
     handleSignin = () => {
         console.log('enter')
-        let {email, password} = this.state
+        let { email, password } = this.state
 
         this.props.emailValidation(this.state.email)
 
@@ -33,7 +37,7 @@ class Signin extends Component {
             //     emailFlag: false
             // })
 
-             this.props.signinUserCheck({email:email, password:password})
+            this.props.signinUserCheck({ email: email, password: password })
             // this.setState({
             //     islogin: x
             // })
@@ -41,19 +45,19 @@ class Signin extends Component {
     }
 
     render() {
-        let { email, emailFlag, password} = this.state
-        let { isLogin} = this.props
+        let { email, emailFlag, password } = this.state
+        let { isLogin } = this.props
         console.log(isLogin)
-        
-        if(isLogin ==='false') {
-            return(
+
+        if (isLogin === 'false') {
+            return (
                 <div className='container marginTop-Reg'>
-                <div className='row'>
-                    <div className='col-4 offset-4 text-center'>
-                        <h1></h1>
+                    <div className='row'>
+                        <div className='col-4 offset-4 text-center'>
+                            <h1></h1>
+                        </div>
                     </div>
                 </div>
-            </div>
             )
         }
 
@@ -71,12 +75,26 @@ class Signin extends Component {
                             {emailFlag && <small className='text-danger warningSize'>Make sure the email address you entered is correct.</small>}
 
                             <p className='text-left my-2 mt-4'>Password</p>
-                            <input type='email' className='form-control ' value={password} onChange={(e) => this.setState({ password: e.target.value })} />
-                            {isLogin ==='true' && <small className='text-danger warningSize'>The email and password combination you entered doesn't match.</small>}
+                            <input type='password' className='form-control ' value={password} onChange={(e) => this.setState({ password: e.target.value })} />
+                            {isLogin === 'true' && <small className='text-danger warningSize'>The email and password combination you entered doesn't match.</small>}
 
                         </div>
                         <button onClick={() => this.handleSignin()} className='btn px-5 bg-orange text-white btnWidth'>Next</button>
-
+                      
+                       <div className='text-center mt-2'>  
+                        <small className='text-muted text-center '>or sign in with one click</small>
+                       </div>
+                        <div className='row my-3'>
+                            <div className='col-6'>
+                                <FacebookAuthLogin />
+                            </div>
+                            <div className='col-6'>
+                                <GoogleAuthLogin />
+                            </div>
+                        </div>
+                        <div className='mt-4'>
+                            <p className='text-center'>Don't have an account? <nbr className='text-info'><Link to='/register'>Sign up</Link></nbr></p>
+                        </div>
                     </div>
                 </div>
 
@@ -93,7 +111,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     emailValidation: (payload) => dispatch(emailValidation(payload)),
     signinUserCheck: (payload) => dispatch(signinUserCheck(payload))
-    
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signin)
