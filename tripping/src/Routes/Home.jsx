@@ -11,6 +11,7 @@ export default function Home() {
     return (
         <div>
             <Link to='/register'>Register</Link>
+            <Link to='/signin'>Signin</Link>
             <Subscribe />
             <PopularDestinations />
             <TopLocations />

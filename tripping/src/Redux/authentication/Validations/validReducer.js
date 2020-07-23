@@ -43,7 +43,6 @@ const reducer = (state=initState, {type,payload}) => {
               checkPassFlag:checkPass
             }
         }
-
         default:
             return state
     }
