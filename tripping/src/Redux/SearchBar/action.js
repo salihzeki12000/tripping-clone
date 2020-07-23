@@ -1,5 +1,4 @@
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
+import {INCREMENT, DECREMENT} from './actionTypes'
 
 export const increment = (payload) => ({
     type:INCREMENT,

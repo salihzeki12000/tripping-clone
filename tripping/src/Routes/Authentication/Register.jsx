@@ -7,6 +7,7 @@ import { emailValidation, passValidation } from '../../Redux/authentication/Vali
 
 import GoogleAuthLogin from './GoogleLogin';
 import FacebookAuthLogin from './FacebookLogin';
+import { Link } from 'react-router-dom';
 
 
 class Register extends React.Component {
@@ -115,7 +116,7 @@ class Register extends React.Component {
                             </div>
                         </div>
                         <div className='mt-4'>
-                            <p>Already have an account? <nbr className='text-info'>Sign in</nbr></p>
+                            <p>Already have an account? <nbr className='text-info'><Link to='/signin'>Sign in</Link></nbr></p>
                         </div>
                     </div>
                 </div>

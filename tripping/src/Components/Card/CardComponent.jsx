@@ -11,7 +11,7 @@ export class CardComponent extends Component {
                     <small className="text-muted float">Kingscliff, Tweed Shire council Austarlia</small>
                     <button className="button mt-2">DETAILS</button> 
                     <span><small className="text-muted clear mt-1">from </small><p className="float fontWeight">&nbsp; $&nbsp; </p><p className="fontWeight float"> 224 </p></span>
-                    <small className="clear text-muted">virbo</small>
+                    <small className="clear text-muted">virbo</small><td onClick={()=> window.open("someLink", "_blank")}>text</td>
                     <p className="orange clear">5.0*****</p>
                 </div>
             </div>
