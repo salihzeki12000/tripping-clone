@@ -1,7 +1,7 @@
  
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { increment, decrement } from '../Redux/searchBar/action.js';
+import { increment, decrement } from '/home/gangadhar/tripping/tripping-clone/tripping/src/Redux/SearchBar/action.js';
 import './SearchBar.css';
 
 export class GuestManager extends Component {

@@ -3,7 +3,7 @@ import './SearchBar.css';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
-import './react_dates_overrides.css';
+import './react-dates-overrides.css';
 import GuestManager from './GuestManager.jsx'
 
 export class SearchBar extends Component {

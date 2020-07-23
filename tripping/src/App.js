@@ -1,14 +1,14 @@
 import React from 'react';
 import Home from './Routes/Home';
-import Routes from './Routes/Routes'
-// import './App.css';
-import {Link} from 'react-router-dom'
+import Routes from './Routes/Routes';
+import {Link} from 'react-router-dom';
+import SearchBar from './Components/SearchBar/SearchBar';
+import CardComponent from './Components/Card/CardComponent';
 
 function App() {
   return (
     <div >
-    
-   {/* <Home /> */}
+   <SearchBar />
    <Link to='/'></Link>
    <Routes />
     </div>
