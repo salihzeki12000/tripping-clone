@@ -56,8 +56,8 @@ export class GuestManager extends Component {
 }
 
 const mapStateToProps = state => ({
-    guestCounter: state.guestCounter,
-    bedroomCounter: state.bedroomCounter
+    guestCounter: state.search.guestCounter,
+    bedroomCounter: state.search.bedroomCounter
 })
 
 const mapDispatchToProps = dispatch => {
