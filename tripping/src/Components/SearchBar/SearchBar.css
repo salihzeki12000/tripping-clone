@@ -1,0 +1,49 @@
+.input {
+    height: 45px;
+    border: 1px solid lightgrey;
+}
+
+.background {
+    margin-top:75px;
+    background-image: url("https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:500px;
+}
+
+.div {
+    text-align: center;
+    vertical-align:middle;
+}
+
+.text {
+    color: white;
+    font-weight:bold
+}
+
+.buttonIn { 
+    position: relative; 
+} 
+  
+.location { 
+    margin: 0px; 
+    padding: 0px; 
+    outline: none; 
+} 
+  
+.svg{ 
+    position: absolute; 
+    top: 0; 
+    right: 0px; 
+    z-index: 2; 
+    border: none; 
+    top: 2px; 
+    transform: translateX(2px); 
+} 
+
+
+.guestDiv{
+    max-width: 300px;
+    margin-left: 55%;
+}
