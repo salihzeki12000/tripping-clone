@@ -5,7 +5,8 @@ import { signinUserCheck } from '../../Redux/authentication/Signin/action'
 
 import GoogleAuthLogin from './GoogleLogin';
 import FacebookAuthLogin from './FacebookLogin';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+
 
 
 class Signin extends Component {
@@ -25,23 +26,25 @@ class Signin extends Component {
         console.log('enter')
         let { email, password } = this.state
 
-        this.props.emailValidation(this.state.email)
+        // this.props.emailValidation(this.state.email)
 
-        if (!this.props.checkEmailFlag) {
-            // this.setState({
-            //     emailFlag: true
-            // })
+        // if (!this.props.checkEmailFlag) {
+        //     // this.setState({
+        //     //     emailFlag: true
+        //     // })
 
-        } else {
-            // this.setState({
-            //     emailFlag: false
-            // })
+        // } else {
+        //     // this.setState({
+        //     //     emailFlag: false
+        //     // })
 
-            this.props.signinUserCheck({ email: email, password: password })
-            // this.setState({
-            //     islogin: x
-            // })
-        }
+        //     this.props.signinUserCheck({ email: email, password: password })
+        //     // this.setState({
+        //     //     islogin: x
+        //     // })
+        // }
+
+        this.props.signinUserCheck({ email: email, password: password })
     }
 
     render() {
@@ -49,15 +52,16 @@ class Signin extends Component {
         let { isLogin } = this.props
         console.log(isLogin)
 
-        if (isLogin === 'false') {
+        if (!isLogin) {
             return (
-                <div className='container marginTop-Reg'>
-                    <div className='row'>
-                        <div className='col-4 offset-4 text-center'>
-                            <h1></h1>
-                        </div>
-                    </div>
-                </div>
+                // <div className='container marginTop-Reg'>
+                //     <div className='row'>
+                //         <div className='col-4 offset-4 text-center'>
+                //             <h1>dsfdsfdsafdsaf</h1>
+                //         </div>
+                //     </div>
+                // </div>
+                <Redirect to='/' />
             )
         }
 
@@ -79,7 +83,7 @@ class Signin extends Component {
                             {isLogin === 'true' && <small className='text-danger warningSize'>The email and password combination you entered doesn't match.</small>}
 
                         </div>
-                        <button onClick={() => this.handleSignin()} className='btn px-5 bg-orange text-white btnWidth'>Next</button>
+                        <button onClick={() => this.handleSignin()} className='btn px-5 bg-orange text-white btnWidth'>Sign in</button>
                       
                        <div className='text-center mt-2'>  
                         <small className='text-muted text-center '>or sign in with one click</small>
@@ -110,7 +114,8 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
     emailValidation: (payload) => dispatch(emailValidation(payload)),
-    signinUserCheck: (payload) => dispatch(signinUserCheck(payload))
+    signinUserCheck: (payload) => dispatch(signinUserCheck(payload)),
+   
 
 })
 

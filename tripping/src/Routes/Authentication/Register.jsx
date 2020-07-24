@@ -3,7 +3,7 @@ import './Register.css'
 
 import { connect } from 'react-redux';
 import { emailValidation, passValidation } from '../../Redux/authentication/Validations/action'
-
+import { signupUserCheck } from '../../Redux/authentication/Register/action'
 
 import GoogleAuthLogin from './GoogleLogin';
 import FacebookAuthLogin from './FacebookLogin';
@@ -19,7 +19,9 @@ class Register extends React.Component {
             newPass: '',
             confirmPass: '',
             passCompareFlag: false,
-            passFlag: false
+            passFlag: false,
+            firstName:'',
+            lastName:''
         }
     }
 
@@ -31,6 +33,7 @@ class Register extends React.Component {
             this.setState({
                 emailFlag: true
             })
+
         } else {
             this.setState({
                 emailFlag: false
@@ -42,38 +45,42 @@ class Register extends React.Component {
         let { newPass, confirmPass } = this.state
 
         this.props.passValidation(this.state.newPass)
-
-        if (this.setState.checkPassFlag) {
+           
+        if (this.props.checkPassFlag) {
             this.setState({
                 passFlag: false,
 
             })
+
+            if (newPass == confirmPass) {
+                let {email, firstName, lastName, confirmPass} = this.state
+                 this.props.signupUserCheck({ email: email, password: confirmPass, first_name:firstName, last_name:lastName })
+     
+             } else {
+                 this.setState({ passCompareFlag: true })
+             }
         } else {
             this.setState({ passFlag: true })
         }
 
-        if (newPass === confirmPass) {
-
-
-        } else {
-            this.setState({ passCompareFlag: true })
-        }
+       
     }
     render() {
-        let { emailFlag, email, newPass, confirmPass, passFlag, passCompareFlag } = this.state
+        let { emailFlag, email, newPass, confirmPass, passFlag, passCompareFlag, firstName, lastName } = this.state
         // console.log(email)
-        let { checkEmailFlag, checkPassFlag } = this.props
+        let { checkEmailFlag, checkPassFlag, isSignup } = this.props
         console.log(checkEmailFlag, checkPassFlag)
-
-        if (checkPassFlag && checkEmailFlag) {
+        console.log(isSignup)
+        if (!isSignup) {
             return (
-                <div className='container marginTop-Reg'>
-                    <div className='row'>
-                        <div className='col-4 offset-4 text-center'>
-                            <h1>Register Succesfully with the {email}</h1>
-                        </div>
-                    </div>
-                </div>
+                // <div className='container marginTop-Reg'>
+                //     <div className='row'>
+                //         <div className='col-4 offset-4 text-center'>
+                //             <h1>Register Succesfully with the {email}</h1>
+                //         </div>
+                //     </div>
+                // </div>
+                 <Redirect to='/' />
             )
         }
 
@@ -93,6 +100,10 @@ class Register extends React.Component {
                             </>}
 
                             {checkEmailFlag && <>
+                                <p className='text-left'>First Name</p>
+                                <input type='text' className='form-control my-2' value={firstName} onChange={(e) => this.setState({ firstName: e.target.value })} />
+                                <p className='text-left'>First Name</p>
+                                <input type='text' className='form-control my-2' value={lastName} onChange={(e) => this.setState({ lastName: e.target.value })} />
                                 <p className='text-left'>Create password</p>
                                 <input type='password' className='form-control my-2' value={newPass} onChange={(e) => this.setState({ newPass: e.target.value })} />
                                 {passFlag && <p className='text-danger warningSize text-left'>Your new password has to be at least 8 characters,one uppercase, lowercase, digit and character</p>}
@@ -128,11 +139,13 @@ class Register extends React.Component {
 
 const mapStateToProps = state => ({
     checkEmailFlag: state.validation.checkEmailFlag,
-    checkPassFlag: state.validation.checkPassFlag
+    checkPassFlag: state.validation.checkPassFlag,
+    isSignup: state.signup.isSignup,
 })
 const mapDispatchToProps = dispatch => ({
     emailValidation: (payload) => dispatch(emailValidation(payload)),
-    passValidation: (payload) => dispatch(passValidation(payload))
+    passValidation: (payload) => dispatch(passValidation(payload)),
+    signupUserCheck: (payload) => dispatch(signupUserCheck(payload))
 })
 
 
