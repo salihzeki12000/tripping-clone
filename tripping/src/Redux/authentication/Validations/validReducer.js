@@ -1,4 +1,4 @@
-import {GOGOGLE_SIGNIN, EMAIL_VALID, PASS_VALID} from './actionTypes'
+import { EMAIL_VALID, PASS_VALID} from './actionTypes'
 
 
 var emailValidator = require("email-validator");
@@ -6,7 +6,7 @@ var passwordValidator = require('password-validator')
 
 var schema = new passwordValidator()
 
-schema.is().min(8)
+schema.is().min(6)
 schema.has().digits()
 schema.has().uppercase()
 schema.has().lowercase()

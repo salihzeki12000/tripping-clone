@@ -7,23 +7,24 @@ const initState = {
 }
 
 const signinReducer = (state = initState, {type,payload})=>{
-
+   console.log(payload,'reducer top')
     switch(type){
         case SIGNIN_USER_REQUEST:
             return {
                 ...state
             }
         case SIGNIN_USER_SUCCESS:
+            console.log(payload, 'reducer')
             return{
                 ...state,
                 isLogin:payload.error,
-                messageLogin: payload.msg
+                messageLogin: payload.message
             }
         case SIGNIN_USER_FAILURE:
             return{
                 ...state,
                 isLogin:payload.error,
-                messageLogin: payload.msg
+                messageLogin: payload.message
             }
         default:
             return state 

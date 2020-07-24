@@ -12,30 +12,37 @@ export class SearchBar extends Component {
 
         this.state = {
             startDate: null,
-            endDate: null
+            endDate: null,
+            region:''
         }
+
+    }
+
+    handleGuests = ()=> {
+            console.log('enter')
     }
 
     render() {
+        let {startDate, endDate, region} = this.state
         return (
             <div className='background'>
                 <div className='div'>
                     <h1 className='text'>Search Top Vacation Rental Sites</h1>
                     <p className='text'>Compare and save on vacation homes and short-term rentals in 190 countries</p>
                     <div>
-                        <input type="text" className="input buttonIn location" placeholder="Enter City or Region" />
+                        <input type="text" className="input buttonIn location" placeholder="Enter City or Region" onChange={(e)=> this.setState({region:e.target.value})}  />
                         <img src="https://icons8.com/icon/95867/multiply" alt='' className="btn svg"></img>
                         <DateRangePicker
                             className='CalendarDay__selected CalendarDay__selected_span'
-                            startDate={this.state.startDate}
+                            startDate={startDate}
                             startDateId="your_unique_start_date_id"
-                            endDate={this.state.endDate}
+                            endDate={endDate}
                             endDateId="your_unique_end_date_id"
                             onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                             focusedInput={this.state.focusedInput}
                             onFocusChange={focusedInput => this.setState({ focusedInput })}
                         />
-                        <span>
+                        <span onClick={()=> this.handleGuests()}>
                             <input type="text" className="input" />
                             <GuestManager className="ml-5" />
                         </span>

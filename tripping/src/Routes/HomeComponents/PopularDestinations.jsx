@@ -16,7 +16,6 @@ export default function PopularDestinations() {
                                 <h4 className='font-weight-bold '>Berlin</h4>
                             </div>
                         </div>
-
                     </Link>
                 </div>
                 <div className='col-6 mt-3 '>
