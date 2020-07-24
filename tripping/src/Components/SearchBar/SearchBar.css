@@ -47,3 +47,12 @@
     max-width: 300px;
     margin-left: 55%;
 }
+
+.search{
+    height: 43px;
+    width:auto;
+}
+
+.searchButton{
+    background-color: orange;
+}
