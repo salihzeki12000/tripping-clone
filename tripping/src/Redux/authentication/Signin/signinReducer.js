@@ -1,13 +1,15 @@
 
-import {SIGNIN_USER_FAILURE,SIGNIN_USER_REQUEST,SIGNIN_USER_SUCCESS} from './actionTypes'
+import {SIGNIN_USER_FAILURE,SIGNIN_USER_REQUEST,SIGNIN_USER_SUCCESS , GET_USERDATA} from './actionTypes'
+import { userData } from './action'
 
-import axios from 'axios'
+// import axios from 'axios'
  
 const initState = {
     isLogin:'abc',
     messageLogin:"",
     username:'',
-    token:'x'
+    token:'x', 
+    userData:{}
 }
 
 const signinReducer = (state = initState, {type,payload})=>{
@@ -19,7 +21,8 @@ const signinReducer = (state = initState, {type,payload})=>{
             }
         case SIGNIN_USER_SUCCESS:
             console.log(payload, 'reducer')
-           
+            // axios.get("http://94e1f8c3880d.ngrok.io/auth/get_user_info?auth_token=",+ this.props.token )
+        
             return{
                 ...state,
                 isLogin:payload.error,
@@ -32,6 +35,14 @@ const signinReducer = (state = initState, {type,payload})=>{
                 isLogin:payload.error,
                 messageLogin: payload.message
             }
+
+            case GET_USERDATA:
+                return{
+                    ...state,
+                    userData: payload
+                }
+
+        
         default:
             return state 
     }

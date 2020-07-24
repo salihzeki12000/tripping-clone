@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { emailValidation } from '../../Redux/authentication/Validations/action'
-import { signinUserCheck } from '../../Redux/authentication/Signin/action'
+import { signinUserCheck, userData } from '../../Redux/authentication/Signin/action'
 
 import GoogleAuthLogin from './GoogleLogin';
 import FacebookAuthLogin from './FacebookLogin';
@@ -47,20 +47,24 @@ class Signin extends Component {
 
         this.props.signinUserCheck({ email: email, password: password })
 
-
-        // axios.get("http://94e1f8c3880d.ngrok.io/auth/get_user_info?auth_token=",+ this.props.token )
-        // .then(res => console.log(res.data))
+        
     }
 
-      
+    
+
+       
 
     render() {
         let { email, emailFlag, password } = this.state
-        let { isLogin, token} = this.props
-        console.log(isLogin)
-
+        let { isLogin, token, userData} = this.props
+        console.log(isLogin, token)
+       
+        
         if (!isLogin) {
+            userData(token)
+            
             return (
+               
                 // <div className='container marginTop-Reg'>
                 //     <div className='row'>
                 //         <div className='col-4 offset-4 text-center'>
@@ -123,6 +127,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     emailValidation: (payload) => dispatch(emailValidation(payload)),
     signinUserCheck: (payload) => dispatch(signinUserCheck(payload)),
+    userData: (payload) => dispatch(userDataRequest(payload))
    
 
 })
