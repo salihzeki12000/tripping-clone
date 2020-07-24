@@ -6,6 +6,7 @@ export class CardComponent extends Component {
         console.log(this.props)
         const { bedrooms, guest, hotel_name, country, state, img, rating } = this.props;
         return (
+            <div className='col-3'>
             <div className="card" style={{ width: '20rem' }}>
                 <img src={img} className="card-img-top" alt="..." />
                 <div className="card-body">
@@ -16,6 +17,7 @@ export class CardComponent extends Component {
                     <small className="clear text-muted">virbo</small><td onClick={() => window.open("someLink", "_blank")}>text</td>
                     <p className="orange clear">{rating}*****</p>
                 </div>
+            </div>
             </div>
         )
     }
