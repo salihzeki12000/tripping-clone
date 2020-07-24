@@ -3,16 +3,18 @@ import './CardComponent.css';
 
 export class CardComponent extends Component {
     render() {
+        console.log(this.props)
+        const { bedrooms, guest, hotel_name, country, state, img, rating } = this.props;
         return (
-            <div class="card" style={{width:'20rem'}}>
-                <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="card-img-top" alt="..." />
-                <div class="card-body">
-                    <p className="text-muted float">Apartment . 2 Guests . 1 Bedroom</p>
-                    <small className="text-muted float">Kingscliff, Tweed Shire council Austarlia</small>
-                    <button className="button mt-2">DETAILS</button> 
+            <div className="card" style={{ width: '20rem' }}>
+                <img src={img} className="card-img-top" alt="..." />
+                <div className="card-body">
+                    <p className="text-muted float">Apartment . {guest} Guests . {bedrooms} Bedroom</p>
+                    <small className="text-muted float">{hotel_name}, {state} {country}</small>
+                    <button className="button mt-2">DETAILS</button>
                     <span><small className="text-muted clear mt-1">from </small><p className="float fontWeight">&nbsp; $&nbsp; </p><p className="fontWeight float"> 224 </p></span>
-                    <small className="clear text-muted">virbo</small><td onClick={()=> window.open("someLink", "_blank")}>text</td>
-                    <p className="orange clear">5.0*****</p>
+                    <small className="clear text-muted">virbo</small><td onClick={() => window.open("someLink", "_blank")}>text</td>
+                    <p className="orange clear">{rating}*****</p>
                 </div>
             </div>
         )
