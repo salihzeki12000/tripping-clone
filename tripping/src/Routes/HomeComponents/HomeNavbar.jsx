@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { userData } from '../../Redux/authentication/Signin/action'
+// import { userData } from '../../Redux/authentication/Signin/action'
 
  function HomeNavbar(props) {
-let {userData} = props
-console.log(userData)
+let {user} = props
+console.log(user.success)
     return (
         <div className='container-fluid'>
 
@@ -15,8 +15,14 @@ console.log(userData)
                     <Link to='/'><img src='/logo.svg' alt='/' width='100px' height='100px' /></Link>
                 </div>
                 <form class="form-inline">
+                    {user.success &&<>  <img src={user.image} width='100px' height='100px' style={{borderRadius:'50%'}} /><p style={{fontSize:'25px', color:'orange'}}>{user.firstName + " " + user.lastName}</p></>}
+
+                    {!user.success && <>
+                    
                     <Link to='/register'><button className='btn bg-orange text-white mx-3 py-2'>Register</button></Link>
                     <Link to='/signin'><button className='btn bg-orange text-white mx-3 py-2'>Sign in</button></Link>
+                    </> } 
+
                 </form>
             </nav>
 
@@ -27,7 +33,7 @@ console.log(userData)
 
 
 const mapStateToProps = state => ({
-    userData:state.signin.userData
+    user:state.signup.user
 })
 
 export default connect(mapStateToProps)(HomeNavbar)

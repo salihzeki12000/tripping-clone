@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { emailValidation } from '../../Redux/authentication/Validations/action'
-import { signinUserCheck, userData } from '../../Redux/authentication/Signin/action'
+import { signinUserCheck, userDataRequest, getToken } from '../../Redux/authentication/Signin/action'
 
 import GoogleAuthLogin from './GoogleLogin';
 import FacebookAuthLogin from './FacebookLogin';
@@ -46,8 +46,8 @@ class Signin extends Component {
         // }
 
         this.props.signinUserCheck({ email: email, password: password })
-
-        
+        // this.props.getToken(this.props.token)
+        // this.props.userDataRequest(this.props.token)
     }
 
     
@@ -56,13 +56,15 @@ class Signin extends Component {
 
     render() {
         let { email, emailFlag, password } = this.state
-        let { isLogin, token, userData} = this.props
-        console.log(isLogin, token)
-       
+        let { isLogin, token, userDataRequest, getToken, user} = this.props
+        // console.log(isLogin, token)
+    // console.log(token)
+
+            console.log(user)
         
-        if (!isLogin) {
-            userData(token)
-            
+        if (isLogin == false || user.success) {
+        //    userDataRequest(token)
+        // getToken(token)
             return (
                
                 // <div className='container marginTop-Reg'>
@@ -123,11 +125,13 @@ const mapStateToProps = state => ({
     isLogin: state.signin.isLogin,
     token: state.signin.token,
     checkEmailFlag: state.validation.checkEmailFlag,
+    user:state.signup.user
 })
 const mapDispatchToProps = dispatch => ({
     emailValidation: (payload) => dispatch(emailValidation(payload)),
     signinUserCheck: (payload) => dispatch(signinUserCheck(payload)),
-    userData: (payload) => dispatch(userDataRequest(payload))
+    userData: (payload) => dispatch(userDataRequest(payload)),
+    getToken: (payload) => dispatch(getToken(payload))
    
 
 })

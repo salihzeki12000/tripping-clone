@@ -1,8 +1,9 @@
-import {SIGNUP_USER_FAILURE, SIGNUP_USER_REQUEST, SIGNUP_USER_SUCCESS} from './actionTypes'
+import {SIGNUP_USER_FAILURE, SIGNUP_USER_REQUEST, SIGNUP_USER_SUCCESS, GET_USER} from './actionTypes'
  
 const initState = {
     isSignup:'abc',
-    messageSignup:""
+    messageSignup:"",
+    user:{success:false}
 }
 
 const signupReducer = (state = initState, {type,payload})=>{
@@ -25,6 +26,14 @@ const signupReducer = (state = initState, {type,payload})=>{
                 isLogin:payload.error,
                 messageSignup: payload.message
             }
+
+        case GET_USER:
+            
+        console.log(payload)
+        return {
+            ...state,
+            user:payload
+        }
         default:
             return state 
     }
