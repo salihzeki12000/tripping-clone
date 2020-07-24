@@ -1,15 +1,18 @@
 .CalendarDay__selected_span {
     color: white;
+    padding: 20px;
   }
   
   .CalendarDay__selected {
     background:orange;
     color: white;
+    padding: 20px;
   }
   
   .CalendarDay__selected:hover {
     background: orange;
     color: white;
+    padding: 20px;
   }
   
   .CalendarDay__hovered_span:hover,
