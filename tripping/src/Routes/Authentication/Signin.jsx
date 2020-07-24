@@ -6,6 +6,7 @@ import { signinUserCheck } from '../../Redux/authentication/Signin/action'
 import GoogleAuthLogin from './GoogleLogin';
 import FacebookAuthLogin from './FacebookLogin';
 import { Link, Redirect } from 'react-router-dom';
+import axios from 'axios'
 
 
 
@@ -45,11 +46,17 @@ class Signin extends Component {
         // }
 
         this.props.signinUserCheck({ email: email, password: password })
+
+
+        // axios.get("http://94e1f8c3880d.ngrok.io/auth/get_user_info?auth_token=",+ this.props.token )
+        // .then(res => console.log(res.data))
     }
+
+      
 
     render() {
         let { email, emailFlag, password } = this.state
-        let { isLogin } = this.props
+        let { isLogin, token} = this.props
         console.log(isLogin)
 
         if (!isLogin) {
@@ -110,6 +117,7 @@ class Signin extends Component {
 
 const mapStateToProps = state => ({
     isLogin: state.signin.isLogin,
+    token: state.signin.token,
     checkEmailFlag: state.validation.checkEmailFlag,
 })
 const mapDispatchToProps = dispatch => ({

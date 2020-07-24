@@ -6,7 +6,8 @@ import axios from 'axios'
 const initState = {
     isLogin:'abc',
     messageLogin:"",
-    username:''
+    username:'',
+    token:'x'
 }
 
 const signinReducer = (state = initState, {type,payload})=>{
@@ -18,12 +19,12 @@ const signinReducer = (state = initState, {type,payload})=>{
             }
         case SIGNIN_USER_SUCCESS:
             console.log(payload, 'reducer')
-            axios.get("http://94e1f8c3880d.ngrok.io/auth/get_user_info?auth_token="+ payload)
-            .then(res => console.log(res))
+           
             return{
                 ...state,
                 isLogin:payload.error,
-                messageLogin: payload.message
+                messageLogin: payload.message,
+                token:payload.token
             }
         case SIGNIN_USER_FAILURE:
             return{

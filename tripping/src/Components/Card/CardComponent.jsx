@@ -5,6 +5,7 @@ export class CardComponent extends Component {
     render() {
         const { bedrooms, guest, hotel_name, country, state, img, rating,price } = this.props;
         return (
+            <div className='col-3'>
             <div className="card" style={{ width: '20rem' }}>
                 <img src={img} className="card-img-top" alt="..." />
                 <div className="card-body">
@@ -15,6 +16,7 @@ export class CardComponent extends Component {
                     <small className="clear text-muted">virbo</small>
                     <p className="orange clear">{rating}*****</p>
                 </div>
+            </div>
             </div>
         )
     }
