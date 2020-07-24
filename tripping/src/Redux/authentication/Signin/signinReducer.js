@@ -18,7 +18,7 @@ const signinReducer = (state = initState, {type,payload})=>{
             }
         case SIGNIN_USER_SUCCESS:
             console.log(payload, 'reducer')
-            axios.get("http://eba6e9ff2887.ngrok.io/auth/get_user_info?auth_token="+ payload)
+            axios.get("http://94e1f8c3880d.ngrok.io/auth/get_user_info?auth_token="+ payload)
             .then(res => console.log(res))
             return{
                 ...state,
