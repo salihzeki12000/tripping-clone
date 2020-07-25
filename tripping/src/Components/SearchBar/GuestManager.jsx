@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { increment, decrement } from '../../Redux/SearchBar/action';
-import './SearchBar.css';
+import '../SearchBar/SearchBar.css';
 
 export class GuestManager extends Component {
     constructor(props) {
