@@ -33,13 +33,13 @@ class RatingFilter extends React.Component {
         const {open} = this.state
         return (
             <div>
-                <button onClick={() => this.setState({ open: true })} className="filter">Rating</button>
+                <span onClick={() => this.setState({ open: !open })} className="px-3">Rating</span>
                 <Modal
                     isOpen={open}
                     style={{
                         content: {
                             position: 'absolute',
-                            top: '260px',
+                            top: '100px',
                             left: '100px',
                             right: '40px',
                             width: '23rem',

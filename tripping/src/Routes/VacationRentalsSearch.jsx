@@ -43,7 +43,7 @@ class VacationRentalsSearch extends Component {
                         <div className='row'>
                             {
                                 // data?.map(elem => <CardComponent key={elem.id} bedrooms={elem.bedroom} guest={elem.guest} hotel_name={elem.hotel_name} country={elem.country} state={elem.state} img={elem.image} rating={elem.rating} price={elem.price} loaction={elem.locality} />)
-                                data?.map(elem => <CarouselCard />)
+                               data ? data.map(elem => <CarouselCard />) : <div>Sorry Data not found</div>
                             }
                         </div>
 
