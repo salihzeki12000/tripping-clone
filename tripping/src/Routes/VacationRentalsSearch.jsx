@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CardComponent from '../Components/Card/CardComponent'
+import CarouselCard from '../Components/Card/CarouselCard'
 import FileNavBar from '../Components/FilterComponents/FileNavBar'
 import axios from 'axios'
 import {connect} from 'react-redux'
@@ -21,7 +22,9 @@ import { getDataFromAPI, changeFreeCancellation } from '../Redux/SearchApi/Actio
     componentDidMount() {
         let {history, match, getDataFromAPI} = this.props
         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-            getDataFromAPI(match.params.name)
+        console.log(match.params.name, country)
+        // let x = match.params.name
+            getDataFromAPI(country, match.params.name, city, free_cancellation, 2, guest, sort, price, aminities)
      
     }
 
@@ -35,18 +38,24 @@ import { getDataFromAPI, changeFreeCancellation } from '../Redux/SearchApi/Actio
     //     this.setState({ data: res.data.result })
     // }
     render() {
-        let { data } = this.state
-        let {history} = this.props
+        // let { data } = this.state
+        let {history, data} = this.props
         
         return (
             <div className='container-fluid'>
                 
-
-                <SearchBar />
+               <div className='col-6'>
+               <SearchBar />
                 <FileNavBar history = {history} />
+                <div className='row'>
                 {
-                    data?.map(elem => <CardComponent key={elem.id} bedrooms={elem.bedroom} guest={elem.guest} hotel_name={elem.hotel_name} country={elem.country} state={elem.state} img={elem.image} rating={elem.rating} price={elem.price} loaction={elem.locality} />)
+                    // data?.map(elem => <CardComponent key={elem.id} bedrooms={elem.bedroom} guest={elem.guest} hotel_name={elem.hotel_name} country={elem.country} state={elem.state} img={elem.image} rating={elem.rating} price={elem.price} loaction={elem.locality} />)
+                    data?.map(elem => <CarouselCard  />)
                 }
+                </div>
+              
+               </div>
+                
                 {/* <Amenities /> */}
             </div>
         )
@@ -68,7 +77,7 @@ const mapStateToProps = state => ({
     data:state.data.data
 })
 const mapDispatchToProps = dispatch => ({
-    getDataFromAPI: (payload) => dispatch(getDataFromAPI(payload)),
+    getDataFromAPI: (country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities) => dispatch(getDataFromAPI(country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities)),
 })
 
 

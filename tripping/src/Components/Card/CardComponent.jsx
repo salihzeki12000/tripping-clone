@@ -5,7 +5,7 @@ export class CardComponent extends Component {
     render() {
         const { bedrooms, guest, hotel_name, country, state, img, rating,price } = this.props;
         return (
-            <div className='col-3'>
+            <div className='col-6'>
             <div className="card" style={{ width: '20rem' }}>
                 <img src={img} className="card-img-top" alt="..." />
                 <div className="card-body">

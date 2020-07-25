@@ -18,9 +18,16 @@ class FreeCancellation extends Component {
     }
 
     handleClick = () => {
-        let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities, getDataFromAPI, changeFreeCancellation } = this.props
+        let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities, getDataFromAPI, changeFreeCancellation, history } = this.props
         let { checked } = this.state
         console.log(history)
+
+        if(checked == true) {
+            checked = 1
+            
+        }else {
+            checked = ''
+        }
 
         changeFreeCancellation(checked)
         getDataFromAPI(country, state, city, checked, rating, bedroom, guest, sort, price, aminities)
@@ -83,7 +90,7 @@ const mapStateToProps = state => ({
     aminities: state.data.aminities
 })
 const mapDispatchToProps = dispatch => ({
-    getDataFromAPI: (payload) => dispatch(getDataFromAPI(payload)),
+    getDataFromAPI: (country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities) => dispatch(getDataFromAPI(country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities)),
     changeFreeCancellation: (payload) => dispatch(changeFreeCancellation(payload)),
 })
 

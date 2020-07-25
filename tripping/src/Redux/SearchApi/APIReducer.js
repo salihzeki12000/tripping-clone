@@ -6,7 +6,7 @@ import {
 } from './ActionTypes'
 
 const initState = {
-    country: 'France',
+    country: "",
     state: "",
     city: "",
     free_cancellation: "",
@@ -30,7 +30,7 @@ const reducer = (state = initState, { type, payload }) => {
             console.log(payload)
             return {
                 ...state,
-                data:payload
+                data:payload.result
             }
         default:
             return state
