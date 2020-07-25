@@ -5,6 +5,7 @@ export default function Amenities() {
         'Pool', 'Air conditioning', 'Balcony/Patio', 'Grill', 'No smoking', 'Sauna', 'Fishing', 'Fenced', 'Internet',
         'Washer', 'Parking', 'Yard', 'Fireplace', 'Smoking allowed', 'Crib', 'Detached'
     ]
+    
     return (
         <div>
             <div className="row">

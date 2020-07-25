@@ -1,3 +1,5 @@
 export const APIREQUEST = "APIREQUEST"
 export const APISUCCESS = "APISUCCESS"
 export const APIFAILURE = "APIFAILURE"
+export const FREECANCELLATION = "FREECANCELATION"
+ 
