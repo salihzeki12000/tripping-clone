@@ -10,7 +10,22 @@ class RatingFilter extends React.Component {
         super(props)
     
         this.state = {
-             open: false
+             open: false,
+             rating:[]
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange = (e) => {
+        if (e.target.checked) {
+            this.setState({
+                rating: [...this.state.rating, e.target.rating]
+            })
+        }
+        else {
+            this.setState({
+                ratings: this.state.rating.filter(item => item !== e.target.rating)
+            })
         }
     }
     
@@ -42,35 +57,35 @@ class RatingFilter extends React.Component {
                 >
                     <div className="row" style={{ width: '23rem' }}>
                         <div className="col-6">
-                            <input type="radio" className="float p-1 mt-2" />
+                            <input type="checkbox" className="float p-1 mt-2" onChange={this.handleChange} rating='5'/>
                             <p className="float p-1">OutStanding:4.5+</p>
                         </div>
                         <div className="col-6 mt-1">
                             <StarComponent actual='5' />
                         </div>
                         <div className="col-6">
-                            <input type="radio" className="float p-1 mt-2" />
+                            <input type="checkbox" className="float p-1 mt-2" onChange={this.handleChange} rating='4'/>
                             <p className="float p-1">Very Good:4+</p>
                         </div>
                         <div className="col-6 mt-1">
                             <StarComponent actual='4' />
                         </div>
                         <div className="col-6">
-                            <input type="radio" className="float p-1 mt-2" />
+                            <input type="checkbox" className="float p-1 mt-2" onChange={this.handleChange} rating='3'/>
                             <p className="float p-1">Good:3.5+</p>
                         </div>
                         <div className="col-6 mt-1">
                             <StarComponent actual='3' />
                         </div>
                         <div className="col-6">
-                            <input type="radio" className="float p-1 mt-2" />
+                            <input type="checkbox" className="float p-1 mt-2" onChange={this.handleChange} rating='3'/>
                             <p className="float p-1">Descent:3+</p>
                         </div>
                         <div className="col-6 mt-1">
                             <StarComponent actual='2' />
                         </div>
                         <div className="col-6">
-                            <input type="radio" className="float p-1 mt-2" />
+                            <input type="checkbox" className="float p-1 mt-2" onChange={this.handleChange} rating='all'/>
                             <p className="float p-1">Any</p>
                         </div>
                         <div className="col-6 mt-1">

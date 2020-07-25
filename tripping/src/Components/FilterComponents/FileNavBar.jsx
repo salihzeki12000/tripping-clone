@@ -2,11 +2,13 @@ import React from 'react';
 import './FileNavBar.css';
 import FreeCancellation from './FreeCancellation';
 import RatingFilter from './RatingFilter';
-import PriceFilter from './PriceFilter'
+import PriceFilter from './PriceFilter';
+import Amenities from './Amenities';
+import Accommodation from './AccommodationTypes';
 
 export default function FilterNavBar(props) {
     let {history} = props
-    let components = [<FreeCancellation history={history} />,<RatingFilter />, <PriceFilter />]
+    let components = [<FreeCancellation history={history} />,<RatingFilter />, <PriceFilter />,<Amenities />,<Accommodation />]
     return (
         <div className='my-5'>
             {components.map(component =><span className="filter text-muted">{component}</span>)}
