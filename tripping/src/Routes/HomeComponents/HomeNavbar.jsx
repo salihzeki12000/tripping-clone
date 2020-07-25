@@ -3,25 +3,24 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 // import { userData } from '../../Redux/authentication/Signin/action'
 
- function HomeNavbar(props) {
-let {user} = props
-console.log(user.success)
+function HomeNavbar(props) {
+    let { user } = props
+    console.log(user.success)
     return (
         <div className='container-fluid'>
 
-
-            <nav class="navbar navbar-light bg-light">
-                <div class="navbar-brand">
-                    <Link to='/'><img src='/logo.svg' alt='/' width='100px' height='100px' /></Link>
+            <nav class="navbar bg-light">
+                <div>
+                    <Link to='/'><img src='/logo1.png' alt='/' width='80px' height='30px' /></Link>
                 </div>
                 <form class="form-inline">
-                    {user.success &&<>  <img src={user.image} width='100px' height='100px' style={{borderRadius:'50%'}} /><p style={{fontSize:'25px', color:'orange'}}>{user.firstName + " " + user.lastName}</p></>}
+                    {user.success && <>  <img src={user.image} width='80px' height='80px' style={{ borderRadius: '50%' }} /><p style={{ fontSize: '25px', color: 'orange' }}>{user.firstName + " " + user.lastName}</p></>}
 
                     {!user.success && <>
-                    
-                    <Link to='/register'><button className='btn bg-orange text-white mx-3 py-2'>Register</button></Link>
-                    <Link to='/signin'><button className='btn bg-orange text-white mx-3 py-2'>Sign in</button></Link>
-                    </> } 
+
+                        <Link to='/register'><button className='btn text-white mx-1 font-weight-bold' style={{backgroundColor:"#FB8C00"}}>Register</button></Link>
+                        <Link to='/signin'><button className='btn text-white mx-1 font-weight-bold'  style={{backgroundColor:"#FB8C00"}}>Sign in</button></Link>
+                    </>}
 
                 </form>
             </nav>
@@ -33,7 +32,7 @@ console.log(user.success)
 
 
 const mapStateToProps = state => ({
-    user:state.signup.user
+    user: state.signup.user
 })
 
 export default connect(mapStateToProps)(HomeNavbar)

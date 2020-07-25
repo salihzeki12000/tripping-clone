@@ -5,7 +5,7 @@ import FileNavBar from '../Components/FilterComponents/FileNavBar'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import Amenities from '../Components/FilterComponents/Amenities'
-import SearchBar from '../Components/SearchBar/SearchBar'
+import SearchLogo from '../Components/FilterComponents/SearchLogo'
 import { getDataFromAPI, changeFreeCancellation } from '../Redux/SearchApi/Action'
 
 
@@ -23,26 +23,35 @@ class VacationRentalsSearch extends Component {
         let { history, match, getDataFromAPI } = this.props
         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
         console.log(match.params.name, country)
+        // let x = match.params.name
         getDataFromAPI(country, match.params.name, city, free_cancellation, 2, guest, sort, price, aminities)
 
     }
-    render() {
-        let { history, data } = this.props
-        return (
-            <div className='container-fluid'>
 
-                <div className='col-6'>
-                    <SearchBar />
-                    <FileNavBar history={history} />
-                    <div className='row m-1'>
-                        {
-                            data?.map(elem => <CarouselCard className="col-4 m-2" bedroom={elem.bedroom} city={elem.city} country={elem.country} guest={elem.guest} hotel_name={elem.hotel_name} price={elem.price} state={elem.state} rating={elem.rating} image={elem.image} accomodation={elem.accomodation_type} />)
-                        }
+    render() {
+        // let { data } = this.state
+        let { history, data } = this.props
+
+        return (
+            <>
+                <SearchLogo />
+                <div className='container-fluid border-top '>
+                        {/* <SearchBar /> */}
+
+                    <div className='col-6'>
+                        <FileNavBar history={history} />
+                        <div className='row'>
+                            {
+                                // data?.map(elem => <CardComponent key={elem.id} bedrooms={elem.bedroom} guest={elem.guest} hotel_name={elem.hotel_name} country={elem.country} state={elem.state} img={elem.image} rating={elem.rating} price={elem.price} loaction={elem.locality} />)
+                                data?.map(elem => <CarouselCard />)
+                            }
+                        </div>
+
+                        {/* <Amenities /> */}
                     </div>
 
                 </div>
-
-            </div>
+            </>
         )
     }
 }
