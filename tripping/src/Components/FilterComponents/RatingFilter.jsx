@@ -24,8 +24,8 @@ class RatingFilter extends React.Component {
                     style={{
                         content: {
                             position: 'absolute',
-                            top: '120px',
-                            left: '70px',
+                            top: '260px',
+                            left: '100px',
                             right: '40px',
                             width: '23rem',
                             height: '20rem',

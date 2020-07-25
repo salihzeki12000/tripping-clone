@@ -11,9 +11,9 @@ function Routes() {
 
             <Switch>
             <Route path='/' exact render={()=> <Home />} />
-            <Route path='/vacation-rentals/s/search/:name' render= {()=> <VacationRentalsSearch />} />
+            <Route path='/vacation-rentals/s/search/:name' render= {(props)=> <VacationRentalsSearch {...props} />} />
             <Route path='/register' exact render={()=> <Register />} />
-            <Route path='/signin' exact render={()=> <Signin />} />
+            <Route path='/signin' exact render={(props)=> <Signin />} />
             </Switch>
         </div>
     )

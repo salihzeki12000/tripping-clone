@@ -10,12 +10,24 @@ export class FreeCancellation extends Component {
         super(props)
 
         this.state = {
-            open: false
+            open: false,
+            checked:false
         }
     }
 
+    handleClick = () => {
+
+        let {history} = this.props
+        console.log(history)
+        
+
+        this.setState({
+            open:!this.state.open
+        })
+    }
+
     render() {
-        const { open } = this.state
+        const { open, checked } = this.state
         return (
             <div>
                 <button onClick={()=>this.setState({ open: true })} className="filter">Free Cancellation</button>
@@ -24,8 +36,8 @@ export class FreeCancellation extends Component {
                     style={{
                         content: {
                           position: 'absolute',
-                          top: '120px',
-                          left: '30px',
+                          top: '260px',
+                          left: '60px',
                           right: '40px',
                           width: '15rem',
                           height: '12rem',
@@ -41,13 +53,14 @@ export class FreeCancellation extends Component {
                       }}
                 >
                     <div className="row">
-                        <div className="col-2"><input type="checkbox"/></div>
+                        <div className="col-2"><input onChange={()=> this.setState({checked: !checked})} type="checkbox"/></div>
                         <div className="col-10">
                             <p>Free Cancellation</p>
                             <small className="text-muted">Only shows offers which have free cancellation policy</small> 
                         </div>
                     </div>
-                    <button onClick={()=>this.setState({ open: false })} style={{float: 'right'}} className="close">Close</button>
+                    {/* <button onClick={()=> this.handleApply()}>Apply</button> */}
+                    <button onClick={()=>this.handleClick()} style={{float: 'right'}} className="close">Apply</button>
                 </Modal>
             </div>
         )
