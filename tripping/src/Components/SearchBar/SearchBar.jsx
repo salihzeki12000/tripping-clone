@@ -48,7 +48,7 @@ import GuestManager from './GuestManager.jsx'
                 <div className='mt-5 mx-5 fontSizeText text-secondary'>
 
                     <div className="d-flex flex-row" >
-                        <div className='borderDiv ' onClick={() => this.handleLocation()} >
+                        <div className='borderDiv' onClick={() => this.handleLocation()} >
                             <div className='float-left '>
                                 {/* Berlin */}
                                 <input type='text' value={region} className='px-3 py-1 my-1' placeholder="Enter Country and Region" onChange={(e) => this.setState({ region: e.targetvalue })} />
