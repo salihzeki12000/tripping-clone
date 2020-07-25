@@ -4,6 +4,7 @@ import {
     APIFAILURE,
     FREECANCELLATION
 } from './ActionTypes'
+import axios from 'axios'
 
 export const apiRequest = (payload) => ({
     type: APIREQUEST,
@@ -21,8 +22,8 @@ export const apiFailure = (payload) => ({
 })
 
 export const getDataFromAPI = (country = "", state = "", city = "", free_cancellation = "", rating="", bedroom = "", guest = "", sort = "", price = "", aminities = "") => dispatch => {
-    dispatch(apiRequest(payload))
-    console.log(payload, 'called api')
+    // dispatch(apiRequest(payload))
+    // console.log(payload, 'called api')
 
     axios.get("http://3b5fec4d507f.ngrok.io/search/s?country=&state=&city=&free_cancellation=&rating=&bedroom=&guest=&sort=&price=&aminities=", {
         params: {

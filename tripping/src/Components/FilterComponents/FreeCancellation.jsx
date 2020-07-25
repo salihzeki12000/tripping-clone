@@ -18,7 +18,7 @@ class FreeCancellation extends Component {
     }
 
     handleClick = () => {
-        let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+        let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities, getDataFromAPI, changeFreeCancellation } = this.props
         let { checked } = this.state
         console.log(history)
 

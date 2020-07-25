@@ -27,6 +27,7 @@ const reducer = (state = initState, { type, payload }) => {
             }
         
         case APISUCCESS:
+            console.log(payload)
             return {
                 ...state,
                 data:payload
