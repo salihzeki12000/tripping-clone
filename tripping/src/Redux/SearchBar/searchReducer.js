@@ -1,13 +1,20 @@
-import {INCREMENT,DECREMENT} from './actionTypes'
+import {INCREMENT,DECREMENT, SEARCHDATA} from './actionTypes'
 
 const initState = {
     guestCounter:1,
-    bedroomCounter:1
+    bedroomCounter:1,
+    searchData:{
+        region:'',
+        startDate:'',
+        endDate:'',
+        guestCounter:'',
+        bedroomCounter:''
+    }
 }
  
 const reducer = (state=initState,{type,payload})=>{
     switch(type){
-        case INCREMENT:
+        case INCREMENT: {
             console.log(payload)
         if(payload==='guest' && state.guestCounter<=19){
             return {
@@ -20,8 +27,9 @@ const reducer = (state=initState,{type,payload})=>{
                 ...state,
                 bedroomCounter:state.bedroomCounter+1
             }
-        }    
-        case DECREMENT:
+        } 
+        }   
+        case DECREMENT: {
             if(payload==='guest' && state.guestCounter>1){
                 return {
                     ...state,
@@ -34,9 +42,18 @@ const reducer = (state=initState,{type,payload})=>{
                     bedroomCounter:state.bedroomCounter-1
                 }
             }
+        }
+
+        case SEARCHDATA: {
+            return {
+                ...state,
+                searchData:{...searchData, payload}
+            }
+        }
         default:
             return state
     }
 }
+
 
 export default reducer;

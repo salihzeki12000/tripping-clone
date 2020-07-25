@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import './SearchBar.css';
 import 'react-dates/initialize';
@@ -8,7 +8,7 @@ import './react-dates-overrides.css';
 import GuestManager from './GuestManager.jsx'
 
 
-export class SearchBar extends Component {
+ class SearchBar extends React.Component {
     constructor(props) {
         super(props)
 
@@ -39,8 +39,8 @@ export class SearchBar extends Component {
     render() {
 
         let { locationFlag, guestsFlag, region, guests, startDate, endDate } = this.state
-        let { guestCounter } = this.props
-
+        let { guestCounter, bedroomCounter } = this.props;
+        console.log(guestCounter, bedroomCounter)
         return (
             // <div className='background'>
             //     <div className='div container text-center '>
@@ -115,8 +115,16 @@ export class SearchBar extends Component {
     }   
 }
 
+
 const mapStateToProps = state => ({
     guestCounter: state.search.guestCounter,
     bedroomCounter: state.search.bedroomCounter
 })
-export default connect(mapStateToProps, null)(SearchBar);
+
+
+export default connect(mapStateToProps, null)(SearchBar)
+
+
+
+
+
