@@ -7,9 +7,7 @@ import { Link } from 'react-router-dom'
 
 export default class SearchLogo extends Component {
     constructor(props) {
-
         super(props)
-
         this.state = {
             startDate: null,
             endDate: null,
