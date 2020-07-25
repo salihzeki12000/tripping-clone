@@ -3,7 +3,7 @@ import CardComponent from '../Components/Card/CardComponent'
 import FileNavBar from '../Components/FilterComponents/FileNavBar'
 import axios from 'axios'
 import Amenities from '../Components/FilterComponents/Amenities'
-import { SearchBar } from '../Components/SearchBar/SearchBar'
+import SearchBar  from '../Components/SearchBar/SearchBar'
 
 export default class VacationRentalsSearch extends Component {
 
@@ -16,11 +16,12 @@ export default class VacationRentalsSearch extends Component {
     }
 
     async componentDidMount() {
-        let res = await axios.get("http://94e1f8c3880d.ngrok.io/search/s")
+        let res = await axios.get("http://f94f36504f6f.ngrok.io/search/s")
         this.setState({ data: res.data.result })
     }
     render() {
         let { data } = this.state
+        console.log(data)
         return (
             <div className='container-fluid'>
                 

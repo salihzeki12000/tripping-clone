@@ -1,6 +1,6 @@
 import React from 'react'
 import Heading from '../../Components/SearchBar/Heading'
-import { SearchBar } from '../../Components/SearchBar/SearchBar'
+import SearchBar from '../../Components/SearchBar/SearchBar'
 import '../../Components/SearchBar/SearchBar.css'
 
 
