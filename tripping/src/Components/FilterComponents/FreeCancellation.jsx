@@ -40,14 +40,14 @@ class FreeCancellation extends Component {
         const { open, checked } = this.state
         return (
             <div>
-                <button onClick={() => this.setState({ open: true })} className="filter">Free Cancellation</button>
+        <span onClick={() => this.setState({ open: !open })} className="px-3">Free Cancellation</span>
                 <Modal
                     isOpen={open}
                     style={{
                         content: {
                             position: 'absolute',
-                            top: '260px',
-                            left: '60px',
+                            top: '100px',
+                            left: '400px',
                             right: '40px',
                             width: '15rem',
                             height: '12rem',

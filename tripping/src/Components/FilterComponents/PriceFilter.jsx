@@ -39,14 +39,14 @@ export default class PriceFilter extends Component {
     return (
    
       <div>
-        <button onClick={() => this.setState({ open: !open })} className="filter">Price</button>
+        <span onClick={() => this.setState({ open: !open })} className="px-3">Price</span>
 
         <Modal
           isOpen={open}
           style={{
             content: {
               position: 'absolute',
-              top: '260px',
+              top: '100px',
               left: '60px',
               right: '40px',
               width: '15rem',
