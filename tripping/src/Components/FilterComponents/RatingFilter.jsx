@@ -2,7 +2,9 @@ import React from 'react';
 import StarComponent from './StarRatingComponent';
 import Modal from 'react-modal';
 import './RatingFilter.css'
+import './FileNavBar.css'
 
+Modal.setAppElement('#root');
 class RatingFilter extends React.Component {
     constructor(props) {
         super(props)
@@ -16,14 +18,14 @@ class RatingFilter extends React.Component {
         const {open} = this.state
         return (
             <div>
-                <button onClick={() => this.setState({ open: true })}>Open</button>
+                <button onClick={() => this.setState({ open: true })} className="filter">Rating</button>
                 <Modal
                     isOpen={open}
                     style={{
                         content: {
                             position: 'absolute',
-                            top: '40px',
-                            left: '40px',
+                            top: '120px',
+                            left: '70px',
                             right: '40px',
                             width: '23rem',
                             height: '20rem',
