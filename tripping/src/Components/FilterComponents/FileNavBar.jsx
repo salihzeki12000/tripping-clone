@@ -1,12 +1,13 @@
-import React from 'react'
-import './FileNavBar.css'
+import React from 'react';
+import './FileNavBar.css';
+import FreeCancellation from './FreeCancellation';
+import RatingFilter from './RatingFilter';
 
 export default function FilterNavBar() {
-    let filters = ['Amenities','Price','Location','Accommodation types','Free cancellation']
+    let components = [<FreeCancellation />,<RatingFilter />]
     return (
         <div className='my-5'>
-
-            {filters.map(filter =><button className="filter text-muted">{filter}</button>)}
+            {components.map(component =><span className="filter text-muted">{component}</span>)}
         </div>
     )
 }

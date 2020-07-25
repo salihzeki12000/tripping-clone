@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { increment, decrement } from '../../Redux/SearchBar/action';
-import './SearchBar.css';
+import '../SearchBar/SearchBar.css';
 
 export class GuestManager extends Component {
     constructor(props) {
@@ -28,27 +28,42 @@ export class GuestManager extends Component {
 
     render() {
         const { guestCounter, bedroomCounter } = this.props;
+        console.log(guestCounter, bedroomCounter)
         return (
-            <div className="bg-white guestDiv">
-                <div className='p-3'>
-                    <p className=''>GUESTS AND BEDROOMS</p>
-                    <div className="row p-1">
-                        <p className='col-3 mr-5 p-1'>Guests</p>
-                        <button onClick={() => this.handleDecrement("guest")} className='col-2 p-1'>-</button>
-                        <p className='col-1 mr-1 text-center'>{guestCounter}</p>
-                        <button onClick={() => this.handleIncrement('guest')} className='col-2 p-1'>+</button>
+            <div className="bg-white borderDivGuests">
+                     <p className='pt-2 font-weight-bold text-secondary'>Guests and Bedrooms</p>
+                <div className=' '>
+               
+                    <div className="d-flex flex-row ml-4">
+                        <div>
+                        <i class="fa fa-male text-secondary" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                        <p className='pl-2 pr-5'>Guests</p>
+                        </div>
+                   
+                        <span onClick={() => this.handleDecrement("guest")} className='borderDec mx-2'>-</span>
+                        <span className=' text-center'>{guestCounter}</span>
+                        <span onClick={() => this.handleIncrement('guest')} className='borderInc mx-2 '>+</span>
                     </div>
-                    <div className="row p-1">
-                        <p className='col-3 mr-5 p-1'>Bedrooms</p>
-                        <button onClick={() => this.handleDecrement("bedrooms")} className='col-2 p-1'>-</button>
-                        <p className='col-1 mr-1 text-center'>{bedroomCounter}</p>
-                        <button onClick={() => this.handleIncrement('bedrooms')} className='col-2 p-1'>+</button>
+                    <div className="d-flex flex-row ml-4 mt-2">
+                        <div>
+                        <i class="fa fa-bed text-secondary" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                        <p className='pl-2 pr-3'>Bedrooms</p>
+                        </div>
+                   
+                        <span onClick={() => this.handleDecrement("bedrooms")} className='borderDec mx-2'>-</span>
+                        <span className=' text-center'>{bedroomCounter}</span>
+                        <span onClick={() => this.handleIncrement('bedrooms')} className='borderInc mx-2 '>+</span>
                     </div>
-                    <div className="row mt-2 text-center">
-                        <input type='checkbox' className="col-1"/>
-                        <p className="col-10">I'm travelling with children</p>
-                        <small className="col-12 text-muted">Knowing you're traveling with children allows us to show more accurate prices</small>
+                    <div className="d-flex flex-row mt-2 text-center">
+                        <input type='checkbox' className="mt-2 ml-3 px-2 mr-3"/>
+                        <h6 className="mt-1">I'm travelling with children</h6>
+                       
                     </div>
+                    <h6 className="text-left ml-5 text-muted">Knowing you're traveling with children allows us to show more accurate prices</h6>
                 </div>
             </div>
         )

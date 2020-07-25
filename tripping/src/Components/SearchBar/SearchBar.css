@@ -1,23 +1,25 @@
-.input {
+/* .input {
     height: 45px;
     border: 1px solid lightgrey;
-}
+} */
 
 .background {
-    margin-top:75px;
+    /* margin-top:75px; */
     background-image: url("https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height:500px;
+    height:700px;
 }
 
-.div {
+/* .div {
+   
     text-align: center;
     vertical-align:middle;
 }
 
 .text {
+    
     color: white;
     font-weight:bold
 }
@@ -55,4 +57,49 @@
 
 .searchButton{
     background-color: orange;
+} */
+
+
+.inputMarginLeft {
+    margin-left: 100px;
 }
+
+.borderDiv, .borderDivDown {
+    width: 300px;
+    height: 48px;
+    background-color: white;
+}
+
+.borderDivDown {
+    height: 300px;
+}
+
+.borderDivGuests {
+    width: 250px;
+}
+
+.fontSizeText {
+    font-size: 20px;
+}
+
+.searchDiv {
+    width: 70px;
+    height: 48px;
+    background-color: orange;
+}
+
+.borderInc{
+    border: 1px solid orange;
+    color: orange;
+}
+.borderDec {
+    border: 1px solid grey;
+    color: grey;
+}
+
+.borderInc, .borderDec {
+    font-size:20px;
+    width: 30px;
+    height: 30px;
+}
+

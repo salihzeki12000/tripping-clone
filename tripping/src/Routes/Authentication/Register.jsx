@@ -7,7 +7,7 @@ import { signupUserCheck } from '../../Redux/authentication/Register/action'
 
 import GoogleAuthLogin from './GoogleLogin';
 import FacebookAuthLogin from './FacebookLogin';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class Register extends React.Component {
@@ -47,10 +47,10 @@ class Register extends React.Component {
         this.props.passValidation(this.state.newPass)
            
         if (this.props.checkPassFlag) {
-            this.setState({
-                passFlag: false,
+            // this.setState({
+            //     passFlag: false,
 
-            })
+            // })
 
             if (newPass == confirmPass) {
                 let {email, firstName, lastName, confirmPass} = this.state
@@ -59,7 +59,8 @@ class Register extends React.Component {
              } else {
                  this.setState({ passCompareFlag: true })
              }
-        } else {
+        } 
+        else {
             this.setState({ passFlag: true })
         }
 

@@ -1,4 +1,4 @@
-import {SIGNUP_USER_FAILURE, SIGNUP_USER_REQUEST, SIGNUP_USER_SUCCESS} from './actionTypes'
+import {SIGNUP_USER_FAILURE, SIGNUP_USER_REQUEST, SIGNUP_USER_SUCCESS, GET_USER} from './actionTypes'
 
 import axios from 'axios'
 
@@ -18,6 +18,11 @@ export const signupUserFailure = payload =>({
     payload
 })
 
+export const getUser = payload => ({
+    type:GET_USER,
+    payload
+})
+
 export const signupUserCheck = payload =>dispatch=>{
     dispatch(signupUserRequest(payload))
     console.log(payload, 'called signin')
@@ -32,7 +37,7 @@ export const signupUserCheck = payload =>dispatch=>{
     //     data : data
     // };
 
-    axios.post("http://94e1f8c3880d.ngrok.io/auth/signup_from_app", payload)
+    axios.post("http://159c2e4f2101.ngrok.io/auth/signup_from_app", payload)
         .then(res => res.data)
         .then(res => dispatch(signupUserSuccess(res)))
         .catch(err => dispatch(signupUserFailure(err)));
