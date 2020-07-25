@@ -15,14 +15,17 @@ export default class VacationRentalsSearch extends Component {
 
     }
 
-    async componentDidMount() {
-        let res = await axios.get("http://f94f36504f6f.ngrok.io/search/s")
-        this.setState({ data: res.data.result })
-    }
+    // let {history, push} = this.props
+    
+
+    // async componentDidMount() {
+        
+    //     this.setState({ data: res.data.result })
+    // }
     render() {
         let { data } = this.state
         let {history} = this.props
-        console.log(data)
+        console.log(history)
         return (
             <div className='container-fluid'>
                 

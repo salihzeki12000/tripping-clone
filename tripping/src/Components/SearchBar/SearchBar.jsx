@@ -40,16 +40,10 @@ import GuestManager from './GuestManager.jsx'
 
         let { locationFlag, guestsFlag, region, guests, startDate, endDate } = this.state
         let { guestCounter, bedroomCounter } = this.props;
+        console.log(region)
         console.log(guestCounter, bedroomCounter)
         return (
-            // <div className='background'>
-            //     <div className='div container text-center '>
-            //         <br />
-            //         <br />
-            //         <br />
-            //         <br />
-            //         <h1 className='text-white display-4 font-weight-bold mt-5' >Search Top Vacation Rental Sites</h1>
-            //         <p className='font-weight-bold text-white mt-2'>Compare and save on vacation homes and short-term rentals in 190 countries</p>
+           
             <div>
                 <div className='mt-5 mx-5 fontSizeText text-secondary'>
 
@@ -57,7 +51,7 @@ import GuestManager from './GuestManager.jsx'
                         <div className='borderDiv ' onClick={() => this.handleLocation()} >
                             <div className='float-left '>
                                 {/* Berlin */}
-                                <input type='text' value={region} className='px-3 py-1 my-1' placeholder="Enter Country and Region" onChange={() => this.setState({ region: e.targetvalue })} />
+                                <input type='text' value={region} className='px-3 py-1 my-1' placeholder="Enter Country and Region" onChange={(e) => this.setState({ region: e.targetvalue })} />
                             </div>
                             {/* <div className='mr-2 float-right mt-2' >
                                     <i class="fa fa-times" aria-hidden="true"></i>
@@ -85,7 +79,7 @@ import GuestManager from './GuestManager.jsx'
 
                             </div>
                         </div>
-                        <div className='searchDiv'>
+                        <div className='searchDiv' onClick={()=> this.handleSearch()}>
                             <i class="fa fa-search text-white p-3" aria-hidden="true"></i>
                         </div>
                     </div>

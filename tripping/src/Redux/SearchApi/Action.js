@@ -25,7 +25,7 @@ export const getDataFromAPI = payload =>dispatch=>{
     //     url: 'http://a52b28395722.ngrok.io/auth/login_from_app',
     //     headers: {
     //         'Content-Type': 'application/json'
-    //     },
+    //     },""
     //     data : data
     // };
 
