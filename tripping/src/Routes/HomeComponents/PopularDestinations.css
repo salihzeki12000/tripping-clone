@@ -1,16 +1,11 @@
-
-.popImg {
-    width: 470px;
+.text-P{
+  font-size: px;
+  font-weight: 10;
 }
-
-.margin-left {
-    margin-left: 50px;
-}
-
 
 .containerImg {
     position: relative;
-    /* text-align: center; */
+    text-align: center;
     color: white;
   }
 

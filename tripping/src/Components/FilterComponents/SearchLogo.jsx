@@ -11,7 +11,7 @@ export default class SearchLogo extends Component {
         this.state = {
             startDate: null,
             endDate: null,
-            region: 'New York',
+            region: "",
             guests: '',
             locationFlag: false,
             guestsFlag: false
@@ -35,22 +35,26 @@ export default class SearchLogo extends Component {
         let { locationFlag, guestsFlag, region, guests, startDate, endDate } = this.state
         let { guestCounter, bedroomCounter } = this.props;
         return (
-            <div className=''>
-                <div className='d-flex flex-row'>
-                    <div className=''>
-                        <div class="navbar-brand">
-                            <Link to='/'><img src='/logo.svg' alt='/' width='100px' height='100px' /></Link>
-                        </div>
+           
+            <>
+                <div className='row'>
+                    <div className='p-2 pl-4'>
+                        <Link to='/'><img src='/logo1.png' alt='/' width='70px' height='25px' /></Link>
                     </div>
-                    <div className='mt-5' onClick={() => this.handleLocation()} >
+                    <div className=' border-left p-2 pl-4 pr-4' onClick={() => this.handleLocation()} >
                         <div className='float-left '>
                             {/* Berlin */}
-                            <input type='text' value={region} className='px-3 py-1 my-1' placeholder="Enter Country and Region" onChange={(e) => this.setState({ region: e.targetvalue })} />
+                            <input type='text'
+                                value={region}
+                                className=''
+                                style={{ border: "0px solid" }}
+                                placeholder="Enter location"
+                                onChange={(e) => this.setState({ region: e.targetvalue })} />
                         </div>
                     </div>
 
 
-                    <div className='mt-5'>
+                    <div className=''>
                         <DateRangePicker
                             className='CalendarDay__selected CalendarDay__selected_span'
                             startDate={startDate}
@@ -62,22 +66,24 @@ export default class SearchLogo extends Component {
                             onFocusChange={focusedInput => this.setState({ focusedInput })}
                         />
                     </div>
-                    <div className='mt-5' onClick={() => this.handleGuests()}>
-                        <div className=' ml-3 mt-2 '>
-                            <i class="fa fa-male text-secondary" aria-hidden="true"></i>
-                            <span className=''>{guestCounter} guests</span>
-                        </div>
-                        <div className=' mt-2 '>
-                            {guestsFlag ? <i class="fa fa-angle-up" aria-hidden="true"></i> : <i class="fa fa-angle-down" aria-hidden="true"></i>}
+                    <div className='col-1 border-right' onClick={() => this.handleGuests()}>
+                        <div className="row">
+                            <div className='col-10 text-center mt-2'>
+                                <i class="fa fa-male text-secondary" aria-hidden="true"></i>
+                                <span className=''><small>{guestCounter} guests</small></span>
+                            </div>
+                            <div className=' mt-2'>
+                                {guestsFlag ? <i class="fa fa-angle-up" aria-hidden="true"></i> : <i class="fa fa-angle-down" aria-hidden="true"></i>}
 
+                            </div>
                         </div>
                     </div>
-                    <div className='mt-3 ml-2 py-3' onClick={() => this.handleSearch()}>
-                        {/* <i class="fa fa-search text-white p-3" aria-hidden="true"></i> */}
-                        <div className="mt-5 ml-1 px-5 " style={{backgroundColor:"orange", color:"white"}}>search</div>
-                    </div>
+                    {/* <div className='col-1 border-bottom' onClick={() => this.handleSearch()}>
+                        <div className="" style={{ backgroundColor: "orange", color: "white" }}>search</div>
+                    </div> */}
                 </div>
-            </div >
+            </>
+
         )
     }
 }
