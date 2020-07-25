@@ -60,13 +60,13 @@
 } */
 
 
-.inputMarginLeft {
+/* .inputMarginLeft {
     margin-left: 100px;
-}
+} */
 
 .borderDiv, .borderDivDown {
-    width: 300px;
-    height: 48px;
+    width: 400px;
+    height: 60px;
     background-color: white;
 }
 
@@ -74,18 +74,21 @@
     height: 300px;
 }
 
-.borderDivGuests {
-    width: 250px;
+.Date_div {
+    width: 400px;
+    height: 60px;
+    background-color: white;
 }
 
 .fontSizeText {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .searchDiv {
     width: 70px;
-    height: 48px;
-    background-color: orange;
+    height: 60px;
+    background-color: #FB8C00;
+    
 }
 
 .borderInc{
@@ -103,3 +106,34 @@
     height: 30px;
 }
 
+.text_size {
+    font-size: 40px;
+}
+
+@media screen and (max-width: 2000px) {
+    
+}
+  
+ 
+@media screen and (max-width: 600px) {
+
+    .background {
+        height:450px;
+    }
+    
+    .borderDiv, .borderDivDown {
+        height: 50px;
+    }
+
+    .searchDiv {
+        height: 50px;
+    }
+
+    .Date_div {
+        height: 50px;
+    }
+
+    .text_size {
+        font-size: 25px;
+    }
+}

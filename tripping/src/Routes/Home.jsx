@@ -12,10 +12,6 @@ import HomeNavbar from './HomeComponents/HomeNavbar'
 export default function Home() {
     return (
         <div>
-            {/* <div>
-               <Link to='/register'>Register</Link>
-                <Link to='/signin'>Signin</Link>
-            </div> */}
             <HomeNavbar />
             <HomeSearchBar />
             <Subscribe />

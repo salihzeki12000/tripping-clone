@@ -8,7 +8,7 @@ import './react-dates-overrides.css';
 import GuestManager from './GuestManager.jsx'
 
 
- class SearchBar extends React.Component {
+class SearchBar extends React.Component {
     constructor(props) {
         super(props)
 
@@ -43,44 +43,48 @@ import GuestManager from './GuestManager.jsx'
         console.log(region)
         console.log(guestCounter, bedroomCounter)
         return (
-           
-            <div>
-                <div className='mt-5 mx-5 fontSizeText text-secondary'>
+
+            <div className="container-fluid-md container-lg">
+                <div className='mt-5 mx-5 fontSizeText'>
 
                     <div className="d-flex flex-row" >
-                        <div className='borderDiv' onClick={() => this.handleLocation()} >
-                            <div className='float-left '>
-                                {/* Berlin */}
-                                <input type='text' value={region} className='px-3 py-1 my-1' placeholder="Enter Country and Region" onChange={(e) => this.setState({ region: e.targetvalue })} />
+                        <div className="row">
+                            <div className='borderDiv col-md-4 col-12 rounded-left border' onClick={() => this.handleLocation()} >
+                                <input type='text'
+                                    value={region}
+                                    className="text-center p-3"
+                                    placeholder="Enter Country and Region"
+                                    style={{ border: '0px solid' }}
+                                    onChange={(e) => this.setState({ region: e.targetvalue })} />
                             </div>
-                            {/* <div className='mr-2 float-right mt-2' >
-                                    <i class="fa fa-times" aria-hidden="true"></i>
-                                </div> */}
-                        </div>
-                        <div className='borderDiv'>
-                            <DateRangePicker
-                                className='CalendarDay__selected CalendarDay__selected_span'
-                                startDate={startDate}
-                                startDateId="your_unique_start_date_id"
-                                endDate={endDate}
-                                endDateId="your_unique_end_date_id"
-                                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
-                                focusedInput={this.state.focusedInput}
-                                onFocusChange={focusedInput => this.setState({ focusedInput })}
-                            />
-                        </div>
-                        <div className='borderDiv' onClick={() => this.handleGuests()}>
-                            <div className='float-left ml-3 mt-2'>
-                                <i class="fa fa-male text-secondary" aria-hidden="true"></i>
-                                <span className='ml-2'>{guestCounter} guests</span>
+                            <div className='Date_div col-md-5 col-12 border' style={{width:"200px"}}>
+                                <DateRangePicker
+                                    className='CalendarDay__selected CalendarDay__selected_span'
+                                    startDate={startDate}
+                                    startDateId="your_unique_start_date_id"
+                                    endDate={endDate}
+                                    endDateId="your_unique_end_date_id"
+                                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                                    focusedInput={this.state.focusedInput}
+                                    onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                />
                             </div>
-                            <div className='float-right mr-3 mt-2'>
-                                {guestsFlag ? <i class="fa fa-angle-up" aria-hidden="true"></i> : <i class="fa fa-angle-down" aria-hidden="true"></i>}
+                            <div className='borderDiv col-md-2 col-12 border' onClick={() => this.handleGuests()}>
+                                <div className='float-left ml-2 mt-2 '>
+                                    <i class="fa fa-male text-secondary" aria-hidden="true"></i>
+                                    <span className='ml-2'>{guestCounter} guests</span>
+                                </div>
+                                <div className='float-right mt-2' >
+                                    {guestsFlag ? <i class="fa fa-angle-up" aria-hidden="true"></i> : <i class="fa fa-angle-down" aria-hidden="true"></i>}
 
+                                </div>
                             </div>
-                        </div>
-                        <div className='searchDiv' onClick={()=> this.handleSearch()}>
-                            <i class="fa fa-search text-white p-3" aria-hidden="true"></i>
+                            <div className='searchDiv col-md-1 col-12 rounded-right'
+                                onClick={() => this.handleSearch()}
+                                // style={{ backgroundColor: "#FB8C00" }}
+                            >
+                                <i class="fa fa-search text-white p-3" style={{fontSize:"30px"}}></i>
+                            </div>
                         </div>
                     </div>
 
@@ -106,7 +110,7 @@ import GuestManager from './GuestManager.jsx'
             </div>
 
         )
-    }   
+    }
 }
 
 

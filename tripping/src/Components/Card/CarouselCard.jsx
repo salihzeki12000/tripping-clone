@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import './CarouselCard.css';
+import StarComponent from '../FilterComponents/StarRatingComponent';
 
 export class CardComponent extends Component {
     render() {
-        let arr = [
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrhYAE0NiGAGVe3lvbQQ8uL9qwRj5i3jcU6g&usqp=CAU'
-        ]
+        let { accomodation, bedroom, city, country, guest, hotel_name, price, state, rating, image } = this.props;
+        image = image.slice(1,image.length-1)
+        image = image.split(',')
         return (
-            <div id="carouselExampleCaptions" className="carousel slide" data-ride="carousel" style={{width:'20rem'}}>
+            <div id="carouselExampleCaptions" className="carousel slide mr-3" data-ride="carousel" style={{ width: '20rem' }}>
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>      
+                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
                     <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
                 </ol>
+                <div class="carousel-inner">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSB4c0q25JcnrvhS7GKyMrssoc9JootgZLoPA&usqp=CAU" class="d-block w-100" alt="..." />
@@ -24,6 +26,7 @@ export class CardComponent extends Component {
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrhYAE0NiGAGVe3lvbQQ8uL9qwRj5i3jcU6g&usqp=CAU" class="d-block w-100" alt="..." />
                     </div>
                 </div>
+                </div>
                 <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -33,12 +36,12 @@ export class CardComponent extends Component {
                     <span class="sr-only">Next</span>
                 </a>
                 <div class="card-body">
-                    <p className="text-muted float">Apartment . 2 Guests . 1 Bedroom</p>
-                    <small className="text-muted float">Kingscliff, Tweed Shire council Austarlia</small>
-                    <button className="button mt-2">DETAILS</button> 
-                    <span><small className="text-muted clear mt-1">from </small><p className="float fontWeight">&nbsp; $&nbsp; </p><p className="fontWeight float"> 224 </p></span>
+                    <p className="text-muted float">{accomodation} . {guest} Guests . {bedroom} Bedroom</p>
+                    <small className="text-muted float">{hotel_name}, {city} {state} {country}</small>
+                    <button className="button mt-2">DETAILS</button>
+                    <span><small className="text-muted clear mt-1">from </small><p className="float fontWeight">&nbsp; $&nbsp; </p><p className="fontWeight float"> {price} </p></span>
                     <small className="clear text-muted">virbo</small>
-                    <p className="orange clear">5.0*****</p>
+                    <p className="orange clear"><StarComponent actual={Math.ceil(rating)} /></p>
                 </div>
             </div>
         )
