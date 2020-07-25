@@ -5,7 +5,7 @@ import FileNavBar from '../Components/FilterComponents/FileNavBar'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import Amenities from '../Components/FilterComponents/Amenities'
-import SearchBar  from '../Components/SearchBar/SearchBar'
+import SearchLogo  from '../Components/FilterComponents/SearchLogo'
 import { getDataFromAPI, changeFreeCancellation } from '../Redux/SearchApi/Action'
 
 
@@ -45,7 +45,8 @@ import { getDataFromAPI, changeFreeCancellation } from '../Redux/SearchApi/Actio
             <div className='container-fluid'>
                 
                <div className='col-6'>
-               <SearchBar />
+               {/* <SearchBar /> */}
+               <SearchLogo />
                 <FileNavBar history = {history} />
                 <div className='row'>
                 {
