@@ -1,4 +1,4 @@
-import {INCREMENT,DECREMENT} from './actionTypes'
+import {INCREMENT,DECREMENT, SEARCHDATA} from './actionTypes'
 
 const initState = {
     guestCounter:1,

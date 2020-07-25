@@ -4,6 +4,7 @@ import FileNavBar from '../Components/FilterComponents/FileNavBar'
 import axios from 'axios'
 import Amenities from '../Components/FilterComponents/Amenities'
 import SearchBar  from '../Components/SearchBar/SearchBar'
+import PriceFilter from '../Components/FilterComponents/PriceFilter'
 
 export default class VacationRentalsSearch extends Component {
 
@@ -25,7 +26,7 @@ export default class VacationRentalsSearch extends Component {
         return (
             <div className='container-fluid'>
                 
-
+<PriceFilter />
                 <SearchBar />
                 <FileNavBar />
                 {
