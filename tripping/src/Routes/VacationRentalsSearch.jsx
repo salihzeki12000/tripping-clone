@@ -25,7 +25,7 @@ export default class VacationRentalsSearch extends Component {
     render() {
         let { data } = this.state
         let {history} = this.props
-        console.log(history)
+        
         return (
             <div className='container-fluid'>
                 

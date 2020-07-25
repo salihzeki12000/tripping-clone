@@ -10,4 +10,7 @@ class Aminities(db.Model):
     tv = db.Column(db.Boolean)
     parking = db.Column(db.Boolean)
     air_conditioning = db.Column(db.Boolean)
-    tv = db.Column(db.Boolean)
+    kitchen = db.Column(db.Boolean)
+    pet_allowed = db.Column(db.Boolean)
+    smoking = db.Column(db.Boolean)
+    no_smoking = db.Column(db.Boolean)
