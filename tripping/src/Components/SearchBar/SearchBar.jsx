@@ -45,10 +45,10 @@ import GuestManager from './GuestManager.jsx'
         return (
            
             <div>
-                <div className='mt-5 mx-5 fontSizeText text-secondary'>
+                <div className={`mt-5 mx-5 ${styles.fontSizeText} text-secondary`}>
 
                     <div className="d-flex flex-row" >
-                        <div className='borderDiv ' onClick={() => this.handleLocation()} >
+                        <div className={styles.borderDiv} onClick={() => this.handleLocation()} >
                             <div className='float-left '>
                                 {/* Berlin */}
                                 <input type='text' value={region} className='px-3 py-1 my-1' placeholder="Enter Country and Region" onChange={(e) => this.setState({ region: e.targetvalue })} />
@@ -57,7 +57,7 @@ import GuestManager from './GuestManager.jsx'
                                     <i class="fa fa-times" aria-hidden="true"></i>
                                 </div> */}
                         </div>
-                        <div className='borderDiv'>
+                        <div className={styles.borderDiv}>
                             <DateRangePicker
                                 className='CalendarDay__selected CalendarDay__selected_span'
                                 startDate={startDate}
@@ -69,7 +69,7 @@ import GuestManager from './GuestManager.jsx'
                                 onFocusChange={focusedInput => this.setState({ focusedInput })}
                             />
                         </div>
-                        <div className='borderDiv' onClick={() => this.handleGuests()}>
+                        <div className={styles.borderDiv} onClick={() => this.handleGuests()}>
                             <div className='float-left ml-3 mt-2'>
                                 <i class="fa fa-male text-secondary" aria-hidden="true"></i>
                                 <span className='ml-2'>{guestCounter} guests</span>
@@ -79,7 +79,7 @@ import GuestManager from './GuestManager.jsx'
 
                             </div>
                         </div>
-                        <div className='searchDiv' onClick={()=> this.handleSearch()}>
+                        <div className={styles.searchDiv} onClick={()=> this.handleSearch()}>
                             <i class="fa fa-search text-white p-3" aria-hidden="true"></i>
                         </div>
                     </div>
