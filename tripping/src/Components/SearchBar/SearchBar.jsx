@@ -52,7 +52,7 @@ class SearchBar extends React.Component {
                             <div className='borderDiv col-md-4 col-12 rounded-left border' onClick={() => this.handleLocation()} >
                                 <input type='text'
                                     value={region}
-                                    className="text-center p-3"
+                                    className="text-left ml-2 p-2 inputfontSize"
                                     placeholder="Enter Country and Region"
                                     style={{ border: '0px solid' }}
                                     onChange={(e) => this.setState({ region: e.targetvalue })} />
