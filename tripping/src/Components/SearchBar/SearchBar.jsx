@@ -58,10 +58,10 @@ class SearchBar extends React.Component {
         //             rating = Number(values[key])
         //         }
         //     }
-        bedroom = bedroomCounter
-        guest = guestCounter
-        loc = region
-        getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+        // bedroom = bedroomCounter
+        // guest = guestCounter
+        // loc = region
+        // getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
     }
 
     render() {
@@ -80,7 +80,7 @@ class SearchBar extends React.Component {
                             <div className='borderDiv col-md-4 col-12 rounded-left border' onClick={() => this.handleLocation()} >
                                 <input type='text'
                                     value={region}
-                                    className="text-center p-3"
+                                    className="text-left ml-2 p-2 inputfontSize"
                                     placeholder="Enter Country and Region"
                                     style={{ border: '0px solid' }}
                                     onChange={this.handleChange} />
@@ -107,11 +107,9 @@ class SearchBar extends React.Component {
 
                                 </div>
                             </div>
-                            <Link to={`/vacation-rentals/s/search/location=${region}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
-                                <div className='searchDiv col-md-1 col-12 rounded-right'
-                                    onClick={() => this.handleSearch()}
-                                >
-                                    <i class="fa fa-search text-white p-3" style={{ fontSize: "30px" }}></i>
+                            <Link to={`/vacation-rentals/s/search?location=${region}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
+                                <div className='searchDiv col-md-1 col-12  px-4 rounded-right' >
+                                    <i class="fa fa-search text-white mt-3"  onClick={() => this.handleSearch()} style={{ fontSize: "20px" }}></i>
                                 </div>
                             </Link>
 
@@ -164,8 +162,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
-
-
-
-
 

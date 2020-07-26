@@ -1,9 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import Modal from 'react-modal';
-
+import { getDataFromAPI } from '../../Redux/SearchApi/Action.js'
+import querystring from 'query-string';
 
 Modal.setAppElement('#root');
-
 class Accommodation extends React.Component {
     constructor(props) {
         super(props)

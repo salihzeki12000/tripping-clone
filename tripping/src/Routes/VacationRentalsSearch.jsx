@@ -29,8 +29,12 @@ class VacationRentalsSearch extends Component {
                 if (key == "location") {
                     loc = values[key]
                 } 
-                 else if (key == "free_cancellation") {
-                    free_cancellation = Number(values[key])
+                else if (key == "free_cancellation") {
+                    if (typeof (values[key]) != "number") {
+                        free_cancellation = ''
+                    } else {
+                        free_cancellation = Number(values[key])
+                    }
                 }
                  else if (key == "rating") {
                     rating = Number(values[key])
@@ -40,7 +44,12 @@ class VacationRentalsSearch extends Component {
                 }
                 else if(key=='bedroom'){
                     bedroom = Number(values[key])
+                }else if(key=='price'){
+                    price = Number(values[key])
                 }
+                else if (key == "aminities") {
+                    aminities = values[key]
+                  }
             }
             getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
         }
@@ -48,33 +57,12 @@ class VacationRentalsSearch extends Component {
     }
 
 
-    //     componentWillReceiveProps() {
-    //         let { history, match, getDataFromAPI } = this.props
-    //         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-    //         console.log( country,free_cancellation, 'calling receive props')
-
-
-    //         const values = querystring.parse(this.props.location.search)
-    // console.log(values)
-    //         // let x = match.params.name
-    //         getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
-    //     }
-
-    // shouldComponentUpdate() {
-    //     let { history, match, getDataFromAPI } = this.props
-    //     let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-    //     console.log( country,free_cancellation)
-    // }
-
-
-
-
     render() {
         // let { data } = this.state
         let { history, data, location } = this.props
         // const values = querystring.parse(this.props.location.search)
         // console.log(values)
-
+           console.log(data)
         return (
             <>
                 <SearchLogo />
@@ -85,7 +73,7 @@ class VacationRentalsSearch extends Component {
                         <FileNavBar history={history} location={location} />
                         <div className='row'>
                             {
-                                data ? data.map(elem => <CardComponent key={elem.id}
+                                data.length >0 ? data.map(elem => <CardComponent key={elem.id}
                                     bedrooms={elem.bedroom}
                                     guest={elem.guest}
                                     hotel_name={elem.hotel_name}
