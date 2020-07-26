@@ -14,19 +14,19 @@ export default function FilterNavBar(props) {
             {/* {components.map(component =><span className="filter text-muted">{component}</span>)} */}
             <div className='d-flex flex-row'>
                  <div className=''>
-                      <Amenities />
+                      <Amenities history={history} />
                  </div>
                  <div className=''>
-                      <PriceFilter />
+                      <PriceFilter  history={history}/>
                  </div>
                  <div className=''>
-                      <RatingFilter />
+                      <RatingFilter  history={history}/>
                  </div>
                  <div className=''>
-                      <Accommodation />
+                      <Accommodation  history={history}/>
                  </div>
                  <div className=''>
-                      <FreeCancellation />
+                      <FreeCancellation  history={history}/>
                  </div>
 
             </div>

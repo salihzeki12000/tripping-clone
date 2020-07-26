@@ -22,10 +22,9 @@ class VacationRentalsSearch extends Component {
     componentDidMount() {
         let { history, match, getDataFromAPI } = this.props
         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-        console.log(match.params.name, country)
+        console.log( country)
         // let x = match.params.name
-        getDataFromAPI(country, match.params.name, city, free_cancellation, 2, guest, sort, price, aminities)
-
+        getDataFromAPI(country, state, city, free_cancellation, 2, guest, sort, price, aminities)
     }
 
     render() {
@@ -36,14 +35,25 @@ class VacationRentalsSearch extends Component {
             <>
                 <SearchLogo />
                 <div className='container-fluid border-top '>
-                        {/* <SearchBar /> */}
+                    {/* <SearchBar /> */}
 
                     <div className='col-6'>
                         <FileNavBar history={history} />
                         <div className='row'>
                             {
-                                // data?.map(elem => <CardComponent key={elem.id} bedrooms={elem.bedroom} guest={elem.guest} hotel_name={elem.hotel_name} country={elem.country} state={elem.state} img={elem.image} rating={elem.rating} price={elem.price} loaction={elem.locality} />)
-                               data ? data.map(elem => <CarouselCard />) : <div>Sorry Data not found</div>
+                                data ? data.map(elem => <CardComponent key={elem.id}
+                                    bedrooms={elem.bedroom}
+                                    guest={elem.guest}
+                                    hotel_name={elem.hotel_name}
+                                    country={elem.country}
+                                    state={elem.state} img={elem.image}
+                                    rating={elem.rating}
+                                    price={elem.price}
+                                    loaction={elem.locality} />
+                                )
+                                    : <div>Sorry Data not found</div>
+
+                                //    data ? data.map(elem => <CarouselCard />) : <div>Sorry Data not found</div>
                             }
                         </div>
 

@@ -34,6 +34,8 @@ class FreeCancellation extends Component {
         this.setState({
             open: !this.state.open
         })
+        
+        history.push(`?free_cacellation=${free_cancellation}&rating=${rating}`)
     }
 
     render() {

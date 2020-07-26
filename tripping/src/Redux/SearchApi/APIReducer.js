@@ -6,7 +6,7 @@ import {
 } from './ActionTypes'
 
 const initState = {
-    country: "",
+    country: "France",
     state: "",
     city: "",
     free_cancellation: "",
@@ -15,7 +15,8 @@ const initState = {
     sort: "",
     price: "",
     aminities: "",
-    data: []
+    data: [],
+    url:"http://localhost:3000/vacation-rentals/s/search"
 }
 
 const reducer = (state = initState, { type, payload }) => {
