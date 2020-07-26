@@ -17,34 +17,75 @@ class FreeCancellation extends Component {
         }
     }
 
-    handleClick = () => {
+  handleClick = async () => {
         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities, getDataFromAPI, changeFreeCancellation, history } = this.props
         let { checked } = this.state
         console.log(history)
-
-        if(checked == true) {
+        if (checked == true) {
             checked = 1
-            
-        }else {
+
+        } else {
             checked = ''
         }
+        
+      await changeFreeCancellation(checked)
 
-        changeFreeCancellation(checked)
-        getDataFromAPI(country, state, city, checked, rating, bedroom, guest, sort, price, aminities)
+      await  getDataFromAPI(country, state, city, checked, rating, bedroom, guest, sort, price, aminities)
         this.setState({
             open: !this.state.open
         })
+     
+//         if(changeFreeCancellation(checked) == checked) {
+// console.log('checked')
+            history.push(`?freecancellation=${checked}`)
+//         }
 
-    
-        
-        history.push(`?free_cancellation=${checked}`)
     }
 
+
+    handleUrlChange = (query) => {
+        let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities, getDataFromAPI, changeFreeCancellation, history } = this.props
+
+        const url = new URLSearchParams(query)
+
+        console.log(url.get('free_cancellation'), 'enter' )
+
+        this.setState({
+            checked: url.get('free_cancellation')
+        })
+
+        getDataFromAPI(country, state, city, this.state.checked, rating, bedroom, guest, sort, price, aminities)
+    }
+  componentDidMount() {
+        const { location } = this.props
+        this.handleUrlChange(location.search)
+    }
+
+  
+
+
+    // componentWillReceiveProps(newProps) {
+    //     const { location } = newProps
+    //     let { free_cancellation, rating, history } = this.props
+    //     console.log(newProps)
+    //     console.log(location.pathname, this.props.location.pathname)
+    //     if (location.search === this.props.location.search) {
+    //         this.handleUrlChange(location.search)
+    //         history.push(`?freecancellation=${free_cancellation}&rating=${rating}`)
+    //     }
+    // }
+
+
     render() {
+        let { free_cancellation, rating, history } = this.props
         const { open, checked } = this.state
+
+
+        // free_cancellation ? history.push(`?freecancellation=${free_cancellation}&rating=${rating}`) : ""
+
         return (
             <div>
-        <span onClick={() => this.setState({ open: !open })} className="px-3">Free Cancellation</span>
+                <span onClick={() => this.setState({ open: !open })} className="px-3">Free Cancellation</span>
                 <Modal
                     isOpen={open}
                     style={{
@@ -94,7 +135,7 @@ const mapStateToProps = state => ({
     aminities: state.data.aminities
 })
 const mapDispatchToProps = dispatch => ({
-    getDataFromAPI: (country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities) => dispatch(getDataFromAPI(country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities)),
+    getDataFromAPI: (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
     changeFreeCancellation: (payload) => dispatch(changeFreeCancellation(payload)),
 })
 

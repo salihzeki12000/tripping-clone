@@ -7,32 +7,30 @@ import Amenities from './Amenities';
 import Accommodation from './AccommodationTypes';
 
 export default function FilterNavBar(props) {
-    let {history} = props
-    // let components = [<Amenities />,<FreeCancellation history={history} />,<RatingFilter />, <PriceFilter />,<Accommodation />]
-    return (
-        <div className='my-2'>
-            {/* {components.map(component =><span className="filter text-muted">{component}</span>)} */}
-            <div className='d-flex flex-row'>
-                 <div className=''>
-                      <Amenities history={history} />
-                 </div>
-                 <div className=''>
-                      <PriceFilter  history={history}/>
-                 </div>
-                 <div className=''>
-                      <RatingFilter  history={history}/>
-                 </div>
-                 <div className=''>
-                      <Accommodation  history={history}/>
-                 </div>
-                 <div className=''>
-                      <FreeCancellation  history={history}/>
-                 </div>
 
-            </div>
-        </div>
-        // <div className='row'>
-        //       <div></div>
-        // </div>
-    )
+     let { history, location } = props
+
+     return (
+          <div className='my-2'>
+               {/* {components.map(component =><span className="filter text-muted">{component}</span>)} */}
+               <div className='d-flex flex-row'>
+                    <div className=''>
+                         <Amenities history={history} location={location} />
+                    </div>
+                    <div className=''>
+                         <PriceFilter history={history} location={location} />
+                    </div>
+                    <div className=''>
+                         <RatingFilter history={history} location={location} />
+                    </div>
+                    <div className=''>
+                         <Accommodation history={history} location={location} />
+                    </div>
+                    <div className=''>
+                         <FreeCancellation history={history} location={location} />
+                    </div>
+
+               </div>
+          </div>
+     )
 }

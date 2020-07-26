@@ -25,7 +25,7 @@ export const getDataFromAPI = (country, state, city, free_cancellation, rating, 
     dispatch(apiRequest(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities))
     // console.log(payload, 'called api')
     console.log(country, state, 'action')
-    axios.get("http://875ba58a3ea2.ngrok.io/search/s", {
+    axios.get("http://ccce2112eab9.ngrok.io/search/s", {
         params: {
             country: country,
             state: state,

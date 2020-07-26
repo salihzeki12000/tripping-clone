@@ -12,6 +12,7 @@ const initState = {
     free_cancellation: "",
     bedroom: "",
     quest: "",
+    rating:4.5,
     sort: "",
     price: "",
     aminities: "",
@@ -22,6 +23,7 @@ const initState = {
 const reducer = (state = initState, { type, payload }) => {
     switch (type) {
         case FREECANCELLATION:
+            console.log(payload)
             return {
                 ...state,
                 free_cancellation:payload
