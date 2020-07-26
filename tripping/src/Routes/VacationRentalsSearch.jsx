@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import CardComponent from '../Components/Card/CardComponent'
-import CarouselCard from '../Components/Card/CarouselCard'
 import FileNavBar from '../Components/FilterComponents/FileNavBar'
-import axios from 'axios'
 import { connect } from 'react-redux'
-import Amenities from '../Components/FilterComponents/Amenities'
 import SearchLogo from '../Components/FilterComponents/SearchLogo'
-import { getDataFromAPI, changeFreeCancellation } from '../Redux/SearchApi/Action'
+import { getDataFromAPI} from '../Redux/SearchApi/Action'
 import querystring from 'query-string'
 
 
@@ -20,7 +17,7 @@ class VacationRentalsSearch extends Component {
     }
 
     componentDidMount() {
-        let { history, match, getDataFromAPI } = this.props
+        let { getDataFromAPI } = this.props
         let { loc,free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
         const values = querystring.parse(this.props.location.search)
         console.log(values)
@@ -37,6 +34,12 @@ class VacationRentalsSearch extends Component {
                 }
                  else if (key == "rating") {
                     rating = Number(values[key])
+                }
+                else if(key=='guest'){
+                    guest = Number(values[key])
+                }
+                else if(key=='bedroom'){
+                    bedroom = Number(values[key])
                 }
             }
             getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)

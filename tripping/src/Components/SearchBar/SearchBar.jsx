@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 import './SearchBar.css';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
 import './react-dates-overrides.css';
-import GuestManager from './GuestManager.jsx'
-
+import GuestManager from './GuestManager';
+import { getDataFromAPI } from '../../Redux/SearchApi/Action'
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -22,18 +23,45 @@ class SearchBar extends React.Component {
         }
     }
 
+    handleChange= (event)=> {
+        this.setState({region: event.target.value});
+      }
+
     handleLocation = () => {
-        // console.log(this.state.locationFlag)
         this.setState({
             locationFlag: !this.state.locationFlag
         })
     }
 
     handleGuests = () => {
-        // console.log(this.state.locationFlag)
         this.setState({
             guestsFlag: !this.state.guestsFlag
         })
+    }
+
+    handleSearch = () => {
+        let { getDataFromAPI, guestCounter, bedroomCounter } = this.props
+        let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+        let { region } = this.state
+        // if (x.length == 0) {
+        //     getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+        // }
+        // else {
+        //     for (var key in values) {
+        //         if (key == "location") {
+        //             loc = values[key]
+        //         }
+        //         else if (key == "free_cancellation") {
+        //             free_cancellation = Number(values[key])
+        //         }
+        //         else if (key == "rating") {
+        //             rating = Number(values[key])
+        //         }
+        //     }
+        bedroom = bedroomCounter
+        guest = guestCounter
+        loc = region
+        getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
     }
 
     render() {
@@ -55,9 +83,9 @@ class SearchBar extends React.Component {
                                     className="text-center p-3"
                                     placeholder="Enter Country and Region"
                                     style={{ border: '0px solid' }}
-                                    onChange={(e) => this.setState({ region: e.targetvalue })} />
+                                    onChange={this.handleChange} />
                             </div>
-                            <div className='Date_div col-md-5 col-12 border' style={{width:"200px"}}>
+                            <div className='Date_div col-md-5 col-12 border' style={{ width: "200px" }}>
                                 <DateRangePicker
                                     className='CalendarDay__selected CalendarDay__selected_span'
                                     startDate={startDate}
@@ -79,12 +107,14 @@ class SearchBar extends React.Component {
 
                                 </div>
                             </div>
-                            <div className='searchDiv col-md-1 col-12 rounded-right'
-                                onClick={() => this.handleSearch()}
-                                // style={{ backgroundColor: "#FB8C00" }}
-                            >
-                                <i class="fa fa-search text-white p-3" style={{fontSize:"30px"}}></i>
-                            </div>
+                            <Link to={`/vacation-rentals/s/search/location=${region}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
+                                <div className='searchDiv col-md-1 col-12 rounded-right'
+                                    onClick={() => this.handleSearch()}
+                                >
+                                    <i class="fa fa-search text-white p-3" style={{ fontSize: "30px" }}></i>
+                                </div>
+                            </Link>
+
                         </div>
                     </div>
 
@@ -111,16 +141,29 @@ class SearchBar extends React.Component {
 
         )
     }
+
 }
 
 
 const mapStateToProps = state => ({
     guestCounter: state.search.guestCounter,
-    bedroomCounter: state.search.bedroomCounter
+    bedroomCounter: state.search.bedroomCounter,
+    loc: state.data.loc,
+    free_cancellation: state.data.free_cancellation,
+    rating: state.data.rating,
+    bedroom: state.data.bedroom,
+    guest: state.data.guest,
+    sort: state.data.sort,
+    price: state.data.price,
+    aminities: state.data.aminities,
+    data: state.data.data
 })
 
+const mapDispatchToProps = dispatch => ({
+    getDataFromAPI: (loc, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
+})
 
-export default connect(mapStateToProps, null)(SearchBar)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
 
 
 
