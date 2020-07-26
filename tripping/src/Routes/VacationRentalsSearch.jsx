@@ -22,10 +22,19 @@ class VacationRentalsSearch extends Component {
     componentDidMount() {
         let { history, match, getDataFromAPI } = this.props
         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-        console.log( country)
+        console.log( country,free_cancellation)
         // let x = match.params.name
-        getDataFromAPI(country, state, city, free_cancellation, 2, guest, sort, price, aminities)
+        getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+        // history.push(`?free_cancellation=${free_cancellation}`)
     }
+    
+    // shouldComponentUpdate() {
+    //     let { history, match, getDataFromAPI } = this.props
+    //     let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+    //     console.log( country,free_cancellation)
+    // }
+    
+    
 
     render() {
         // let { data } = this.state

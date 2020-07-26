@@ -31,6 +31,10 @@ class RatingFilter extends React.Component {
 
     render() {
         const { open } = this.state
+        const {rating} = this.props
+        rating ? history.push(`?freecancellation=${free_cancellation}&rating=${rating}`): ""
+
+
         return (
             <div>
                 <span onClick={() => this.setState({ open: !open })} className="px-3">Rating</span>

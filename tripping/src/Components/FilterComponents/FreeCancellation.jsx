@@ -21,11 +21,10 @@ class FreeCancellation extends Component {
         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities, getDataFromAPI, changeFreeCancellation, history } = this.props
         let { checked } = this.state
         console.log(history)
-
-        if(checked == true) {
+        if (checked == true) {
             checked = 1
-            
-        }else {
+
+        } else {
             checked = ''
         }
 
@@ -34,15 +33,18 @@ class FreeCancellation extends Component {
         this.setState({
             open: !this.state.open
         })
-        
-        history.push(`?free_cacellation=${free_cancellation}&rating=${rating}`)
+
     }
 
     render() {
+        let { free_cancellation,rating, history } = this.props
         const { open, checked } = this.state
+
+        free_cancellation ? history.push(`?freecancellation=${free_cancellation}&rating=${rating}`): ""
+
         return (
             <div>
-        <span onClick={() => this.setState({ open: !open })} className="px-3">Free Cancellation</span>
+                <span onClick={() => this.setState({ open: !open })} className="px-3">Free Cancellation</span>
                 <Modal
                     isOpen={open}
                     style={{
@@ -92,7 +94,7 @@ const mapStateToProps = state => ({
     aminities: state.data.aminities
 })
 const mapDispatchToProps = dispatch => ({
-    getDataFromAPI: (country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities) => dispatch(getDataFromAPI(country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities)),
+    getDataFromAPI: (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
     changeFreeCancellation: (payload) => dispatch(changeFreeCancellation(payload)),
 })
 
