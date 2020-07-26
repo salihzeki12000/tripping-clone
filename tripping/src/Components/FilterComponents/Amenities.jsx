@@ -1,5 +1,6 @@
 import React from 'react'
 import './Amenities.css'
+import {connect} from 'react-redux'
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
@@ -13,21 +14,39 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
 
 ]
 
-export default class Amenities extends React.Component {
+ class Amenities extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            price: 100,
+            amenities:[],
             open: false
         }
     }
 
-    handleonChange = (value) => {
-        console.log(value)
-        this.setState({
-            price: value
-        })
+    handleonChange = () => {
+        if (e.target.checked) {
+            this.setState({
+                amenities: [...this.state.amenities, e.target.id]
+            })
+        }
+        else {
+            this.setState({
+                amenities: this.state.amenities.filter(item => item !== e.target.id)
+            })
+        }
     }
+
+    handleAplly = async () =>  {
+        let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities, getDataFromAPI, changeFreeCancellation, history } = this.props
+
+        await  getDataFromAPI(country, state, city, checked, rating, bedroom, guest, sort, price, aminities.join(','))
+
+        if(!values["aminities"]) {
+            history.push(`?aminities=${aminities.join[',']}`)
+           }
+    }
+
+
     render() {
         const { open } = this.state
         return (
@@ -83,7 +102,7 @@ export default class Amenities extends React.Component {
                                 {amenites.map(item => {
                                     return (
                                         <div key={item.logo} className='col-4 my-2'>
-                                            <input className='checkAmenities' id={item.id} type='checkbox' />
+                                            <input className='checkAmenities ' id={item.id} type='checkbox' onChange={this.handleChange} />
                                             <i className={`px-2 ${item.logo}`}></i>
                                             <span className='fontSizeAmenities'>{item.name}</span>
                                         </div>
@@ -92,8 +111,8 @@ export default class Amenities extends React.Component {
                             </div>
                         </div>
                     </div>
-
-                    <button className='btn btn-warning float-right mr-2 mt-2' onClick={() => this.setState({ open: !open })}>Close</button>
+                   <span onClick={() => this.setState({ open: !open })}>close</span>
+                    <button className='btn btn-warning float-right mr-2 mt-2'  >Apply</button>
                 </Modal>
 
             </div>
@@ -101,3 +120,24 @@ export default class Amenities extends React.Component {
         )
     }
 }
+
+
+const mapStateToProps = state => ({
+    country: state.data.country,
+    state: state.data.state,
+    city: state.data.city,
+    free_cancellation: state.data.free_cancellation,
+    rating: state.data.rating,
+    bedroom: state.data.bedroom,
+    guest: state.data.guest,
+    sort: state.data.sort,
+    price: state.data.price,
+    aminities: state.data.aminities
+})
+const mapDispatchToProps = dispatch => ({
+    getDataFromAPI: (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
+    // changeFreeCancellation: (payload) => dispatch(changeFreeCancellation(payload)),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Amenities)
