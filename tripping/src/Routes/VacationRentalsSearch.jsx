@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import Amenities from '../Components/FilterComponents/Amenities'
 import SearchLogo from '../Components/FilterComponents/SearchLogo'
 import { getDataFromAPI, changeFreeCancellation } from '../Redux/SearchApi/Action'
+import querystring from 'query-string'
 
 
 class VacationRentalsSearch extends Component {
@@ -22,23 +23,63 @@ class VacationRentalsSearch extends Component {
     componentDidMount() {
         let { history, match, getDataFromAPI } = this.props
         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-        console.log( country,free_cancellation)
+        console.log( country,free_cancellation, 'calling')
+
+
+        const values = querystring.parse(this.props.location.search)
+console.log(values)
+let x = Object.keys(values)
+
+  
         // let x = match.params.name
-        getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+        if(x.length == 0) {
+
+            getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+        }else {
+
+            console.log('enter in else')
+            for(var key in values) {
+                if(key == "country") {
+                    country= values[key]
+                }else if(key == "state") {
+                    state= values[key]
+                }else if(key == "free_cancellation") {
+                    free_cancellation= Number(values[key])
+                }
+                
+                getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+            }
+        }
         // history.push(`?free_cancellation=${free_cancellation}`)
     }
+
+
+//     componentWillReceiveProps() {
+//         let { history, match, getDataFromAPI } = this.props
+//         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+//         console.log( country,free_cancellation, 'calling receive props')
+
+
+//         const values = querystring.parse(this.props.location.search)
+// console.log(values)
+//         // let x = match.params.name
+//         getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+//     }
     
     // shouldComponentUpdate() {
     //     let { history, match, getDataFromAPI } = this.props
     //     let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
     //     console.log( country,free_cancellation)
     // }
+
     
-    
+
 
     render() {
         // let { data } = this.state
-        let { history, data } = this.props
+        let { history, data , location} = this.props
+        // const values = querystring.parse(this.props.location.search)
+        // console.log(values)
 
         return (
             <>
@@ -47,7 +88,7 @@ class VacationRentalsSearch extends Component {
                     {/* <SearchBar /> */}
 
                     <div className='col-6'>
-                        <FileNavBar history={history} />
+                        <FileNavBar history={history} location={location} />
                         <div className='row'>
                             {
                                 data ? data.map(elem => <CardComponent key={elem.id}

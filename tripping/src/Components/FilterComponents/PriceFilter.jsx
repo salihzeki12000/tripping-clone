@@ -49,8 +49,8 @@ export default class PriceFilter extends Component {
               top: '100px',
               left: '60px',
               right: '40px',
-              width: '15rem',
-              height: '12rem',
+              width: '12rem',
+              height: '10rem',
               bottom: '40px',
               border: '1px solid #ccc',
               background: '#fff',
@@ -64,8 +64,9 @@ export default class PriceFilter extends Component {
         >
           <div className={styles.wrapper}>
             <Typography id="discrete-slider-always" gutterBottom>
-              Always visible
+              Per Night
             </Typography>
+            {/* <h5 className='font-weight-bold text-dark'>₹500 - ₹40000</h5> */}
             <Slider
               defaultValue={80}
               min={500}

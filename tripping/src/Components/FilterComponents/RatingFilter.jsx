@@ -10,10 +10,10 @@ class RatingFilter extends React.Component {
         super(props)
 
         this.state = {
-            open: true,
+            open: false,
             rating: []
         }
-        this.handleChange = this.handleChange.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange = (e) => {
@@ -46,7 +46,7 @@ class RatingFilter extends React.Component {
                             top: '100px',
                             left: '100px',
                             right: '40px',
-                            width: '27rem',
+                            width: '29rem',
                             height: '19rem',
                             bottom: '40px',
                             border: '1px solid #ccc',
@@ -63,7 +63,7 @@ class RatingFilter extends React.Component {
                         <div className="">
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="checkbox" className=" mr-3 mt-2  checkAmenities" onChange={this.handleChange} rating='5' />
+                                    <input type="radio" name='rating1' className=" mr-3 mt-2  checkAmenities" onChange={this.handleChange} rating='5' />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-2">OutStanding: 4.5+</p>
@@ -74,7 +74,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="checkbox" className=" mr-3 mt-1  checkAmenities" onChange={this.handleChange} rating='4' />
+                                    <input type="radio" name='rating2' className=" mr-3 mt-1  checkAmenities" onChange={this.handleChange} rating='4' />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-2">Very Good: 4+</p>
@@ -85,7 +85,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="checkbox" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3.5' />
+                                    <input type="radio" name='rating3' className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3.5' />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-2">Very Good: 3.5+</p>
@@ -96,7 +96,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="checkbox" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3' />
+                                    <input type="radio" name='rating4' className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3' />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-4">Decent: 3+</p>
@@ -107,7 +107,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="checkbox" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3' />
+                                    <input type="radio" name='rating5' className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3' />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-4">Any</p>

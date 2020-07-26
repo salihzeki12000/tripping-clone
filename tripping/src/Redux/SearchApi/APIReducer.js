@@ -12,7 +12,7 @@ const initState = {
     free_cancellation: "",
     bedroom: "",
     quest: "",
-    rating:2,
+    rating:4.5,
     sort: "",
     price: "",
     aminities: "",

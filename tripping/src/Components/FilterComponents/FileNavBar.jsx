@@ -7,25 +7,27 @@ import Amenities from './Amenities';
 import Accommodation from './AccommodationTypes';
 
 export default function FilterNavBar(props) {
-     let { history } = props
+
+     let { history, location } = props
+
      return (
           <div className='my-2'>
                {/* {components.map(component =><span className="filter text-muted">{component}</span>)} */}
                <div className='d-flex flex-row'>
                     <div className=''>
-                         <Amenities history={history} />
+                         <Amenities history={history} location={location} />
                     </div>
                     <div className=''>
-                         <PriceFilter history={history} />
+                         <PriceFilter history={history} location={location} />
                     </div>
                     <div className=''>
-                         <RatingFilter history={history} />
+                         <RatingFilter history={history} location={location} />
                     </div>
                     <div className=''>
-                         <Accommodation history={history} />
+                         <Accommodation history={history} location={location} />
                     </div>
                     <div className=''>
-                         <FreeCancellation history={history} />
+                         <FreeCancellation history={history} location={location} />
                     </div>
 
                </div>
