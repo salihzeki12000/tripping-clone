@@ -34,6 +34,10 @@ class FreeCancellation extends Component {
         this.setState({
             open: !this.state.open
         })
+
+    
+        
+        history.push(`?free_cancellation=${checked}`)
     }
 
     render() {

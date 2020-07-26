@@ -59,7 +59,7 @@ class RatingFilter extends React.Component {
                         <div className="">
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="checkbox" className=" mr-3 mt-2  checkAmenities" onChange={this.handleChange} rating='5' />
+                                    <input type="radio" className=" mr-3 mt-2  checkAmenities" onChange={this.handleChange} rating='5' />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-2">OutStanding: 4.5+</p>
@@ -70,7 +70,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="checkbox" className=" mr-3 mt-1  checkAmenities" onChange={this.handleChange} rating='4' />
+                                    <input type="radio" className=" mr-3 mt-1  checkAmenities" onChange={this.handleChange} rating='4' />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-2">Very Good: 4+</p>
@@ -81,7 +81,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="checkbox" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3.5' />
+                                    <input type="radio" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3.5' />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-2">Very Good: 3.5+</p>
@@ -92,7 +92,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="checkbox" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3' />
+                                    <input type="radio" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3' />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-4">Decent: 3+</p>
@@ -103,7 +103,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="checkbox" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3' />
+                                    <input type="radio" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3' />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-4">Any</p>
