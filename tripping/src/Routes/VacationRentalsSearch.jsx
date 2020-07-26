@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import CardComponent from '../Components/Card/CardComponent'
-import CarouselCard from '../Components/Card/CarouselCard'
 import FileNavBar from '../Components/FilterComponents/FileNavBar'
-import axios from 'axios'
 import { connect } from 'react-redux'
-import Amenities from '../Components/FilterComponents/Amenities'
 import SearchLogo from '../Components/FilterComponents/SearchLogo'
-import { getDataFromAPI, changeFreeCancellation } from '../Redux/SearchApi/Action'
+import { getDataFromAPI} from '../Redux/SearchApi/Action'
 import querystring from 'query-string'
 
 
@@ -17,70 +14,64 @@ class VacationRentalsSearch extends Component {
         this.state = {
             data: []
         }
-
     }
 
     componentDidMount() {
-        let { history, match, getDataFromAPI } = this.props
-        let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-        console.log( country,free_cancellation, 'calling')
-
-
+        let { getDataFromAPI } = this.props
+        let { loc,free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
         const values = querystring.parse(this.props.location.search)
-console.log(values)
-let x = Object.keys(values)
-
-  
-        // let x = match.params.name
-        if(x.length == 0) {
-
-            getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
-        }else {
-
-            console.log('enter in else')
-            for(var key in values) {
-                console.log(key)
-                if(key == "country") {
-                    country= values[key]
-                }else if(key == "state") {
-                    state= values[key]
-                }else if(key == "free_cancellation") {
-                    free_cancellation= Number(values[key])
-                }else if(key == "rating") {
-                    rating= Number(values[key])
+        console.log(values)
+        let x = Object.keys(values)
+        if (x.length == 0) {
+            getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+        } else {
+            for (var key in values) {
+                if (key == "location") {
+                    loc = values[key]
+                } 
+                 else if (key == "free_cancellation") {
+                    free_cancellation = Number(values[key])
                 }
-                console.log(free_cancellation, rating, country,'after assigning')
+                 else if (key == "rating") {
+                    rating = Number(values[key])
+                }
+                else if(key=='guest'){
+                    guest = Number(values[key])
+                }
+                else if(key=='bedroom'){
+                    bedroom = Number(values[key])
+                }
             }
-            getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+            getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
         }
         // history.push(`?free_cancellation=${free_cancellation}`)
     }
 
 
-//     componentWillReceiveProps() {
-//         let { history, match, getDataFromAPI } = this.props
-//         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-//         console.log( country,free_cancellation, 'calling receive props')
+    //     componentWillReceiveProps() {
+    //         let { history, match, getDataFromAPI } = this.props
+    //         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+    //         console.log( country,free_cancellation, 'calling receive props')
 
 
-//         const values = querystring.parse(this.props.location.search)
-// console.log(values)
-//         // let x = match.params.name
-//         getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
-//     }
-    
+    //         const values = querystring.parse(this.props.location.search)
+    // console.log(values)
+    //         // let x = match.params.name
+    //         getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+    //     }
+
     // shouldComponentUpdate() {
     //     let { history, match, getDataFromAPI } = this.props
     //     let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
     //     console.log( country,free_cancellation)
     // }
 
-    
+
 
 
     render() {
         // let { data } = this.state
-        let { history, data , location} = this.props
+        let { history, data, location } = this.props
         // const values = querystring.parse(this.props.location.search)
         // console.log(values)
 
@@ -121,9 +112,7 @@ let x = Object.keys(values)
 
 
 const mapStateToProps = state => ({
-    country: state.data.country,
-    state: state.data.state,
-    city: state.data.city,
+    loc: state.data.loc,
     free_cancellation: state.data.free_cancellation,
     rating: state.data.rating,
     bedroom: state.data.bedroom,
@@ -134,7 +123,7 @@ const mapStateToProps = state => ({
     data: state.data.data
 })
 const mapDispatchToProps = dispatch => ({
-    getDataFromAPI: (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
+    getDataFromAPI: (loc, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
 })
 
 

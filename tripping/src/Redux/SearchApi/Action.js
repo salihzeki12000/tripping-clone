@@ -21,15 +21,12 @@ export const apiFailure = (payload) => ({
     payload
 })
 
-export const getDataFromAPI = (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch => {
-    dispatch(apiRequest(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities))
-    // console.log(payload, 'called api')
-    console.log(country, state, city, free_cancellation, 'action')
-    axios.get("http://ccce2112eab9.ngrok.io/search/s", {
+export const getDataFromAPI = (loc,free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch => {
+    console.log('getDataFromAPI')
+    dispatch(apiRequest(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities))
+    axios.get("https://b00bcede9c19.ngrok.io/search/s", {
         params: {
-            country: country,
-            state: state,
-            city: city,
+            location:loc,
             free_cancellation: free_cancellation,
             rating: rating,
             bedroom: bedroom,
