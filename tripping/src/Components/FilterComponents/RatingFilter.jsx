@@ -8,10 +8,10 @@ Modal.setAppElement('#root');
 class RatingFilter extends React.Component {
     constructor(props) {
         super(props)
-    
+
         this.state = {
-             open: false,
-             rating:[]
+            open: true,
+            rating: []
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -28,9 +28,9 @@ class RatingFilter extends React.Component {
             })
         }
     }
-    
+
     render() {
-        const {open} = this.state
+        const { open } = this.state
         return (
             <div>
                 <span onClick={() => this.setState({ open: !open })} className="px-3">Rating</span>
@@ -42,8 +42,8 @@ class RatingFilter extends React.Component {
                             top: '100px',
                             left: '100px',
                             right: '40px',
-                            width: '23rem',
-                            height: '20rem',
+                            width: '27rem',
+                            height: '19rem',
                             bottom: '40px',
                             border: '1px solid #ccc',
                             background: '#fff',
@@ -55,42 +55,63 @@ class RatingFilter extends React.Component {
                         }
                     }}
                 >
-                    <div className="row" style={{ width: '23rem' }}>
-                        <div className="col-6">
-                            <input type="checkbox" className="float p-1 mt-2" onChange={this.handleChange} rating='5'/>
-                            <p className="float p-1">OutStanding:4.5+</p>
+                    <div className="" >
+                        <div className="">
+                            <div className='d-flex flex-row ml-3 '>
+                                <div>
+                                    <input type="checkbox" className=" mr-3 mt-2  checkAmenities" onChange={this.handleChange} rating='5' />
+                                </div>
+                                <div>
+                                    <p className="fontSizeAmenities mr-2">OutStanding: 4.5+</p>
+                                </div>
+                                <div className='ml-3'>
+                                    <StarComponent actual='5' />
+                                </div>
+                            </div>
+                            <div className='d-flex flex-row ml-3 '>
+                                <div>
+                                    <input type="checkbox" className=" mr-3 mt-1  checkAmenities" onChange={this.handleChange} rating='4' />
+                                </div>
+                                <div>
+                                    <p className="fontSizeAmenities mr-2">Very Good: 4+</p>
+                                </div>
+                                <div className='ml-5'>
+                                    <StarComponent actual='4' />
+                                </div>
+                            </div>
+                            <div className='d-flex flex-row ml-3 '>
+                                <div>
+                                    <input type="checkbox" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3.5' />
+                                </div>
+                                <div>
+                                    <p className="fontSizeAmenities mr-2">Very Good: 3.5+</p>
+                                </div>
+                                <div className='ml-4'>
+                                    <StarComponent actual='3.5' />
+                                </div>
+                            </div>
+                            <div className='d-flex flex-row ml-3 '>
+                                <div>
+                                    <input type="checkbox" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3' />
+                                </div>
+                                <div>
+                                    <p className="fontSizeAmenities mr-4">Decent: 3+</p>
+                                </div>
+                                <div className='ml-5'>
+                                    <StarComponent actual='2' />
+                                </div>
+                            </div>
+                            <div className='d-flex flex-row ml-3 '>
+                                <div>
+                                    <input type="checkbox" className=" mr-3  mt-2 checkAmenities" onChange={this.handleChange} rating='3' />
+                                </div>
+                                <div>
+                                    <p className="fontSizeAmenities mr-4">Any</p>
+                                </div>
+                               
+                            </div>
                         </div>
-                        <div className="col-6 mt-1">
-                            <StarComponent actual='5' />
-                        </div>
-                        <div className="col-6">
-                            <input type="checkbox" className="float p-1 mt-2" onChange={this.handleChange} rating='4'/>
-                            <p className="float p-1">Very Good:4+</p>
-                        </div>
-                        <div className="col-6 mt-1">
-                            <StarComponent actual='4' />
-                        </div>
-                        <div className="col-6">
-                            <input type="checkbox" className="float p-1 mt-2" onChange={this.handleChange} rating='3'/>
-                            <p className="float p-1">Good:3.5+</p>
-                        </div>
-                        <div className="col-6 mt-1">
-                            <StarComponent actual='3' />
-                        </div>
-                        <div className="col-6">
-                            <input type="checkbox" className="float p-1 mt-2" onChange={this.handleChange} rating='3'/>
-                            <p className="float p-1">Descent:3+</p>
-                        </div>
-                        <div className="col-6 mt-1">
-                            <StarComponent actual='2' />
-                        </div>
-                        <div className="col-6">
-                            <input type="checkbox" className="float p-1 mt-2" onChange={this.handleChange} rating='all'/>
-                            <p className="float p-1">Any</p>
-                        </div>
-                        <div className="col-6 mt-1">
-                        </div>
-                        <button className="close" onClick={() =>{this.setState({open:false})}}>
+                        <button className="close" onClick={() => { this.setState({ open: false }) }}>
                             Close
                 </button>
                     </div>
