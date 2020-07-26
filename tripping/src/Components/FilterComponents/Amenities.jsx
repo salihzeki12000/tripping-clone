@@ -48,7 +48,6 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
 
 
     render() {
-        // const classes = useStyles()
         const { open } = this.state
         return (
             <div>
@@ -95,7 +94,6 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
                             </div>
                         </div>
                         <hr />
-
                         <br />
                         <div className='clear-both '></div>
                         <div className='text-secondary mt-3 font-weight-bold '>AMENITIES</div>
@@ -112,13 +110,6 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
                                 })}
                             </div>
                         </div>
-                        {/* <div className='text-secondary '>
-                        close
-                    </div>
-                    <div >
-                        <button className='btn '>Apply</button>
-                    </div> */}
-
                     </div>
                    <span onClick={() => this.setState({ open: !open })}>close</span>
                     <button className='btn btn-warning float-right mr-2 mt-2'  >Apply</button>

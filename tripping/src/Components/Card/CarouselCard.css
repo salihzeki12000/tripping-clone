@@ -32,3 +32,13 @@
     background-color:orange;
     color:white;
   }
+
+  .detCard {
+      width:600px;
+      height: 600px;
+  }
+  .childCard {
+    width:300px ;
+    height: 300px;
+}
+
