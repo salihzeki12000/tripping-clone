@@ -29,7 +29,6 @@ export default class Amenities extends React.Component {
         })
     }
     render() {
-        // const classes = useStyles()
         const { open } = this.state
         return (
             <div>
@@ -76,7 +75,6 @@ export default class Amenities extends React.Component {
                             </div>
                         </div>
                         <hr />
-
                         <br />
                         <div className='clear-both '></div>
                         <div className='text-secondary mt-3 font-weight-bold '>AMENITIES</div>
@@ -85,7 +83,7 @@ export default class Amenities extends React.Component {
                                 {amenites.map(item => {
                                     return (
                                         <div key={item.logo} className='col-4 my-2'>
-                                            <input className='checkAmenities ' id={item.id} type='checkbox' />
+                                            <input className='checkAmenities' id={item.id} type='checkbox' />
                                             <i className={`px-2 ${item.logo}`}></i>
                                             <span className='fontSizeAmenities'>{item.name}</span>
                                         </div>
@@ -93,13 +91,6 @@ export default class Amenities extends React.Component {
                                 })}
                             </div>
                         </div>
-                        {/* <div className='text-secondary '>
-                        close
-                    </div>
-                    <div >
-                        <button className='btn '>Apply</button>
-                    </div> */}
-
                     </div>
 
                     <button className='btn btn-warning float-right mr-2 mt-2' onClick={() => this.setState({ open: !open })}>Close</button>
