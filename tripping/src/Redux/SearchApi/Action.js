@@ -26,9 +26,9 @@ export const getDataFromAPI = (country , state , city, free_cancellation , ratin
     // console.log(payload, 'called api')
     console.log(country, state, 'action')
     // axios.get("http://3b5fec4d507f.ngrok.io/search/s?country="+country+"&state=&city=Berck&free_cancellation=&rating=&bedroom=&guest=&sort=&price=&aminities=", {
-        axios.get("http://3b5fec4d507f.ngrok.io/search/s", {
+        axios.get("http://875ba58a3ea2.ngrok.io/search/s", {
         params: {
-            country: 'Spain',
+            country: country,
             state: state,
             city: city,
             free_cancellation: free_cancellation,

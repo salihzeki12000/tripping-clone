@@ -10,7 +10,7 @@ class RatingFilter extends React.Component {
         super(props)
 
         this.state = {
-            open: true,
+            open: false,
             rating: []
         }
         this.handleChange = this.handleChange.bind(this);
@@ -42,7 +42,7 @@ class RatingFilter extends React.Component {
                             top: '100px',
                             left: '100px',
                             right: '40px',
-                            width: '27rem',
+                            width: '29rem',
                             height: '19rem',
                             bottom: '40px',
                             border: '1px solid #ccc',
