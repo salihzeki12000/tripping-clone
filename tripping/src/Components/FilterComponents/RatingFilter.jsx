@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import './RatingFilter.css';
 import './FileNavBar.css';
 import querystring from 'query-string';
-import { getDataFromAPI} from '../../Redux/SearchApi/Action';
+import { getDataFromAPI } from '../../Redux/SearchApi/Action';
 
 Modal.setAppElement('#root');
 class RatingFilter extends React.Component {
@@ -18,7 +18,7 @@ class RatingFilter extends React.Component {
         }
     }
 
-    handleChange = (e,rating) => {
+    handleChange = (e, rating) => {
         if (e.target.checked) {
             this.setState({
                 rating: rating
@@ -30,17 +30,55 @@ class RatingFilter extends React.Component {
         this.setState({
             open: !this.state.open
         })
-        let { history,getDataFromAPI } = this.props
+        console.log('handle Apply')
+        let { history, getDataFromAPI, location } = this.props
+        console.log(location, 'path')
         let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
         const values = querystring.parse(this.props.location.search)
-        let x = Object.keys(values)
+        console.log(values)
+        // let x = Object.keys(values)
+
         if (values['rating']) {
+            console.log('if')
             rating = this.state.rating
         }
         else {
+            console.log('else')
             rating = this.state.rating
-            history.push(`&rating=${this.state.rating}`)
+            var url = location.search + `&rating=${this.state.rating}`
+            // history.push(`&rating=${this.state.rating}`)
+            history.push(url)
         }
+
+        for (var key in values) {
+            for (var key in values) {
+                if (key == "location") {
+                    loc = values[key]
+                }
+                else if (key == "free_cancellation") {
+                    free_cancellation = Number(values[key])
+                }
+                else if (key == 'guest') {
+                    guest = Number(values[key])
+                }
+                else if (key == 'bedroom') {
+                    bedroom = Number(values[key])
+                } else if (key == 'price') {
+                    price = Number(values[key])
+                }
+                else if (key == "free_cancellation") {
+                    if (typeof (values[key]) != "number") {
+                        free_cancellation = ''
+                    } else {
+                        free_cancellation = Number(values[key])
+                    }
+                }else if (key == "aminities") {
+                    aminities = values[key]
+                  }
+            }
+
+        }
+
         getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
     }
 
@@ -75,7 +113,7 @@ class RatingFilter extends React.Component {
                         <div className="">
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="radio" name='rating' className=" mr-3 mt-2  checkAmenities" onChange={(e)=>this.handleChange(e,4.5)} />
+                                    <input type="radio" name='rating' className=" mr-3 mt-2  checkAmenities" onChange={(e) => this.handleChange(e, 4.5)} />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-2">OutStanding: 4.5+</p>
@@ -86,7 +124,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="radio" name='rating' className=" mr-3 mt-1  checkAmenities" onChange={(e)=>this.handleChange(e,4)} />
+                                    <input type="radio" name='rating' className=" mr-3 mt-1  checkAmenities" onChange={(e) => this.handleChange(e, 4)} />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-2">Very Good: 4+</p>
@@ -97,7 +135,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="radio" name='rating' className=" mr-3  mt-2 checkAmenities" onChange={(e)=>this.handleChange(e,3.5)} />
+                                    <input type="radio" name='rating' className=" mr-3  mt-2 checkAmenities" onChange={(e) => this.handleChange(e, 3.5)} />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-2">Very Good: 3.5+</p>
@@ -108,7 +146,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="radio" name='rating' className=" mr-3  mt-2 checkAmenities" onChange={(e)=>this.handleChange(e,2.5)} />
+                                    <input type="radio" name='rating' className=" mr-3  mt-2 checkAmenities" onChange={(e) => this.handleChange(e, 3)} />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-4">Decent: 3+</p>
@@ -119,7 +157,7 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="radio" name='rating5' className=" mr-3  mt-2 checkAmenities" onChange={(e)=>this.handleChange(e,'')} />
+                                    <input type="radio" name='rating5' className=" mr-3  mt-2 checkAmenities" onChange={(e) => this.handleChange(e, '')} />
                                 </div>
                                 <div>
                                     <p className="fontSizeAmenities mr-4">Any</p>
