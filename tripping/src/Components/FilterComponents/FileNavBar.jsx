@@ -15,7 +15,7 @@ export default function FilterNavBar(props) {
                {/* {components.map(component =><span className="filter text-muted">{component}</span>)} */}
                <div className='d-flex flex-row'>
                     <div className=''>
-                         <Amenities history={history} location={location} />
+                         {/* <Amenities history={history} location={location} /> */}
                     </div>
                     <div className=''>
                          <PriceFilter history={history} location={location} />

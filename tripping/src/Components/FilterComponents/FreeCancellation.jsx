@@ -5,6 +5,7 @@ import './FreeCancellation.css';
 import './FileNavBar.css';
 import './RatingFilter.css'
 import { getDataFromAPI, changeFreeCancellation } from '../../Redux/SearchApi/Action.js'
+import querystring from 'query-string'
 
 Modal.setAppElement('#root');
 class FreeCancellation extends Component {
@@ -35,31 +36,33 @@ class FreeCancellation extends Component {
             open: !this.state.open
         })
      
-//         if(changeFreeCancellation(checked) == checked) {
-// console.log('checked')
-            history.push(`?freecancellation=${checked}`)
-//         }
+            
 
+const values = querystring.parse(this.props.location.search)
+// console.log(values)
+       if(!values["freecancellation"]) {
+        history.push(`?freecancellation=${checked}`)
+       }
     }
 
 
-    handleUrlChange = (query) => {
-        let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities, getDataFromAPI, changeFreeCancellation, history } = this.props
+//     handleUrlChange = (query) => {
+//         let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities, getDataFromAPI, changeFreeCancellation, history } = this.props
 
-        const url = new URLSearchParams(query)
+//         const url = new URLSearchParams(query)
 
-        console.log(url.get('free_cancellation'), 'enter' )
+//         console.log(url.get('free_cancellation'), 'enter' )
 
-        this.setState({
-            checked: url.get('free_cancellation')
-        })
+//         this.setState({
+//             checked: url.get('free_cancellation')
+//         })
 
-        getDataFromAPI(country, state, city, this.state.checked, rating, bedroom, guest, sort, price, aminities)
-    }
-  componentDidMount() {
-        const { location } = this.props
-        this.handleUrlChange(location.search)
-    }
+//         getDataFromAPI(country, state, city, this.state.checked, rating, bedroom, guest, sort, price, aminities)
+//     }
+//   componentDidMount() {
+//         const { location } = this.props
+//         this.handleUrlChange(location.search)
+//     }
 
   
 

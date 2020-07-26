@@ -39,16 +39,19 @@ let x = Object.keys(values)
 
             console.log('enter in else')
             for(var key in values) {
+                console.log(key)
                 if(key == "country") {
                     country= values[key]
                 }else if(key == "state") {
                     state= values[key]
                 }else if(key == "free_cancellation") {
                     free_cancellation= Number(values[key])
+                }else if(key == "rating") {
+                    rating= Number(values[key])
                 }
-                
-                getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+                console.log(free_cancellation, rating, country,'after assigning')
             }
+            getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)
         }
         // history.push(`?free_cancellation=${free_cancellation}`)
     }
