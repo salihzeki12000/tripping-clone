@@ -18,7 +18,7 @@ class FreeCancellation extends Component {
         }
     }
 
-  
+
     handleFreeCancellation = () => {
         this.setState({
             open: !this.state.open
@@ -31,53 +31,53 @@ class FreeCancellation extends Component {
         console.log(values)
         // let x = Object.keys(values)
 
-        
-        
+
+
         if (values['free_cancellation']) {
             console.log('if')
-            if(this.state.checked) {
+            if (this.state.checked) {
                 free_cancellation = 1
-            }else {
+            } else {
                 free_cancellation = ''
             }
         }
         else {
             console.log('else')
-            if(this.state.checked) {
+            if (this.state.checked) {
                 free_cancellation = 1
-            }else {
+            } else {
                 free_cancellation = ''
             }
             var url = location.search + `&free_cancellation=${free_cancellation}`
             history.push(url)
         }
-    
-        
-            for (var key in values) {
-                if (key == "location") {
-                    loc = values[key]
-                } 
-                else if(key=='guest'){
-                    guest = Number(values[key])
-                }
-                else if(key=='bedroom'){
-                    bedroom = Number(values[key])
-                }
-                else if (key == "rating") {
-                  rating = Number(values[key])
-                } else if (key == "aminities") {
-                    aminities = values[key]
-                  }
+
+
+        for (var key in values) {
+            if (key == "location") {
+                loc = values[key]
             }
-    
-        
-    
+            else if (key == 'guest') {
+                guest = Number(values[key])
+            }
+            else if (key == 'bedroom') {
+                bedroom = Number(values[key])
+            }
+            else if (key == "rating") {
+                rating = Number(values[key])
+            } else if (key == "aminities") {
+                aminities = values[key]
+            }
+        }
+
+
+
         getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
     }
-    
+
 
     render() {
-        
+
         const { open, checked } = this.state
 
 
@@ -114,8 +114,11 @@ class FreeCancellation extends Component {
                             <small className="text-muted">Only shows offers which have free cancellation policy</small>
                         </div>
                     </div>
-                    {/* <button onClick={()=> this.handleApply()}>Apply</button> */}
-                    <button onClick={() => this.handleFreeCancellation()} style={{ float: 'right' }} className="close">Apply</button>
+                    <div className='float-right'>
+
+                        <button className='btn btn-secondary mx-2 mt-2' onClick={() => this.setState({ open: !open })}>close</button>
+                        <button className='btn btn-warning  mr-2 mt-2' onClick={() => this.handleFreeCancellation()} >Apply</button>
+                    </div>
                 </Modal>
             </div>
         )

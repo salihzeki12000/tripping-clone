@@ -125,7 +125,7 @@ class SearchBar extends React.Component {
                         </div>
                     </div>
                     }
-                    <div className='col-3 offset-2'>
+                    <div className='col-4 offset-4'>
 
                     </div>
 

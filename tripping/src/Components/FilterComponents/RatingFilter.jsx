@@ -26,10 +26,11 @@ class RatingFilter extends React.Component {
         }
     }
 
-    handleApply = () => {
+    handleRating = () => {
         this.setState({
             open: !this.state.open
         })
+        console.log(this.state.rating)
         console.log('handle Apply')
         let { history, getDataFromAPI, location } = this.props
         console.log(location, 'path')
@@ -72,13 +73,13 @@ class RatingFilter extends React.Component {
                     } else {
                         free_cancellation = Number(values[key])
                     }
-                }else if (key == "aminities") {
+                } else if (key == "aminities") {
                     aminities = values[key]
-                  }
+                }
             }
 
         }
-
+  console.log(rating, "after assigning")
         getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
     }
 
@@ -119,7 +120,7 @@ class RatingFilter extends React.Component {
                                     <p className="fontSizeAmenities mr-2">OutStanding: 4.5+</p>
                                 </div>
                                 <div className='ml-3'>
-                                    <StarComponent actual='5' />
+                                    <StarComponent actual='4.5' />
                                 </div>
                             </div>
                             <div className='d-flex flex-row ml-3 '>
@@ -165,12 +166,11 @@ class RatingFilter extends React.Component {
 
                             </div>
                         </div>
-                        <button className="close" onClick={() => { this.setState({ open: false }) }}>
-                            Close
-                </button>
-                        <button className="close" onClick={this.handleApply}>
-                            Apply
-                </button>
+                        <div className='float-right'>
+
+                            <button className='btn btn-secondary mx-2 mt-2' onClick={() => this.setState({ open: !open })}>close</button>
+                            <button className='btn btn-warning  mr-2 mt-2' onClick={() => this.handleRating()} >Apply</button>
+                        </div>
                     </div>
                 </Modal>
             </div>
