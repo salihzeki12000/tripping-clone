@@ -4,8 +4,9 @@ import StarComponent from '../FilterComponents/StarRatingComponent';
 import { Link } from 'react-router-dom';
 
 export class CarouselCard extends Component {
+
     render() {
-        let { accomodation, bedroom, city, country, guest, hotel_name, price, state, rating, image } = this.props;
+        let { accomodation_type, bedroom, city, country, guest, hotel_name, price, state, rating, image,hotel_id, area,locality } = this.props;
         //   console.log(image[0])
     //     image = image.split(',').join('')
     //     image = image.split('[').join('')
@@ -72,9 +73,9 @@ export class CarouselCard extends Component {
                     <span class="sr-only">Next</span>
                 </a>
                 <div class="card-body">
-                    <p className="text-muted float">{accomodation} . {guest} Guests . {bedroom} Bedroom</p>
+                    <p className="text-muted float">{accomodation_type} . {guest} Guests . {bedroom} Bedroom</p>
                     <small className="text-muted float">{hotel_name}, {city} {state} {country}</small>
-                    <Link to='/detailscard'><button className="button mt-2">DETAILS</button></Link>
+                    <Link to={`/detailscard/tripping/${hotel_id}/${country}/${state}/${locality}/${area}/${accomodation_type}`} target='_blank' ><button className="button mt-2">DETAILS</button></Link>
                     <span><small className="text-muted clear mt-1">from </small><p className="float fontWeight">&nbsp; $&nbsp; </p><p className="fontWeight float"> {price} </p></span>
                     <small className="clear text-++d">virbo</small>
                     <p className="orange clear">

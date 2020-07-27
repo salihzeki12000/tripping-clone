@@ -19,6 +19,7 @@ class RatingFilter extends React.Component {
     }
 
     handleChange = (e, rating) => {
+        
         if (e.target.checked) {
             this.setState({
                 rating: rating
@@ -98,7 +99,7 @@ class RatingFilter extends React.Component {
                             left: '100px',
                             right: '40px',
                             width: '29rem',
-                            height: '19rem',
+                            height: '25rem',
                             bottom: '40px',
                             border: '1px solid #ccc',
                             background: '#fff',
@@ -147,13 +148,35 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="radio" name='rating' className=" mr-3  mt-2 checkAmenities" onChange={(e) => this.handleChange(e, 3)} />
+                                    <input type="radio" name='rating' className=" mr-5  mt-2 checkAmenities" onChange={(e) => this.handleChange(e, 3)} />
                                 </div>
                                 <div>
-                                    <p className="fontSizeAmenities mr-4">Decent: 3+</p>
+                                    <p className="fontSizeAmenities mr-4">Good: 3+</p>
+                                </div>
+                                <div className='ml-5'>
+                                    <StarComponent actual='3' />
+                                </div>
+                            </div>
+                            <div className='d-flex flex-row ml-3 '>
+                                <div>
+                                    <input type="radio" name='rating' className=" mr-3  mt-2 checkAmenities" onChange={(e) => this.handleChange(e, 2)} />
+                                </div>
+                                <div>
+                                    <p className="fontSizeAmenities mr-4">Decent: 2+</p>
                                 </div>
                                 <div className='ml-5'>
                                     <StarComponent actual='2' />
+                                </div>
+                            </div>
+                            <div className='d-flex flex-row ml-3 '>
+                                <div>
+                                    <input type="radio" name='rating' className=" mr-3  mt-2 checkAmenities" onChange={(e) => this.handleChange(e, 1)} />
+                                </div>
+                                <div>
+                                    <p className="fontSizeAmenities mr-4">Average: 1+</p>
+                                </div>
+                                <div className='ml-5'>
+                                    <StarComponent actual='1' />
                                 </div>
                             </div>
                             <div className='d-flex flex-row ml-3 '>
