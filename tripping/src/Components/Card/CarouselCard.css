@@ -47,3 +47,20 @@
 .hrFull {
   width: 100%;
 }
+
+.inputDiv {
+    text-align: center;
+    vertical-align: middle;
+    float: left;
+    border: 1px solid orange;
+    outline: none !important;
+    border-radius: 30px;
+    height: 50px;
+    padding:10px;
+    margin-left: 1px;
+}   
+
+.inputDiv:focus { 
+    outline: none !important;
+    border-color:orange !important;
+}

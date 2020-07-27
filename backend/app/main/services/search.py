@@ -11,34 +11,21 @@ from flask import jsonify
 
 
 def search_uisng_filter(data):
-    country = data('country')
-    state = data('state')
-    city = data('city')
-    free_cancellation = data('free_cancellation')
-    sort = data('sort') 
-    rating = data('rating')
-    price = data('price')
-    bedroom = data('bedroom')
-    guest = data('guest')
-    aminities = data('aminities')
+    try:
+        location = data('location')
+        free_cancellation = data('free_cancellation')
+        sort = data('sort') 
+        rating = data('rating')
+        price = data('price')
+        bedroom = data('bedroom')
+        guest = data('guest')
+        aminities = data('aminities')
 
-
-    data = []
-    if country or state or city:
-        if country and state and city:
-            res = db.session.execute('''SELECT * FROM hotels AS hh JOIN location AS ll ON hh.id=ll.hotel_id JOIN room_details AS rr ON hh.room_details=rr.id JOIN room_details_bedroom_price AS dd ON rr.id=dd.room_details_id JOIN bedroom_price AS bb ON dd.bedroom_price_id=bb.id JOIN aminities AS aa On rr.id=aa.room_id WHERE country="%s" AND state="%s" AND city="%s";'''%(country,state,city))
-        elif country and state:
-            res = db.session.execute('''SELECT * FROM hotels AS hh JOIN location AS ll ON hh.id=ll.hotel_id JOIN room_details AS rr ON hh.room_details=rr.id JOIN room_details_bedroom_price AS dd ON rr.id=dd.room_details_id JOIN bedroom_price AS bb ON dd.bedroom_price_id=bb.id JOIN aminities AS aa On rr.id=aa.room_id WHERE country="%s" AND state="%s";'''%(country,state))
-        elif country and city:
-            res = db.session.execute('''SELECT * FROM hotels AS hh JOIN location AS ll ON hh.id=ll.hotel_id JOIN room_details AS rr ON hh.room_details=rr.id JOIN room_details_bedroom_price AS dd ON rr.id=dd.room_details_id JOIN bedroom_price AS bb ON dd.bedroom_price_id=bb.id JOIN aminities AS aa On rr.id=aa.room_id WHERE country="%s" AND city="%s";'''%(country,city))
-        elif country:
-            res = db.session.execute('''SELECT * FROM hotels AS hh JOIN location AS ll ON hh.id=ll.hotel_id JOIN room_details AS rr ON hh.room_details=rr.id JOIN room_details_bedroom_price AS dd ON rr.id=dd.room_details_id JOIN bedroom_price AS bb ON dd.bedroom_price_id=bb.id JOIN aminities AS aa On rr.id=aa.room_id WHERE country="%s";'''%(country))
-        elif state:
-            res = db.session.execute('''SELECT * FROM hotels AS hh JOIN location AS ll ON hh.id=ll.hotel_id JOIN room_details AS rr ON hh.room_details=rr.id JOIN room_details_bedroom_price AS dd ON rr.id=dd.room_details_id JOIN bedroom_price AS bb ON dd.bedroom_price_id=bb.id JOIN aminities AS aa On rr.id=aa.room_id WHERE state="%s";'''%(state))
-        elif city:
-            res = db.session.execute('''SELECT * FROM hotels AS hh JOIN location AS ll ON hh.id=ll.hotel_id JOIN room_details AS rr ON hh.room_details=rr.id JOIN room_details_bedroom_price AS dd ON rr.id=dd.room_details_id JOIN bedroom_price AS bb ON dd.bedroom_price_id=bb.id JOIN aminities AS aa On rr.id=aa.room_id WHERE country="%s";'''%(city))
-
-        for i in res:
+        data = []
+        
+        query = db.session.execute('''SELECT * FROM hotels AS hh JOIN location AS ll ON hh.id=ll.hotel_id JOIN room_details AS rr ON hh.room_details=rr.id JOIN room_details_bedroom_price AS dd ON rr.id=dd.room_details_id JOIN bedroom_price AS bb ON dd.bedroom_price_id=bb.id JOIN aminities AS aa On rr.id=aa.room_id WHERE country="%s" OR state="%s" OR city="%s";'''%(location,location,location))
+            
+        for i in query:
             obj={}
             obj['country'] = i['country']
             obj['state'] = i['state']
@@ -70,7 +57,7 @@ def search_uisng_filter(data):
             if i['pet_allowed']:
                 obj['aminities']['pet_allowed'] = i['pet_allowed']
             if i['pool']:
-               obj['aminities']['pool'] = i['pool']
+                obj['aminities']['pool'] = i['pool']
             if i['tv']:
                 obj['aminities']['tv'] = i['tv']
                 
@@ -78,50 +65,43 @@ def search_uisng_filter(data):
             obj['image'] = i['image']
             data.append(obj)
 
-    if free_cancellation:
-        free_cancellation = int(free_cancellation)
-        data = [d for d in data if d['free_cancellation'] == free_cancellation]
+        if free_cancellation:
+            free_cancellation = int(free_cancellation)
+            data = [d for d in data if d['free_cancellation'] == free_cancellation]
 
-    if rating:
-        rating = float(rating)
-        data = [d for d in data if d['rating'] >= rating]
+        if rating:
+            rating = float(rating)
+            data = [d for d in data if d['rating'] >= rating]
 
-    if bedroom or guest:
-        if bedroom and guest:
-            bedroom = int(bedroom)
-            guest = int(guest)
-            data = [d for d in data if d['bedroom'] == bedroom and d['guest'] == guest]
-        elif bedroom:
-            bedroom = int(bedroom)
-            data = [d for d in data if d['bedroom'] == bedroom]
-        elif guest:
-            guest = int(guest)
-            data = [d for d in data if d['guest'] == guest]
+        if bedroom or guest:
+            if bedroom and guest:
+                bedroom = int(bedroom)
+                guest = int(guest)
+                data = [d for d in data if d['bedroom'] == bedroom and d['guest'] == guest]
+            elif bedroom:
+                bedroom = int(bedroom)
+                data = [d for d in data if d['bedroom'] == bedroom]
+            elif guest:
+                guest = int(guest)
+                data = [d for d in data if d['guest'] == guest]
 
-    if sort:
-        data = [d for d in data if d['sort'] == sort]
+        if sort:
+            data = [d for d in data if d['sort'] == sort]
 
-    if price:
-        price = price.split(',')
-        low,high = int(price[0]),int(price[1])
-    
-        data = [d for d in data if d['price'] >= low and d['price'] <= high]
+        if price:
+            price = price.split(',')
+            low,high = int(price[0]),int(price[1])
+        
+            data = [d for d in data if d['price'] >= low and d['price'] <= high]
 
 
-    
-    if aminities:
-        aminities = aminities.split(',')
+        
+        if aminities:
+            aminities = aminities.split(',')
 
-        for i in aminities:
-            data = [d for d in data if d['aminities'][i] == 1]
+            for i in aminities:
+                data = [d for d in data if d['aminities'][i] == 1]
 
-    return jsonify({'result': [dict(row) for row in data]})
-
-    # return json.dumps(data)
-    # def filter_data(variable): 
-    #     if variable['free_cancellation'] == 1:
-    #         return True
-    #     else: 
-    #         return False
-    # data = filter(filter_data,data)
-    # return json.dumps(data)
+        return jsonify({'result': [dict(row) for row in data]})
+    except Exception as err:
+        return json.dumps({'error': True, 'error_name': format(err)})
