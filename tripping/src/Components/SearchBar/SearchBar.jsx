@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './SearchBar.css';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
@@ -23,9 +23,9 @@ class SearchBar extends React.Component {
         }
     }
 
-    handleChange= (event)=> {
-        this.setState({region: event.target.value});
-      }
+    handleChange = (event) => {
+        this.setState({ region: event.target.value });
+    }
 
     handleLocation = () => {
         this.setState({
@@ -109,7 +109,7 @@ class SearchBar extends React.Component {
                             </div>
                             <Link to={`/vacation-rentals/s/search?location=${region}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
                                 <div className='searchDiv col-md-1 col-12  px-4 rounded-right' >
-                                    <i class="fa fa-search text-white mt-3"  onClick={() => this.handleSearch()} style={{ fontSize: "20px" }}></i>
+                                    <i class="fa fa-search text-white mt-3" onClick={() => this.handleSearch()} style={{ fontSize: "20px" }}></i>
                                 </div>
                             </Link>
 

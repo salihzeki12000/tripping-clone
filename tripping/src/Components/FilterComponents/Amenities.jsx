@@ -1,8 +1,7 @@
 import React from 'react'
 import './Amenities.css'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import Modal from 'react-modal';
-Modal.setAppElement('#root');
 import { getDataFromAPI } from '../../Redux/SearchApi/Action.js'
 import querystring from 'query-string'
 
@@ -15,12 +14,12 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
 { logo: "fas fa-hot-tub", name: "Jacuzzi", id: "jacuzzi" }, { logo: "fas fa-fish", name: "Fishing", id: "fishing" }
 
 ]
-
- class Amenities extends React.Component {
+Modal.setAppElement('#root');
+class Amenities extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            amenities:[],
+            amenities: [],
             open: false
         }
     }
@@ -40,33 +39,28 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
 
     }
 
-   handleAmenities = () => {
-      
-    console.log(this.state.amenities.join(''))
-    this.setState({
-        open: !this.state.open
-    })
-    console.log('handle Apply')
-    let { history, getDataFromAPI, location } = this.props
-    console.log(location, 'path')
-    let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-    const values = querystring.parse(this.props.location.search)
-    console.log(values)
-    // let x = Object.keys(values)
+    handleAmenities = () => {
 
-    if (values['aminities']) {
-        console.log('if')
-        aminities = this.state.amenities.join(',')
-    }
-    else {
-        console.log('else')
-        aminities = this.state.amenities.join(',')
-        var url = location.search + `&aminities=${this.state.amenities.join(',')}`
-        // history.push(`&rating=${this.state.rating}`)
-        history.push(url)
-    }
-
-    
+        console.log(this.state.amenities.join(''))
+        this.setState({
+            open: !this.state.open
+        })
+        console.log('handle Apply')
+        let { history, getDataFromAPI, location } = this.props
+        console.log(location, 'path')
+        let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+        const values = querystring.parse(this.props.location.search)
+        console.log(values)
+        if (values['aminities']) {
+            console.log('if')
+            aminities = this.state.amenities.join(',')
+        }
+        else {
+            console.log('else')
+            aminities = this.state.amenities.join(',')
+            var url = location.search + `&aminities=${this.state.amenities.join(',')}`
+            history.push(url)
+        }
         for (var key in values) {
             if (key == "location") {
                 loc = values[key]
@@ -90,20 +84,13 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
                 }
             }
         }
-
-    
-
-    getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
-
-   }
-
-
+        getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+    }
     render() {
         const { open } = this.state
         return (
             <div>
                 <span onClick={() => this.setState({ open: !open })} className="px-3">Amenities</span>
-
                 <Modal
                     isOpen={open}
                     style={{
@@ -164,8 +151,8 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
                     </div>
                     <div className='float-right'>
 
-                   <button className='btn btn-secondary mx-2 mt-2'  onClick={() => this.setState({ open: !open })}>close</button>
-                    <button className='btn btn-warning  mr-2 mt-2' onClick={()=> this.handleAmenities()} >Apply</button>
+                        <button className='btn btn-secondary mx-2 mt-2' onClick={() => this.setState({ open: !open })}>close</button>
+                        <button className='btn btn-warning  mr-2 mt-2' onClick={() => this.handleAmenities()} >Apply</button>
                     </div>
                 </Modal>
 
