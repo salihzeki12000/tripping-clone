@@ -28,7 +28,7 @@ const reducer = (state = initState, { type, payload }) => {
             console.log(payload)
             return {
                 ...state,
-                data:payload.result
+                review:payload.result.sort((a,b) => b.rating - a.rating)
             }
         }
         default:

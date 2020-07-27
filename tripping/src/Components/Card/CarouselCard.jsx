@@ -55,7 +55,7 @@ export class CarouselCard extends Component {
                 <div class="card-body">
                     <p className="text-muted float">{accomodation_type} . {guest} Guests . {bedroom} Bedroom</p>
                     <small className="text-muted float">{hotel_name}, {city} {state} {country}</small>
-                    <Link to={`/detailscard/tripping/${hotel_id}/${country}/${state}/${locality}/${area}/${accomodation_type}`} target='_blank' ><button className="button mt-2">DETAILS</button></Link>
+                    <Link to={`/detailscard/tripping/?id=${hotel_id}/country=${country}/state=${state}/locality=${locality}/area=${area}/accomodation=${accomodation_type}`} target='_blank' ><button className="button mt-2">DETAILS</button></Link>
                     <span><small className="text-muted clear mt-1">from </small><p className="float fontWeight">&nbsp; $&nbsp; </p><p className="fontWeight float"> {price} </p></span>
                     <small className="clear text-++d">virbo</small>
                     <p className="orange clear">
