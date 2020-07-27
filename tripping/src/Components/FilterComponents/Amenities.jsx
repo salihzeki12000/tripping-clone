@@ -2,7 +2,6 @@ import React from 'react'
 import './Amenities.css'
 import { connect } from 'react-redux'
 import Modal from 'react-modal';
-Modal.setAppElement('#root');
 import { getDataFromAPI } from '../../Redux/SearchApi/Action.js'
 import querystring from 'query-string'
 
@@ -15,7 +14,6 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
 { logo: "fas fa-hot-tub", name: "Jacuzzi", id: "jacuzzi" }, { logo: "fas fa-fish", name: "Fishing", id: "fishing" }
 
 ]
-
 class Amenities extends React.Component {
     constructor(props) {
         super(props)
@@ -103,7 +101,6 @@ class Amenities extends React.Component {
         return (
             <div>
                 <span onClick={() => this.setState({ open: !open })} className="px-3">Amenities</span>
-
                 <Modal
                     isOpen={open}
                     style={{
