@@ -4,19 +4,33 @@ import { connect } from 'react-redux'
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
+import Modal from 'react-modal';
+import CounterComponent from './CounterComponent';
 
+Modal.setAppElement('#root');
 class DetailsCard extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
             startDate: null,
-            endDate: null
+            endDate: null,
+            click: false,
+            open: false,
+            counter: false
         }
     }
+
+    handleClick = ()=>{
+        let {click,counter} = this.state
+        this.setState({
+            click:!click,
+            counter:!counter
+        })
+    }
     render() {
-        let { user } = this.props
-        let { startDate, endDate } = this.state
+        let {user} = this.props;
+        let { startDate, endDate, click,open,counter} = this.state
         return (
             <div className="container-fluid">
                 <br />
@@ -107,12 +121,12 @@ class DetailsCard extends React.Component {
                             </div>
                         </div>
                         <div className="col-5">
-                            <div className="row" style={{border: '1px solid gray'}}>
+                            <div className="row ml-5" style={{ border: '1px solid gray', width: '330px' }}>
                                 <div className="col-6">
-                                    $200 /night
+                                    <i class="fas fa-dollar-sign text-warning mr-1"></i>200 /night
                             </div>
                                 <div className="col-6">
-                                    *4.66(29)
+                                    <i class="fa fa-star text-warning ml-4 mr-1" aria-hidden="true"></i>4.66(29)
                             </div>
                                 <div className='Date_div col-12 border mt-2'>
                                     <DateRangePicker
@@ -124,8 +138,20 @@ class DetailsCard extends React.Component {
                                         onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                                         focusedInput={this.state.focusedInput}
                                         onFocusChange={focusedInput => this.setState({ focusedInput })}
-                                        style={{width: '100%'}} 
                                     />
+                                </div>
+                                <div>
+                                    <button className="angleDown" onClick={this.handleClick}>
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <p className="font-weight-bold">Guests</p>
+                                                <p>{1} guests</p>
+                                            </div>
+                                            <div className="col-6">
+                                                {click ? <i class="fa fa-angle-up text-warning" aria-hidden="true"></i> : <i class="fa fa-angle-down text-warning" aria-hidden="true"></i>}
+                                            </div>
+                                        </div>
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -64,3 +64,25 @@
     outline: none !important;
     border-color:orange !important;
 }
+
+.angleDown {
+    width:328px;
+    height: 70px;
+    border-radius: 5px;
+    border:none !important;
+}
+
+.angleDown:focus{
+    outline:none !important;
+}
+
+.closeButton {
+    border:none;
+    background-color:white;
+    float: right;
+}
+
+.closeButton:focus{
+    outline:none;
+}
+
