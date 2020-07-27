@@ -2,11 +2,32 @@ import React, { Component } from 'react';
 import './CarouselCard.css';
 import StarComponent from '../FilterComponents/StarRatingComponent';
 
-export class CardComponent extends Component {
+export class CarouselCard extends Component {
     render() {
         let { accomodation, bedroom, city, country, guest, hotel_name, price, state, rating, image } = this.props;
-        image = image.slice(1,image.length-1)
-        image = image.split(',')
+        //   console.log(image[0])
+    //     image = image.split(',').join('')
+    //     image = image.split('[').join('')
+    //     image = image.split(']').join('')
+        
+    //  let arr = []
+    //     for(let i=0;i<image.length;i++) {
+    //      let   temp = []
+    //         for(let j=0;j<image.length;j++) {
+    //            if(image.charCodeAt(i)!= 34) {
+    //                temp.push(image[i])
+    //            }else if(image.charCodeAt(i)!= 32) {
+    //                break
+                   
+    //            }
+    //         }
+    //         arr.push(temp)
+    //     }
+
+    //     console.log(arr)
+
+    //     console.log(image)
+    //     console.log(image[0], image[1], image[2], image[3], image[4])
         return (
             <div id="carouselExampleCaptions" className="carousel slide mr-3" data-ride="carousel" style={{ width: '20rem' }}>
                 <ol class="carousel-indicators">
@@ -16,6 +37,20 @@ export class CardComponent extends Component {
                 </ol>
                 <div class="carousel-inner">
                 <div class="carousel-inner">
+                    {/* <div class="carousel-item active">
+                        <img src="" class="d-block w-100" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                        <img src={image[1]} class="d-block w-100" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                        <img src={image[2]} class="d-block w-100" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                        <img src={image[3]} class="d-block w-100" alt="..." />
+                    </div> */}
+
+
                     <div class="carousel-item active">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSB4c0q25JcnrvhS7GKyMrssoc9JootgZLoPA&usqp=CAU" class="d-block w-100" alt="..." />
                     </div>
@@ -41,11 +76,14 @@ export class CardComponent extends Component {
                     <button className="button mt-2">DETAILS</button>
                     <span><small className="text-muted clear mt-1">from </small><p className="float fontWeight">&nbsp; $&nbsp; </p><p className="fontWeight float"> {price} </p></span>
                     <small className="clear text-muted">virbo</small>
-                    <p className="orange clear"><StarComponent actual={Math.ceil(rating)} /></p>
+                    <p className="orange clear">
+                        {/* <StarComponent actual={rating} /> */}
+                         Rating: {rating} 
+                         </p>
                 </div>
             </div>
         )
     }
 }
 
-export default CardComponent;
+export default CarouselCard;

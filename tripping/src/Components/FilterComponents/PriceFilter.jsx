@@ -140,9 +140,11 @@ class PriceFilter extends Component {
               valueLabelDisplay="on"
             />
           </div>
+          <div className='float-right'>
 
-          <button className='btn btn-secondary' onClick={() => this.setState({ open: !open })}>Close</button>
-          <button className='btn btn-warning' onClick={() => this.handlePrice()}>Apply</button>
+            <button className='btn btn-secondary mx-2 mt-2' onClick={() => this.setState({ open: !open })}>close</button>
+            <button className='btn btn-warning  mr-2 mt-2' onClick={() => this.handlePrice()} >Apply</button>
+          </div>
         </Modal>
 
       </div>

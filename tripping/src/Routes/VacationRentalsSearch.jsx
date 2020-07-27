@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CardComponent from '../Components/Card/CardComponent'
+import CarouselCard from '../Components/Card/CarouselCard'
 import FileNavBar from '../Components/FilterComponents/FileNavBar'
 import { connect } from 'react-redux'
 import SearchLogo from '../Components/FilterComponents/SearchLogo'
@@ -53,6 +53,7 @@ class VacationRentalsSearch extends Component {
             }
             getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
         }
+
         // history.push(`?free_cancellation=${free_cancellation}`)
     }
 
@@ -71,19 +72,19 @@ class VacationRentalsSearch extends Component {
 
                     <div className='col-6'>
                         <FileNavBar history={history} location={location} />
-                        <div className='row'>
+                        <div className='row mt-5'>
                             {
-                                data.length >0 ? data.map(elem => <CardComponent key={elem.id}
+                                data && data ? data.map(elem => <CarouselCard key={elem.id}
                                     bedrooms={elem.bedroom}
                                     guest={elem.guest}
                                     hotel_name={elem.hotel_name}
                                     country={elem.country}
-                                    state={elem.state} img={elem.image}
+                                    state={elem.state} image={elem.image}
                                     rating={elem.rating}
                                     price={elem.price}
                                     loaction={elem.locality} />
                                 )
-                                    : <div>Sorry Data not found</div>
+                                    :  <div>Sorry Data not found</div>
 
                                 //    data ? data.map(elem => <CarouselCard />) : <div>Sorry Data not found</div>
                             }

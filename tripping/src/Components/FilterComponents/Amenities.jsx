@@ -162,8 +162,11 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
                             </div>
                         </div>
                     </div>
-                   <span onClick={() => this.setState({ open: !open })}>close</span>
-                    <button className='btn btn-warning float-right mr-2 mt-2' onClick={()=> this.handleAmenities()} >Apply</button>
+                    <div className='float-right'>
+
+                   <button className='btn btn-secondary mx-2 mt-2'  onClick={() => this.setState({ open: !open })}>close</button>
+                    <button className='btn btn-warning  mr-2 mt-2' onClick={()=> this.handleAmenities()} >Apply</button>
+                    </div>
                 </Modal>
 
             </div>
