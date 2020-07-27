@@ -23,7 +23,7 @@ export const reviewRequest = (payload) => ({
 export const getImageRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
   
-    axios.get("http://054c31d9426d.ngrok.io/search/" + payload)
+    axios.get("http://3f5a8e3ada55.ngrok.io/search/" + payload)
         .then(res => res.data)
         .then(res => dispatch(imageRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
@@ -32,7 +32,7 @@ export const getImageRequest = (payload) => dispatch => {
 export const getDataRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
   
-    axios.get("http://054c31d9426d.ngrok.io/entity/basic_detail/" + payload)
+    axios.get("http://3f5a8e3ada55.ngrok.io/entity/basic_detail/" + payload)
         .then(res => res.data)
         .then(res => dispatch(dataRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
@@ -41,7 +41,7 @@ export const getDataRequest = (payload) => dispatch => {
 export const getReviewRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
   
-    axios.get("http://054c31d9426d.ngrok.io/entity/review/" + payload)
+    axios.get("http://3f5a8e3ada55.ngrok.io/entity/review/" + payload)
         .then(res => res.data)
         .then(res => dispatch(reviewRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
