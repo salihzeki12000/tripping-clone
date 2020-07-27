@@ -30,12 +30,12 @@ export default class Payment extends Component {
                 alert(response.razorpay_signature)
             },
             "prefill": {
-                // "name": "Gaurav Kumar",
-                // "email": "gaurav.kumar@example.com",
-                // "contact": "9999999999"
+                // "name": "",
+                // "email": "",
+                // "contact": ""
             },
             // "notes": {
-            //     "address": "Razorpay Corporate Office"
+            //     "address": ""
             // },
             // "theme": {
             //     "color": "#F37254"
