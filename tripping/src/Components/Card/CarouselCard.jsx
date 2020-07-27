@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './CarouselCard.css';
 import StarComponent from '../FilterComponents/StarRatingComponent';
+import { Link } from 'react-router-dom';
 
 export class CarouselCard extends Component {
     render() {
@@ -73,9 +74,9 @@ export class CarouselCard extends Component {
                 <div class="card-body">
                     <p className="text-muted float">{accomodation} . {guest} Guests . {bedroom} Bedroom</p>
                     <small className="text-muted float">{hotel_name}, {city} {state} {country}</small>
-                    <button className="button mt-2">DETAILS</button>
+                    <Link to='/detailscard'><button className="button mt-2">DETAILS</button></Link>
                     <span><small className="text-muted clear mt-1">from </small><p className="float fontWeight">&nbsp; $&nbsp; </p><p className="fontWeight float"> {price} </p></span>
-                    <small className="clear text-muted">virbo</small>
+                    <small className="clear text-++d">virbo</small>
                     <p className="orange clear">
                         {/* <StarComponent actual={rating} /> */}
                          Rating: {rating} 
