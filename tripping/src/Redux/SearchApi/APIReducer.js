@@ -6,13 +6,11 @@ import {
 } from './ActionTypes'
 
 const initState = {
-    country: "France",
-    state: "",
-    city: "",
+    loc:'Germany',
     free_cancellation: "",
     bedroom: "",
     quest: "",
-    rating:4.5,
+    rating:"",
     sort: "",
     price: "",
     aminities: "",

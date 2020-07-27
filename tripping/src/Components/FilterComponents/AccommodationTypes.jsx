@@ -1,9 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import Modal from 'react-modal';
-
+import { getDataFromAPI } from '../../Redux/SearchApi/Action.js'
+import querystring from 'query-string';
 
 Modal.setAppElement('#root');
-
 class Accommodation extends React.Component {
     constructor(props) {
         super(props)
@@ -79,9 +80,11 @@ class Accommodation extends React.Component {
                         }
                     </div>
                     </div>
-                    <button className="close" onClick={() => { this.setState({ open: false }) }}>
-                        Close
-                </button>
+                    <div className='float-right'>
+
+                        <button className='btn btn-secondary mx-2 mt-2' onClick={() => this.setState({ open: !open })}>close</button>
+                        <button className='btn btn-warning  mr-2 mt-2' onClick={() => this.handleAcc()} >Apply</button>
+                    </div>
         
                 </Modal>
             </div>

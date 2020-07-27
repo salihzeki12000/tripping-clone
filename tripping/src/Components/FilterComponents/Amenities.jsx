@@ -1,7 +1,10 @@
 import React from 'react'
 import './Amenities.css'
+import {connect} from 'react-redux'
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
+import { getDataFromAPI } from '../../Redux/SearchApi/Action.js'
+import querystring from 'query-string'
 
 let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo: "fa fa-cutlery", name: "Kitchen", id: "kitchen" },
 { logo: "fas fa-swimming-pool", name: "Pool", id: "pool" }, { logo: "fa fa-television", name: "TV", id: "tv" },
@@ -13,21 +16,88 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
 
 ]
 
-export default class Amenities extends React.Component {
+ class Amenities extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            price: 100,
+            amenities:[],
             open: false
         }
     }
 
-    handleonChange = (value) => {
-        console.log(value)
-        this.setState({
-            price: value
-        })
+    handleonChange = (e) => {
+        console.log(e.target.id)
+        if (e.target.checked) {
+            this.setState({
+                amenities: [...this.state.amenities, e.target.id]
+            })
+        }
+        else {
+            this.setState({
+                amenities: this.state.amenities.filter(item => item !== e.target.id)
+            })
+        }
+
     }
+
+   handleAmenities = () => {
+      
+    console.log(this.state.amenities.join(''))
+    this.setState({
+        open: !this.state.open
+    })
+    console.log('handle Apply')
+    let { history, getDataFromAPI, location } = this.props
+    console.log(location, 'path')
+    let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+    const values = querystring.parse(this.props.location.search)
+    console.log(values)
+    // let x = Object.keys(values)
+
+    if (values['aminities']) {
+        console.log('if')
+        aminities = this.state.amenities.join(',')
+    }
+    else {
+        console.log('else')
+        aminities = this.state.amenities.join(',')
+        var url = location.search + `&aminities=${this.state.amenities.join(',')}`
+        // history.push(`&rating=${this.state.rating}`)
+        history.push(url)
+    }
+
+    
+        for (var key in values) {
+            if (key == "location") {
+                loc = values[key]
+            }
+            else if (key == "free_cancellation") {
+                free_cancellation = Number(values[key])
+            }
+            else if (key == 'guest') {
+                guest = Number(values[key])
+            }
+            else if (key == 'bedroom') {
+                bedroom = Number(values[key])
+            } else if (key == 'price') {
+                price = Number(values[key])
+            }
+            else if (key == "free_cancellation") {
+                if (typeof (values[key]) != "number") {
+                    free_cancellation = ''
+                } else {
+                    free_cancellation = Number(values[key])
+                }
+            }
+        }
+
+    
+
+    getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+
+   }
+
+
     render() {
         const { open } = this.state
         return (
@@ -83,7 +153,7 @@ export default class Amenities extends React.Component {
                                 {amenites.map(item => {
                                     return (
                                         <div key={item.logo} className='col-4 my-2'>
-                                            <input className='checkAmenities' id={item.id} type='checkbox' />
+                                            <input className='checkAmenities ' id={item.id} type='checkbox' onChange={this.handleonChange} />
                                             <i className={`px-2 ${item.logo}`}></i>
                                             <span className='fontSizeAmenities'>{item.name}</span>
                                         </div>
@@ -92,8 +162,11 @@ export default class Amenities extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <div className='float-right'>
 
-                    <button className='btn btn-warning float-right mr-2 mt-2' onClick={() => this.setState({ open: !open })}>Close</button>
+                   <button className='btn btn-secondary mx-2 mt-2'  onClick={() => this.setState({ open: !open })}>close</button>
+                    <button className='btn btn-warning  mr-2 mt-2' onClick={()=> this.handleAmenities()} >Apply</button>
+                    </div>
                 </Modal>
 
             </div>
@@ -101,3 +174,24 @@ export default class Amenities extends React.Component {
         )
     }
 }
+
+
+const mapStateToProps = state => ({
+    country: state.data.country,
+    state: state.data.state,
+    city: state.data.city,
+    free_cancellation: state.data.free_cancellation,
+    rating: state.data.rating,
+    bedroom: state.data.bedroom,
+    guest: state.data.guest,
+    sort: state.data.sort,
+    price: state.data.price,
+    aminities: state.data.aminities
+})
+const mapDispatchToProps = dispatch => ({
+    getDataFromAPI: (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
+    // changeFreeCancellation: (payload) => dispatch(changeFreeCancellation(payload)),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Amenities)
