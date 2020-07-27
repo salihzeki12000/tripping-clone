@@ -7,53 +7,33 @@ export class CarouselCard extends Component {
 
     render() {
         let { accomodation_type, bedroom, city, country, guest, hotel_name, price, state, rating, image,hotel_id, area,locality } = this.props;
-        //   console.log(image[0])
-    //     image = image.split(',').join('')
-    //     image = image.split('[').join('')
-    //     image = image.split(']').join('')
+ 
         
-    //  let arr = []
-    //     for(let i=0;i<image.length;i++) {
-    //      let   temp = []
-    //         for(let j=0;j<image.length;j++) {
-    //            if(image.charCodeAt(i)!= 34) {
-    //                temp.push(image[i])
-    //            }else if(image.charCodeAt(i)!= 32) {
-    //                break
-                   
-    //            }
-    //         }
-    //         arr.push(temp)
-    //     }
-
-    //     console.log(arr)
-
-    //     console.log(image)
-    //     console.log(image[0], image[1], image[2], image[3], image[4])
+  
         return (
             <div id="carouselExampleCaptions" className="carousel slide mr-3" data-ride="carousel" style={{ width: '20rem' }}>
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                <ol className="carousel-indicators">
+                    <li data-target="#carouselExampleCaptions" data-slide-to="0" className="active"></li>
                     <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
                     <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
                 </ol>
-                <div class="carousel-inner">
-                <div class="carousel-inner">
+                <div className="carousel-inner">
+                <div className="carousel-inner">
+                    <div className="carousel-item active">
+                        <img src={image[0]} className="d-block w-100" alt="..." />
+                    </div>
+                    <div className="carousel-item">
+                        <img src={image[1]} className="d-block w-100" alt="..." />
+                    </div>
+                    <div className="carousel-item">
+                        <img src={image[2]} className="d-block w-100" alt="..." />
+                    </div>
+                    <div className="carousel-item">
+                        <img src={image[3]} className="d-block w-100" alt="..." />
+                    </div>
+
+
                     {/* <div class="carousel-item active">
-                        <img src="" class="d-block w-100" alt="..." />
-                    </div>
-                    <div class="carousel-item">
-                        <img src={image[1]} class="d-block w-100" alt="..." />
-                    </div>
-                    <div class="carousel-item">
-                        <img src={image[2]} class="d-block w-100" alt="..." />
-                    </div>
-                    <div class="carousel-item">
-                        <img src={image[3]} class="d-block w-100" alt="..." />
-                    </div> */}
-
-
-                    <div class="carousel-item active">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSB4c0q25JcnrvhS7GKyMrssoc9JootgZLoPA&usqp=CAU" class="d-block w-100" alt="..." />
                     </div>
                     <div class="carousel-item">
@@ -61,7 +41,7 @@ export class CarouselCard extends Component {
                     </div>
                     <div class="carousel-item">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrhYAE0NiGAGVe3lvbQQ8uL9qwRj5i3jcU6g&usqp=CAU" class="d-block w-100" alt="..." />
-                    </div>
+                    </div> */}
                 </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">

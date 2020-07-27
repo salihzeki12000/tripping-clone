@@ -6,6 +6,10 @@ import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
 import Modal from 'react-modal';
 import CounterComponent from './CounterComponent';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+import axios from 'axios';
+import {imageRequest, dataRequest, reviewRequest} from '../../Redux/EntityAPI/Action'
 
 Modal.setAppElement('#root');
 class DetailsCard extends React.Component {
@@ -17,20 +21,56 @@ class DetailsCard extends React.Component {
             endDate: null,
             click: false,
             open: false,
-            counter: false
+            counter: false,
+            images:[]
         }
     }
 
-    handleClick = ()=>{
-        let {click,counter} = this.state
+
+    componentDidMount() {
+
+        // axios.get("http://054c31d9426d.ngrok.io/entity/images/1")
+        // .then(res => res.data)
+        // .then(res => res.result)
+        // .then(res => {
+        //     this.setState({
+        //         images : res
+        //     })
+        // })
+    }
+
+    handleClick = () => {
+        let { click, counter } = this.state
         this.setState({
-            click:!click,
-            counter:!counter
+            click: !click,
+            counter: !counter
         })
     }
+
+    // changing the styling of the calendar
+
+    // modifiers={modifiers}
+    // modifiersStyles={modifiersStyles}  ---> in Daypicker component
+
+    // const modifiers = {
+    //     thursdays: { daysOfWeek: [4] },
+    //     birthday: new Date(2018, 9, 30),
+    //   };
+    //   const modifiersStyles = {
+    //     birthday: {
+    //       color: 'white',
+    //       backgroundColor: '#ffc107',
+    //     },
+    //     thursdays: {
+    //       color: '#ffc107',
+    //       backgroundColor: '#fffdee',
+    //     },
+    //   };
+
     render() {
-        let {user} = this.props;
-        let { startDate, endDate, click,open,counter} = this.state
+        let { user } = this.props;
+        let { startDate, endDate, click, open, counter, images } = this.state
+        console.log(images)
         return (
             <div className="container-fluid">
                 <br />
@@ -43,12 +83,15 @@ class DetailsCard extends React.Component {
                         </div>
 
                         {/* Modal */}
-                        <button className='col-3 offset-2  border ml-5 shadow-sm inputDiv' contenteditable="true">
-                            <i class="fa fa-search text-warning px-2"></i>
+                        <div className='col-4 offset-2 '>
+                            <button className=' px-5 border shadow-sm inputDiv' contenteditable="true">
+                                <i class="fa fa-search text-warning px-2"></i>
                         Add a location
                     </button>
+                        </div>
+
                         {/* Modal */}
-                        <div className='col-3 offset-2 ml-5'>
+                        <div className='col-3 offset-4 ml-5'>
                             {user.success && <>  <img src={user.image} width='50px' height='50px' style={{ borderRadius: '50%' }} /><p style={{ fontSize: '25px', color: 'orange' }}>{user.firstName + " " + user.lastName}</p></>}
                             {!user.success && <div className='d-flex flex-row'>
                                 <Link to='/register'><button className='btn text-white ml-5 mt-2 px-3 mx-3  font-weight-bold' style={{ backgroundColor: "#FB8C00" }}>Register</button></Link>
@@ -68,14 +111,14 @@ class DetailsCard extends React.Component {
                     </div>
                     <div className="row my-3">
                         <div className="col-6 p-2">
-                            <img className="img-fluid detCard" src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                            <img className="img-fluid detCard" src={images[0]} />
                         </div>
                         <div className="col-6">
                             <div className="row">
-                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSXA7cZfSiDCpTVCQOniurqXnoMW5WY44RBmQ&usqp=CAU" /></div>
-                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQhFXUSMNjdiI_PESAiX1ou5IhOw0DwGufm6g&usqp=CAU" /></div>
-                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQN26rpwgMGFDRR8pa5VnxwYmsp4zxOzOmUOQ&usqp=CAU" /></div>
-                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSv35EAXq1avsPX49Q75KW2kLlOrVvAwb3mmQ&usqp=CAU" /></div>
+                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src={images[1]} /></div>
+                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src={images[2]} /></div>
+                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src={images[3]} /></div>
+                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src={images[4]} /></div>
                             </div>
                         </div>
                     </div>
@@ -119,6 +162,11 @@ class DetailsCard extends React.Component {
                                     <p className='text-muted'>After that, cancel before 3:00 PM on Aug 3 and get a 50% refund, minus the service fee.</p>
                                 </div>
                             </div>
+                            <div className='mt-3'>
+                                <h4 className='font-weight-bold'>Select checkout date</h4>
+                                <small>Minimum stay: 2 nights</small>
+                                <DayPicker numberOfMonths={2} />;
+                            </div>
                         </div>
                         <div className="col-5">
                             <div className="row ml-5" style={{ border: '1px solid gray', width: '330px' }}>
@@ -156,6 +204,7 @@ class DetailsCard extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <hr className='hrFull' />
                 </div>
             </div>
         )
@@ -163,7 +212,17 @@ class DetailsCard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.signup.user
+    user: state.signup.user,
+    images: state.entity.images,
+    data:state.entity.data,
+    review:state.entity.review
 })
 
-export default connect(mapStateToProps)(DetailsCard)
+const mapDispatchToProps = dispatch => ({
+    imageRequest : (payload) => dispatch(imageRequest(payload)),
+    dataRequest : (payload) => dispatch(dataRequest(payload)),
+    reviewRequest: (payload) => dispatch(dataRequest(payload))
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsCard)
