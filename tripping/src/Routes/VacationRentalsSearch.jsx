@@ -74,7 +74,7 @@ class VacationRentalsSearch extends Component {
                         <FileNavBar history={history} location={location} />
                         <div className='row mt-5'>
                             {
-                                data && data ? data.map(elem => <CarouselCard key={elem.id}
+                                data && data ? data.map(elem =>  <CarouselCard key={elem.id}
                                     bedrooms={elem.bedroom}
                                     guest={elem.guest}
                                     hotel_name={elem.hotel_name}
