@@ -64,7 +64,7 @@ export class CarouselCard extends Component {
                         <small className="clear text-++d">virbo</small>
                         <p className="orange clear">
                             {/* <StarComponent actual={rating} /> */}
-                         Rating: {rating}
+                         Rating: {<StarComponent actual={Math.ceil(rating)} />}
                         </p>
                     </div>
                 </div>
