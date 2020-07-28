@@ -9,7 +9,8 @@ import CounterComponent from './CounterComponent';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import axios from 'axios';
-import {imageRequest, dataRequest, reviewRequest} from '../../Redux/EntityAPI/Action'
+import { imageRequest, dataRequest, reviewRequest } from '../../Redux/EntityAPI/Action';
+import SearchBar from '../SearchBar/SearchBar';
 
 Modal.setAppElement('#root');
 class DetailsCard extends React.Component {
@@ -22,7 +23,7 @@ class DetailsCard extends React.Component {
             click: false,
             open: false,
             counter: false,
-            images:[]
+            images: []
         }
     }
 
@@ -68,9 +69,8 @@ class DetailsCard extends React.Component {
     //   };
 
     render() {
-        let { user } = this.props;
+        let { user, guestCounter } = this.props;
         let { startDate, endDate, click, open, counter, images } = this.state
-        console.log(images)
         return (
             <div className="container-fluid">
                 <br />
@@ -84,10 +84,34 @@ class DetailsCard extends React.Component {
 
                         {/* Modal */}
                         <div className='col-4 offset-2 '>
-                            <button className=' px-5 border shadow-sm inputDiv' contenteditable="true">
+                            <button className=' px-5 border shadow-sm inputDiv' onClick={() => this.setState({ open: !open })}>
                                 <i class="fa fa-search text-warning px-2"></i>
                         Add a location
                     </button>
+                            <Modal
+                                isOpen={open}
+                                style={{
+                                    content: {
+                                        position: 'absolute',
+                                        height: '28rem',
+                                        border: '1px solid #ccc',
+                                        background: '#fff',
+                                        overflow: 'auto',
+                                        WebkitOverflowScrolling: 'touch',
+                                        borderRadius: '4px',
+                                        outline: 'none',
+                                        padding: '20px'
+                                    }
+                                }}
+                            >
+                                <button onClick={() => this.setState({ open: false })} className="float-right"><i class="fas fa-times" style={{ color: 'orange' }}></i></button>
+                                <div className="text-center" style={{marginLeft:'100px'}}>
+                                    <p className="float-left ml-5 mr-2 font-weight-bold" style={{marginLeft:'100px'}}>Places to stay</p>
+                                    <p className="float-left mr-2 font-weight-bold">Monthly stays</p>
+                                    <p className="float-left font-weight-bold">Experiences</p>
+                                </div>
+                                <SearchBar />
+                            </Modal>
                         </div>
 
                         {/* Modal */}
@@ -193,13 +217,19 @@ class DetailsCard extends React.Component {
                                         <div className="row">
                                             <div className="col-6">
                                                 <p className="font-weight-bold">Guests</p>
-                                                <p>{1} guests</p>
+                                                <p>{guestCounter} guests</p>
                                             </div>
                                             <div className="col-6">
                                                 {click ? <i class="fa fa-angle-up text-warning" aria-hidden="true"></i> : <i class="fa fa-angle-down text-warning" aria-hidden="true"></i>}
                                             </div>
                                         </div>
                                     </button>
+                                    <div>
+                                        {counter && <CounterComponent clickHandler={this.handleClick} />}
+                                    </div>
+                                    <div>
+                                        <button className="btn btn-block reserve">Reserve</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -214,13 +244,14 @@ class DetailsCard extends React.Component {
 const mapStateToProps = state => ({
     user: state.signup.user,
     images: state.entity.images,
-    data:state.entity.data,
-    review:state.entity.review
+    data: state.entity.data,
+    review: state.entity.review,
+    guestCounter: state.search.guestCounter
 })
 
 const mapDispatchToProps = dispatch => ({
-    imageRequest : (payload) => dispatch(imageRequest(payload)),
-    dataRequest : (payload) => dispatch(dataRequest(payload)),
+    imageRequest: (payload) => dispatch(imageRequest(payload)),
+    dataRequest: (payload) => dispatch(dataRequest(payload)),
     reviewRequest: (payload) => dispatch(dataRequest(payload))
 
 })

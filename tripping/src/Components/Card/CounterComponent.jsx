@@ -1,5 +1,6 @@
-
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { increment, decrement } from '../../Redux/SearchBar/action';
 
 export class CounterComponent extends Component {
     constructor(props) {
@@ -8,67 +9,28 @@ export class CounterComponent extends Component {
         this.state = {
             guests: 1,
             children: 0,
-            infants: 0,
-            show:false
+            infants: 0
         }
         this.handleIncrement = this.handleIncrement.bind(this);
         this.handleDecrement = this.handleDecrement.bind(this);
     }
     handleIncrement(payload) {
-        let { guests, children, infants } = this.state;
-        if (payload == "guests") {
-            if (guests < 5) {
-                this.setState({
-                    guests: guests + 1
-                })
-            }
-        }
-        else if (payload == "child") {
-            if (children < 5) {
-                this.setState({
-                    children: children + 1
-                })
-            }
-        }
-        else if (payload == "infants") {
-            if (infants < 5) {
-                this.setState({
-                    infants: infants + 1
-                })
-            }
-        }
+        const { increment } = this.props;
+        increment(payload)
+        this.forceUpdate()
     }
 
     handleDecrement(payload) {
-        let { guests, children, infants } = this.state;
-        if (payload == "guests") {
-            if (guests >1) {
-                this.setState({
-                    guests: guests - 1
-                })
-            }
-        }
-        else if (payload == "child") {
-            if (children > 0) {
-                this.setState({
-                    children: children - 1
-                })
-            }
-        }
-        else if (payload == "infants") {
-            if (infants >0) {
-                this.setState({
-                    infants: infants - 1
-                })
-            }
-        }
+        let { decrement } = this.props;
+        decrement(payload)
+        this.forceUpdate()
     }
 
 
     render() {
-        const { guests, children, infants } = this.state;
+        const { guestCounter,children,infants,clickHandler } = this.props;
         return (
-            <div className="bg-white borderDivGuests border border-secondary p-3" style={{ width: '328px' }}>
+            <div className="bg-white borderDivGuests p-3" style={{ width: '328px' }}>
                 <div className=' '>
                     <div className="d-flex flex-row ml-4">
                         <div>
@@ -78,9 +40,9 @@ export class CounterComponent extends Component {
                             <p className='pl-2 pr-5'>Guests</p>
                         </div>
 
-                        <span className='borderDec mx-2 text-center' onClick={() => this.handleDecrement('guests')}><i className='fas fa-minus'></i></span>
-                        <span className=' text-center'>{guests}</span>
-                        <span className='borderInc mx-2 text-center ' onClick={() => this.handleIncrement('guests')}><i className='fas fa-plus'></i></span>
+                        <span className='borderDec mx-2 text-center' onClick={() => this.handleDecrement('guest')}><i className='fas fa-minus'></i></span>
+                        <span className=' text-center'>{guestCounter}</span>
+                        <span className='borderInc mx-2 text-center ' onClick={() => this.handleIncrement('guest')}><i className='fas fa-plus'></i></span>
                     </div>
                     <div className="d-flex flex-row ml-3 mt-2">
                         <div>
@@ -106,11 +68,23 @@ export class CounterComponent extends Component {
                         <span className='borderInc mx-2 text-center'><i className='fas fa-plus' onClick={() => this.handleIncrement('infants')}></i></span>
                     </div>
                     <h6 className="ml-3 text-muted">5 guests maximum. Infants don’t count toward the number of guests</h6>
-                    <button className="closeButton font-weight-bold">Close</button>
+                    <button className="closeButton font-weight-bold" onClick={clickHandler}>Close</button>
                 </div>
             </div>
         )
     }
 }
 
-export default CounterComponent;
+const mapStateToProps = state => ({
+    guestCounter: state.search.guestCounter,
+    children: state.search.childrenCounter,
+    infants:state.search.infantsCounter
+})
+
+const mapDispatchToProps = dispatch => {
+    return {
+        increment: (payload) => dispatch(increment(payload)),
+        decrement: (payload) => dispatch(decrement(payload))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CounterComponent);
