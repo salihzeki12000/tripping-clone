@@ -32,7 +32,7 @@ class Accommodation extends React.Component {
         const {open} = this.state;
         return (
             <div>
-              <span onClick={() => this.setState({ open: !open })} className="px-3">Accommodation types</span>
+              <span onClick={() => this.setState({ open: !open })} className="px-3 filter">Accommodation types</span>
                 <Modal
                     isOpen={open}
                     style={{

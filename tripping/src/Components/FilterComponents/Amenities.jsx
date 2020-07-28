@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Modal from 'react-modal';
 import { getDataFromAPI } from '../../Redux/SearchApi/Action.js'
 import querystring from 'query-string'
+import './FileNavBar.css'
 
 let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo: "fa fa-cutlery", name: "Kitchen", id: "kitchen" },
 { logo: "fas fa-swimming-pool", name: "Pool", id: "pool" }, { logo: "fa fa-television", name: "TV", id: "tv" },
@@ -100,7 +101,7 @@ class Amenities extends React.Component {
         const { open } = this.state
         return (
             <div>
-                <span onClick={() => this.setState({ open: !open })} className="px-3">Amenities</span>
+                <span onClick={() => this.setState({ open: !open })} className="px-3 filter" >Amenities</span>
                 <Modal
                     isOpen={open}
                     style={{
