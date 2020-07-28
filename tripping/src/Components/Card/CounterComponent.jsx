@@ -28,7 +28,7 @@ export class CounterComponent extends Component {
 
 
     render() {
-        const { guestCounter,children,infants,clickHandler } = this.props;
+        const { guestCounter,children,bedroomCounter,clickHandler } = this.props;
         return (
             <div className="bg-white borderDivGuests p-3" style={{ width: '328px' }}>
                 <div className=' '>
@@ -40,32 +40,20 @@ export class CounterComponent extends Component {
                             <p className='pl-2 pr-5'>Guests</p>
                         </div>
 
-                        <span className='borderDec mx-2 text-center' onClick={() => this.handleDecrement('guest')}><i className='fas fa-minus'></i></span>
+                        <span className='borderDec mx-2 text-center' onClick={() => this.handleDecrement('guest')}><i className='fas fa-minus math black'></i></span>
                         <span className=' text-center'>{guestCounter}</span>
-                        <span className='borderInc mx-2 text-center ' onClick={() => this.handleIncrement('guest')}><i className='fas fa-plus'></i></span>
+                        <span className='borderInc mx-2 text-center ' onClick={() => this.handleIncrement('guest')}><i className='fas fa-plus math orange'></i></span>
                     </div>
                     <div className="d-flex flex-row ml-3 mt-2">
                         <div>
                             <i class="fa fa-child"></i>
                         </div>
                         <div>
-                            <p className='pl-2 pr-4'>Children</p>
+                            <p className='pl-2 pr-4'>Bedrooms</p>
                         </div>
-                        <span className='borderDec ml-4 mr-2 text-center' onClick={() => this.handleDecrement('child')}><i className='fas fa-minus'></i></span>
-                        <span className=' text-center'>{children}</span>
-                        <span className='borderInc mx-2 text-center' onClick={() => this.handleIncrement('child')}><i className='fas fa-plus'></i></span>
-                    </div>
-                    <div className="d-flex flex-row ml-3 mt-2">
-                        <div>
-                            <i class='fas fa-baby-carriage'></i>
-                        </div>
-                        <div>
-                            <p className='pl-2 pr-5'>Infants</p>
-                        </div>
-
-                        <span className='borderDec mx-2 text-center' onClick={() => this.handleDecrement('infants')}><i className='fas fa-minus'></i></span>
-                        <span className=' text-center'>{infants}</span>
-                        <span className='borderInc mx-2 text-center'><i className='fas fa-plus' onClick={() => this.handleIncrement('infants')}></i></span>
+                        <span className='borderDec ml-4 mr-2 text-center' onClick={() => this.handleDecrement('bedrooms')}><i className='fas fa-minus math black'></i></span>
+                        <span className=' text-center'>{bedroomCounter}</span>
+                        <span className='borderInc mx-2 text-center' onClick={() => this.handleIncrement('bedrooms')}><i className='fas fa-plus math orange'></i></span>
                     </div>
                     <h6 className="ml-3 text-muted">5 guests maximum. Infants don’t count toward the number of guests</h6>
                     <button className="closeButton font-weight-bold" onClick={clickHandler}>Close</button>
@@ -77,8 +65,7 @@ export class CounterComponent extends Component {
 
 const mapStateToProps = state => ({
     guestCounter: state.search.guestCounter,
-    children: state.search.childrenCounter,
-    infants:state.search.infantsCounter
+    bedroomCounter:state.search.bedroomCounter
 })
 
 const mapDispatchToProps = dispatch => {

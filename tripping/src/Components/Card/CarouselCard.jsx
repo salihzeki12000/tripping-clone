@@ -23,16 +23,16 @@ export class CarouselCard extends Component {
                     <div className="carousel-inner">
                         <div className="carousel-inner">
                             <div className="carousel-item active">
-                                <img src={image[0]} className="d-block w-100 h-100 img-fluid" alt="..." />
+                                <img src={image[0]} className="d-block w-100 h-100 img-fluid imgDim" alt="..." />
                             </div>
                             <div className="carousel-item">
-                                <img src={image[1]} className="d-block w-100 h-100 img-fluid" alt="..." />
+                                <img src={image[1]} className="d-block w-100 h-100 img-fluid imgDim" alt="..." />
                             </div>
                             <div className="carousel-item">
-                                <img src={image[2]} className="d-block w-100 h-100 img-fluid" alt="..." />
+                                <img src={image[2]} className="d-block w-100 h-100 img-fluid imgDim" alt="..." />
                             </div>
                             <div className="carousel-item">
-                                <img src={image[3]} className="d-block w-100 h-100 img-fluid" alt="..." />
+                                <img src={image[3]} className="d-block w-100 h-100 img-fluid imgDim" alt="..." />
                             </div>
 
 
