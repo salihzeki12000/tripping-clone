@@ -1,7 +1,11 @@
 from . import db
+from .HotelsModel import Hotels
+from .UsersModel import Users
 
-class RoomDetailsBedroomPrice(db.Model):
-    __table__name = 'room_details_bedroom_price'
+class Review(db.Model):
+    __table__name = 'review'
     id = db.Column(db.Integer, primary_key = True)
-    room_details_id = db.Column(db.Integer, db.ForeignKey(RoomDetails.id))
-    bedroom_price_id = db.Column(db.Integer, db.ForeignKey(BedroomPrice.id))
+    user_id = db.Column(db.Integer, db.ForeignKey(Users.id))
+    hotel_id = db.Column(db.Integer, db.ForeignKey(Hotels.id))
+    rating = db.Column(db.Integer)
+    review = db.Column(db.String(500))
