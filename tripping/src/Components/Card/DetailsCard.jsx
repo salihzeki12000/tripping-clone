@@ -19,24 +19,27 @@ class TempCard extends React.Component {
         super(props)
         this.state = {
             data: "",
-            flag: false
+            flag: false,
+            id:''
         }
     }
-    async componentDidMount() {
+     componentDidMount() {
         console.log('enter')
         const values = querystring.parse(this.props.location.search)
 
         console.log(values)
+        
+        
         this.setState({
             data: "uday"
         })
 
         const { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest } = this.props
 
-        await getImageRequest(Number(values.id))
-        await getReviewRequest(Number(values.id))
-        await getDataRequest({ id: Number(values.id), room_type: values.room_type })
-        await getRecommendRequest({ id: Number(values.id), room_type: values.room_type })
+         getImageRequest(Number(values.id))
+         getReviewRequest(Number(values.id))
+         getDataRequest({ id: Number(values.id), room_type: values.room_type })
+         getRecommendRequest({ id: Number(values.id), room_type: values.room_type })
     }
 
 
@@ -46,21 +49,75 @@ class TempCard extends React.Component {
             click: !click,
             counter: !counter
         })
+
     }
+
+
+    handlePayment = async () => {
+   let {data} = this.props
+        let order_res = await axios.post("https://b234016388a7.ngrok.io/booking/order_id",{
+            "amount": 9000,
+            "currency" :"INR",
+            "receipt": 32 + "#" + "uday",
+            "payment_capture":"1"
+
+        })
+
+
+    const options = {
+        "key":  "rzp_test_sG3R7ERqPCjPFP" ,      // Enter the Key ID generated from the Dashboard
+        "amount": "9000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Book Trip",
+        "description": "Transaction",
+        "image": "/logo.svg",
+        "order_id": order_res.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        handler: async function (response){
+            // alert(response.razorpay_payment_id);
+            // alert(response.razorpay_order_id);
+            // alert(response.razorpay_signature)
+            console.log(response)
+            let final_res = await axios.post("https://b234016388a7.ngrok.io/booking/varification", {
+                ...response
+            })
+
+            if(final_res.data.result == 'success') {
+                alert(final_res.data.message)
+                this.props.history.push('/')
+            }else {
+                alert(final_res.data.message)
+            }
+
+        },
+        "prefill": {
+            "name": "Uday",
+            "email": "",
+            "contact": ""
+        },
+        // "notes": {
+        //     "address": ""
+        // },
+        "theme": {
+            "color": "#F37254"
+        }
+    };
+
+
+
+    const paymentObject = new window.Razorpay(options)
+    paymentObject.open()
+
+  }
 
     render() {
 
-        setTimeout(() => {
-            this.setState({
-                flag: true
-            })
-        }, 4000)
+      
 
         let { user, images, review, data, recommendations, guestCounter } = this.props;
         let { startDate, endDate, click, open, counter } = this.state
         console.log(images, data, review, recommendations)
         // console.log(data[0].hotel_name)
-
+console.log(user.success, user.image, user)
         return (
             <div className='container-fluid'>
                 {/* {this.state.date} */}
@@ -106,7 +163,7 @@ class TempCard extends React.Component {
                         </div>
 
                         {/* Modal */}
-                        <div className='col-3 offset-4 ml-5'>
+                        <div className='col-3 offset-3 ml-5'>
                             {user.success && <>  <img src={user.image} width='50px' height='50px' style={{ borderRadius: '50%' }} /><p style={{ fontSize: '25px', color: 'orange' }}>{user.firstName + " " + user.lastName}</p></>}
                             {!user.success && <div className='d-flex flex-row'>
                                 <Link to='/register'><button className='btn text-white ml-5 mt-2 px-3 mx-3  font-weight-bold' style={{ backgroundColor: "#FB8C00" }}>Register</button></Link>
@@ -123,7 +180,7 @@ class TempCard extends React.Component {
                         <div className='d-flex flex-row'>
                             <p><i class="fa fa-star text-warning" aria-hidden="true"></i></p>
                             <p className='mx-3 text-secondary'>{data[0].rating}({review.length})</p>
-                            <p className="mx-1">. </p>
+                    <p className="mx-1">. {`${data[0].city}, ${data[0].state}, ${data[0].country}`}</p>
                         </div></>}
                     <div className="row my-3">
                         <div className="col-6 p-2">
@@ -180,69 +237,69 @@ class TempCard extends React.Component {
                                 </div>
                             </div>
                             <hr />
-                            <br/>
+                            <br />
                             <div className='my-3'>
-                            <h4>{data.length>0 && data[0].description}</h4>
+                                <h4>{data.length > 0 && data[0].description}</h4>
 
                             </div>
                             <hr />
-                            <br/>
+                            <br />
                             <div className='my-3'>
-                            <h4 className='font-weight-bold ml-3'>{data.length>0 && "Amenities"}</h4>
-                                   <div className='row'>
-                                       <div className='col-4 offset-1 fontSizeAmenities'>
-                                            <div className='my-2'>
+                                <h4 className='font-weight-bold ml-3'>{data.length > 0 && "Amenities"}</h4>
+                                <div className='row'>
+                                    <div className='col-4 offset-1 fontSizeAmenities'>
+                                        <div className='my-2'>
                                             <i className='px-3 far fa-snowflake'></i>
-                                            {data.length >0 && data[0].aminities.air_conditioning == 1 ?  <span >Air Conditioning</span> : <span style={{textDecoration:"line-through"}}>Air Conditioning</span>}
-                                            </div>
-                                            <div className='my-2'>
+                                            {data.length > 0 && data[0].aminities.air_conditioning == 1 ? <span >Air Conditioning</span> : <span style={{ textDecoration: "line-through" }}>Air Conditioning</span>}
+                                        </div>
+                                        <div className='my-2'>
                                             <i className='px-3 fa fa-wifi'></i>
-                                            {data.length >0 && data[0].aminities.air_internet == 1 ?  <span >Internet</span> : <span style={{textDecoration:"line-through"}}>Internet</span>}
-                                            </div>
-                                            <div className='my-2'>
+                                            {data.length > 0 && data[0].aminities.air_internet == 1 ? <span >Internet</span> : <span style={{ textDecoration: "line-through" }}>Internet</span>}
+                                        </div>
+                                        <div className='my-2'>
                                             <i className='px-3 fa fa-cutlery'></i>
-                                            {data.length >0 && data[0].aminities.kitchen == 1 ?  <span >Kitchen</span> : <span style={{textDecoration:"line-through"}}>Kitchen</span>}
-                                            </div>
-                                            <div className='my-2'>
+                                            {data.length > 0 && data[0].aminities.kitchen == 1 ? <span >Kitchen</span> : <span style={{ textDecoration: "line-through" }}>Kitchen</span>}
+                                        </div>
+                                        <div className='my-2'>
                                             <i className='px-3 fas fa-smoking-ban'></i>
-                                            {data.length >0 && data[0].aminities.no_smoking == 1 ?  <span >No Smoking</span> : <span style={{textDecoration:"line-through"}}>No Smoking</span>}
-                                            </div>
-                                            <div className='my-2'>
+                                            {data.length > 0 && data[0].aminities.no_smoking == 1 ? <span >No Smoking</span> : <span style={{ textDecoration: "line-through" }}>No Smoking</span>}
+                                        </div>
+                                        <div className='my-2'>
                                             <i className='px-3 far fa-snowflake'></i>
-                                            {data.length >0 && data[0].aminities.parking == 1 ?  <span >Parking</span> : <span style={{textDecoration:"line-through"}}>Parking</span>}
-                                            </div>
-                                           
-                                       </div>
-                                       <div className='col-4 offset-2 fontSizeAmenities'>
-                                       <div className='my-2'>
+                                            {data.length > 0 && data[0].aminities.parking == 1 ? <span >Parking</span> : <span style={{ textDecoration: "line-through" }}>Parking</span>}
+                                        </div>
+
+                                    </div>
+                                    <div className='col-4 offset-2 fontSizeAmenities'>
+                                        <div className='my-2'>
                                             <i className='px-3 fas fa-dog'></i>
-                                            {data.length >0 && data[0].aminities.air_pet_allowed == 1 ?  <span >Pet Allowed</span> : <span style={{textDecoration:"line-through"}}>Pet Allowed</span>}
-                                            </div> <div className='my-2'>
+                                            {data.length > 0 && data[0].aminities.air_pet_allowed == 1 ? <span >Pet Allowed</span> : <span style={{ textDecoration: "line-through" }}>Pet Allowed</span>}
+                                        </div> <div className='my-2'>
                                             <i className='px-3 fas fa-swimming-pool'></i>
-                                            {data.length >0 && data[0].aminities.pool == 1 ?  <span >Pool</span> : <span style={{textDecoration:"line-through"}}>Pool</span>}
-                                            </div> <div className='my-2'>
+                                            {data.length > 0 && data[0].aminities.pool == 1 ? <span >Pool</span> : <span style={{ textDecoration: "line-through" }}>Pool</span>}
+                                        </div> <div className='my-2'>
                                             <i className='px-3 fas fa-smoking'></i>
-                                            {data.length >0 && data[0].aminities.smoking == 1 ?  <span >Smoking</span> : <span style={{textDecoration:"line-through"}}>Smoking</span>}
-                                            </div> <div className='my-2'>
+                                            {data.length > 0 && data[0].aminities.smoking == 1 ? <span >Smoking</span> : <span style={{ textDecoration: "line-through" }}>Smoking</span>}
+                                        </div> <div className='my-2'>
                                             <i className='px-3 fa fa-television'></i>
-                                            {data.length >0 && data[0].aminities.tv == 1 ?  <span >TV</span> : <span style={{textDecoration:"line-through"}}>TV</span>}
-                                            </div>
-                                       </div>
-                                   </div>
+                                            {data.length > 0 && data[0].aminities.tv == 1 ? <span >TV</span> : <span style={{ textDecoration: "line-through" }}>TV</span>}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <hr />
-                            <br/>
+                            <br />
                             <div className='mt-3'>
                                 <h4 className='font-weight-bold'>Select checkout date</h4>
                                 <small>Minimum stay: 2 nights</small>
                                 <DayPicker numberOfMonths={2} />;
                             </div>
-                          
+
                         </div>
                         <div className="col-5">
                             <div className="row ml-5" style={{ border: '1px solid gray', width: '330px' }}>
                                 <div className="col-6">
-                                    <i class="fas fa-dollar-sign text-warning mr-1"></i>{data.length > 0 && data[0].price} /night
+                                    <i class="fas fa-rupee-sign text-warning mr-1"></i>{data.length > 0 && data[0].price} /night
                             </div>
                                 <div className="col-6">
                                     <i class="fa fa-star text-warning ml-4 mr-1" aria-hidden="true"></i>4.66(29)
@@ -272,10 +329,10 @@ class TempCard extends React.Component {
                                         </div>
                                     </button>
                                     <div>
-                                        {counter && <CounterComponent clickHandler={this.handleClick} />}
+                                        {counter && <CounterComponent  clickHandler={this.handleClick} />}
                                     </div>
                                     <div>
-                                        <button className="btn btn-block reserve">Reserve</button>
+                                        <button className="btn btn-block reserve" onClick={()=>this.handlePayment()}>Reserve</button>
                                     </div>
                                 </div>
                             </div>
@@ -283,19 +340,29 @@ class TempCard extends React.Component {
                     </div>
                     <hr className='hrFull' />
                     <div className='my-2'>
-                        <h4 className='font-weight-bold'>{data.length >0 && data[0].rating}({review.length} reviews)</h4>
-                            {review?.map((elem,i)=> <p style={{fontSize:"20px"}}>{i+1}. {elem.review} - {elem.rating}</p>)}
+                        <h4 className='font-weight-bold'>{data.length > 0 && data[0].rating}({review.length} reviews)</h4>
+                        {review?.map((elem, i) => <p style={{ fontSize: "20px" }}>{i + 1}. {elem.review} - {elem.rating}</p>)}
                     </div>
                     <hr className='hrFull' />
                     <div className='my-2'>
-                         <h4 className='font-weight-bold'>Recommendations</h4>
-                           {recommendations?.map((item,i)=> {
-                               return (
-                                   <div>
-                                       
+                        <h4 className='font-weight-bold'>Recommendations</h4>
+                        <div className='row'>
+                        {recommendations?.filter((elem,i) => i < 6 && elem ).map((item, i) => {
+                            return (
+                                <div key={item.hotel_id} className="col-4">
+                                    <div className="card" >
+                                        <img src={item.image[0]} className="card-img-top" alt="..." />
+                                        <div className="card-body">
+                            <h5 className="card-title">{item.hotel_name}</h5>
+                            <p className="card-text">Rs.{item.price} . Room:{item.room_type} . Bedroom:{item.bedroom} </p>
+                            
+                                            {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                                        </div>
                                     </div>
-                               )
-                           })}
+                                </div>
+                            )
+                        })}
+                         </div>
                     </div>
                 </div>
             </div>

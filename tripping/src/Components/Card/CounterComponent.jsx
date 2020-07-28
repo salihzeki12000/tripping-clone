@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { increment, decrement } from '../../Redux/SearchBar/action';
+import Payment from '../Payment';
 
 export class CounterComponent extends Component {
     constructor(props) {
@@ -58,6 +59,10 @@ export class CounterComponent extends Component {
                     <h6 className="ml-3 text-muted">5 guests maximum. Infants don’t count toward the number of guests</h6>
                     <button className="closeButton font-weight-bold" onClick={clickHandler}>Close</button>
                 </div>
+
+                {/* <div>
+                    <Payment handlePayment = {this.props.handlePayment}/>
+                </div> */}
             </div>
         )
     }
