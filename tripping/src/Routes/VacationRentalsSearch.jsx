@@ -66,12 +66,15 @@ class VacationRentalsSearch extends Component {
            console.log(data)
         return (
             <>
+
+        
                 <SearchLogo />
                 <div className='container-fluid border-top '>
                     {/* <SearchBar /> */}
 
                     <div className='col-6'>
                         <FileNavBar history={history} location={location} />
+                        <h2 className='text-center m-4'>{data.length ==0 && "Please wait Data is Loading..."}</h2>
                         <div className='row mt-5'>
                             {
                                 data && data ? data.map(elem =>  <CarouselCard key={elem.id}
