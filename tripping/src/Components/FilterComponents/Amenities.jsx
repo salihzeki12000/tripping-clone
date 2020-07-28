@@ -14,7 +14,6 @@ let amenites = [{ logo: "fa fa-wifi", name: "Internet", id: "internet" }, { logo
 { logo: "fas fa-hot-tub", name: "Jacuzzi", id: "jacuzzi" }, { logo: "fas fa-fish", name: "Fishing", id: "fishing" }
 
 ]
-Modal.setAppElement('#root');
 class Amenities extends React.Component {
     constructor(props) {
         super(props)
@@ -51,6 +50,8 @@ class Amenities extends React.Component {
         let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
         const values = querystring.parse(this.props.location.search)
         console.log(values)
+        // let x = Object.keys(values)
+
         if (values['aminities']) {
             console.log('if')
             aminities = this.state.amenities.join(',')
@@ -59,8 +60,11 @@ class Amenities extends React.Component {
             console.log('else')
             aminities = this.state.amenities.join(',')
             var url = location.search + `&aminities=${this.state.amenities.join(',')}`
+            // history.push(`&rating=${this.state.rating}`)
             history.push(url)
         }
+
+
         for (var key in values) {
             if (key == "location") {
                 loc = values[key]
@@ -84,8 +88,14 @@ class Amenities extends React.Component {
                 }
             }
         }
+
+
+
         getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+
     }
+
+
     render() {
         const { open } = this.state
         return (

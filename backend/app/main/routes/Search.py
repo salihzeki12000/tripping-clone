@@ -10,7 +10,7 @@ def search_home():
 
 
 @search.route('/s')
-def signup_app():
+def Search_data():
     
     res = search_uisng_filter(request.args.get)
 

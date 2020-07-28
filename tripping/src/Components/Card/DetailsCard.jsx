@@ -252,7 +252,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     imageRequest: (payload) => dispatch(imageRequest(payload)),
     dataRequest: (payload) => dispatch(dataRequest(payload)),
-    reviewRequest: (payload) => dispatch(dataRequest(payload))
+    reviewRequest: (payload) => dispatch(dataRequest(payload)),
+    imageRequest : (payload) => dispatch(imageRequest(payload)),
+    dataRequest : (payload) => dispatch(dataRequest(payload)),
+    reviewRequest: (payload) => dispatch(reviewRequest(payload))
 
 })
 

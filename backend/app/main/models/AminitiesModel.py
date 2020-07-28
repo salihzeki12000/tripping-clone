@@ -1,10 +1,10 @@
 from . import db
-from .RoomDetailsModel import RoomDetails
+from .HotelsModel import Hotels
 
 class Aminities(db.Model):
     __table__name = 'aminities'
     id = db.Column(db.Integer, primary_key = True)
-    room_id = db.Column(db.Integer, db.ForeignKey(RoomDetails.id), unique=True)
+    hotel_id = db.Column(db.Integer, db.ForeignKey(Hotels.id), unique=True)
     pool = db.Column(db.Boolean)
     internet = db.Column(db.Boolean)
     tv = db.Column(db.Boolean)

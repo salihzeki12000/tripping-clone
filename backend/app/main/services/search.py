@@ -1,9 +1,7 @@
 from ..models import db
 from ..models.AminitiesModel import Aminities
-from ..models.BedroomPriceModel import BedroomPrice
 from ..models.HotelsModel import Hotels
 from ..models.LocationModel import Location
-from ..models.RoomDetailsBedroomPriceRelation import RoomDetailsBedroomPrice
 from ..models.RoomDetailsModel import RoomDetails
 import json
 import datetime
@@ -23,9 +21,48 @@ def search_uisng_filter(data):
 
         data = []
         
-        query = db.session.execute('''SELECT * FROM hotels AS hh JOIN location AS ll ON hh.id=ll.hotel_id JOIN room_details AS rr ON hh.room_details=rr.id JOIN room_details_bedroom_price AS dd ON rr.id=dd.room_details_id JOIN bedroom_price AS bb ON dd.bedroom_price_id=bb.id JOIN aminities AS aa On rr.id=aa.room_id WHERE country="%s" OR state="%s" OR city="%s";'''%(location,location,location))
+        query = '''SELECT * FROM hotels AS hh JOIN location AS ll ON hh.id=ll.hotel_id 
+                JOIN room_details AS rr ON hh.id=rr.hotel_id 
+                JOIN aminities AS aa ON hh.id=aa.hotel_id
+                WHERE (ll.country="%s" OR ll.state="%s" OR ll.city="%s") '''%(location,location,location)
+    
+        # return jsonify({'result': [dict(row) for row in res]})
+
+        if free_cancellation:
+            free_cancellation = int(free_cancellation)
+
+            query = query + 'AND hh.free_cancellation=%d'%(free_cancellation)
+        
+        
+        if bedroom or guest:
+            bedroom = int(bedroom)
+            guest = int(guest)
+            query = query + ' AND (rr.bedroom BETWEEN %d AND %d) OR (rr.guest BETWEEN %d AND %d) '%(bedroom-1,bedroom+1,guest-1,guest+1)
+        else:
+            query = query + ' AND (rr.bedroom) <= %d AND (rr.guest) <=%d'%(2,2)
+
+        if aminities:
+            aminities = aminities.split(',')
+
+            query = query + 'AND aa.%s=1'%(aminities[0])
             
-        for i in query:
+            for i in range(1,len(aminities)-1):
+                query = query + ' AND aa.%s=1'%(aminities[i])
+            
+
+        if price:
+            price = price.split(',')
+            low,high = int(price[0]),int(price[1])
+        
+            data = [d for d in data if d['price'] >= low and d['price'] <= high]
+        
+        
+        res = db.session.execute(query)
+        res1 = db.session.execute('''SELECT DISTINCT(hh.id),AVG(review.rating) AS rating 
+                                FROM hotels AS hh JOIN review ON hh.id=review.hotel_id GROUP BY(hh.id)''')
+
+
+        for i,j in zip(res,res1):
             obj={}
             obj['country'] = i['country']
             obj['state'] = i['state']
@@ -39,7 +76,8 @@ def search_uisng_filter(data):
             obj['bedroom'] = i['bedroom']
             obj['guest'] = i['guest']
             obj['price'] = i['price']
-            obj['rating'] = i['rating']
+            rate = j['rating']
+            obj['rating'] = float(round(rate,2))
             obj['aminities'] = {}
 
             if i['air_conditioning']:
@@ -61,46 +99,15 @@ def search_uisng_filter(data):
             if i['tv']:
                 obj['aminities']['tv'] = i['tv']
                 
-            obj['sort'] = i['room_type']
-            obj['image'] = i['image']
+            # obj['sort'] = i['room_type']
+            image = json.loads(i['image'])
+            obj['image'] = image
             data.append(obj)
 
-        if free_cancellation:
-            free_cancellation = int(free_cancellation)
-            data = [d for d in data if d['free_cancellation'] == free_cancellation]
 
         if rating:
             rating = float(rating)
-            data = [d for d in data if d['rating'] >= rating]
-
-        if bedroom or guest:
-            if bedroom and guest:
-                bedroom = int(bedroom)
-                guest = int(guest)
-                data = [d for d in data if d['bedroom'] == bedroom and d['guest'] == guest]
-            elif bedroom:
-                bedroom = int(bedroom)
-                data = [d for d in data if d['bedroom'] == bedroom]
-            elif guest:
-                guest = int(guest)
-                data = [d for d in data if d['guest'] == guest]
-
-        if sort:
-            data = [d for d in data if d['sort'] == sort]
-
-        if price:
-            price = price.split(',')
-            low,high = int(price[0]),int(price[1])
-        
-            data = [d for d in data if d['price'] >= low and d['price'] <= high]
-
-
-        
-        if aminities:
-            aminities = aminities.split(',')
-
-            for i in aminities:
-                data = [d for d in data if d['aminities'][i] == 1]
+            data = [d for d in data if d['rating'] > rating]
 
         return jsonify({'result': [dict(row) for row in data]})
     except Exception as err:
