@@ -9,43 +9,36 @@ import CounterComponent from './CounterComponent';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import axios from 'axios';
-import { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest } from '../../Redux/EntityAPI/Action'
+import { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest, reviewRequest } from '../../Redux/EntityAPI/Action'
 import querystring from 'query-string';
 import SearchBar from '../SearchBar/SearchBar';
-
+import Amenities from '../FilterComponents/Amenities';
 Modal.setAppElement('#root');
-class DetailsCard extends React.Component {
+class TempCard extends React.Component {
     constructor(props) {
         super(props)
-
         this.state = {
-            startDate: null,
-            endDate: null,
-            click: false,
-            open: false,
-            counter: false,
+            data: "",
+            flag: false
         }
     }
+    async componentDidMount() {
+        console.log('enter')
+        const values = querystring.parse(this.props.location.search)
 
-//     componentDidMount() {
-// console.log('enter')
-//         const values = querystring.parse(this.props.location.search)
+        console.log(values)
+        this.setState({
+            data: "uday"
+        })
 
-//         console.log(values)
+        const { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest } = this.props
 
-//         const { getImageRequest, getDataRequest, getReviewRequest } = this.props
+        await getImageRequest(Number(values.id))
+        await getReviewRequest(Number(values.id))
+        await getDataRequest({ id: Number(values.id), room_type: values.room_type })
+        await getRecommendRequest({ id: Number(values.id), room_type: values.room_type })
+    }
 
-//         getImageRequest(Number(values.id))
-//         getDataRequest({id:Number(values.id), room_type: values.accomodation })
-//         getReviewRequest(Number(values.id))
-//         getRecommendRequest({id:Number(values.id), room_type: values.accomodation })
-
-    
-//     }
-
-//    componentDidMount() {
-//        console.log('enter')
-//    }
 
     handleClick = () => {
         let { click, counter } = this.state
@@ -55,37 +48,22 @@ class DetailsCard extends React.Component {
         })
     }
 
-    // changing the styling of the calendar
+    render() {
 
-    // modifiers={modifiers}
-    // modifiersStyles={modifiersStyles}  ---> in Daypicker component
+        setTimeout(() => {
+            this.setState({
+                flag: true
+            })
+        }, 4000)
 
-    // const modifiers = {
-    //     thursdays: { daysOfWeek: [4] },
-    //     birthday: new Date(2018, 9, 30),
-    //   };
-    //   const modifiersStyles = {
-    //     birthday: {
-    //       color: 'white',
-    //       backgroundColor: '#ffc107',
-    //     },
-    //     thursdays: {
-    //       color: '#ffc107',
-    //       backgroundColor: '#fffdee',
-    //     },
-    //   };
-
-render() {
         let { user, images, review, data, recommendations, guestCounter } = this.props;
-        let { startDate, endDate, click, open, counter} = this.state
-        console.log(images, data, review)
-        // console.log(this.props.location.search)
+        let { startDate, endDate, click, open, counter } = this.state
+        console.log(images, data, review, recommendations)
+        // console.log(data[0].hotel_name)
 
-        // let { accomodation_type, aminities, area, bedroom, city, country, descrption, guest, hotel_name, rating, locality, price, room_type, state } = data[0]  
-        // let {air_conditioning, internet, kitchen, no_smoking, parking, pet_allwed, pool, smoking, tv} = aminities
-  
         return (
-            <div className="container-fluid">
+            <div className='container-fluid'>
+                {/* {this.state.date} */}
                 <br />
                 <div className='container'>
                     <div className='row my-3'>
@@ -118,8 +96,8 @@ render() {
                                 }}
                             >
                                 <button onClick={() => this.setState({ open: false })} className="float-right"><i class="fas fa-times" style={{ color: 'orange' }}></i></button>
-                                <div className="text-center" style={{marginLeft:'100px'}}>
-                                    <p className="float-left ml-5 mr-2 font-weight-bold" style={{marginLeft:'100px'}}>Places to stay</p>
+                                <div className="text-center" style={{ marginLeft: '100px' }}>
+                                    <p className="float-left ml-5 mr-2 font-weight-bold" style={{ marginLeft: '100px' }}>Places to stay</p>
                                     <p className="float-left mr-2 font-weight-bold">Monthly stays</p>
                                     <p className="float-left font-weight-bold">Experiences</p>
                                 </div>
@@ -140,12 +118,13 @@ render() {
                 <hr className='hrFull' />
                 <br />
                 <div className='container'>
-        <h1 className='text-dark'>{data[0].hotel_name} @{data[0].locality}</h1>
-                    <div className='d-flex flex-row'>
-                        <p><i class="fa fa-star text-warning" aria-hidden="true"></i></p>
-                        <p className='mx-3 text-secondary'>{rating}(32)</p>
-        <p className="mx-1">. {`${city}, ${state}, ${country}`}</p>
-                    </div>
+                    {data.length > 0 && <>
+                        <h1 className='text-dark'>{data[0].hotel_name} @{data.length > 0 && data[0].locality}</h1>
+                        <div className='d-flex flex-row'>
+                            <p><i class="fa fa-star text-warning" aria-hidden="true"></i></p>
+                            <p className='mx-3 text-secondary'>{data[0].rating}({review.length})</p>
+                            <p className="mx-1">. </p>
+                        </div></>}
                     <div className="row my-3">
                         <div className="col-6 p-2">
                             <img className="img-fluid detCard" src={images[0]} />
@@ -159,12 +138,14 @@ render() {
                             </div>
                         </div>
                     </div>
+
                     <div className='row'>
                         <div className='col-7'>
-        <h2>{accomodation_type}, {room_type}</h2>
-                            <p>{guest}+ . guests . {bedroom} bedrooms</p>
-                            <hr className='hrFull' />
-
+                            {data.length > 0 && <>
+                                <h2>{data[0].accomodation_type}, {data[0].room_type}</h2>
+                                <p>{data[0].guest}+ . guests . {data[0].bedroom} bedrooms</p>
+                                <hr className='hrFull' />
+                            </>}
                             {/* second part */}
                             <div className='row'>
                                 <div className='col-1'>
@@ -195,20 +176,73 @@ render() {
                                     </button>
                                 </div>
                                 <div className='col-11'>
-        <h5 className="font-weight-bold">Free cancellation until {Date.toString()}</h5>
-                                    <p className='text-muted'>After that, cancel before 3:00 PM on Aug 3 and get a 50% refund, minus the service fee.</p>
+                                    <h5 className="font-weight-bold">Free cancellation policy</h5>
                                 </div>
                             </div>
+                            <hr />
+                            <br/>
+                            <div className='my-3'>
+                            <h4>{data.length>0 && data[0].description}</h4>
+
+                            </div>
+                            <hr />
+                            <br/>
+                            <div className='my-3'>
+                            <h4 className='font-weight-bold ml-3'>{data.length>0 && "Amenities"}</h4>
+                                   <div className='row'>
+                                       <div className='col-4 offset-1 fontSizeAmenities'>
+                                            <div className='my-2'>
+                                            <i className='px-3 far fa-snowflake'></i>
+                                            {data.length >0 && data[0].aminities.air_conditioning == 1 ?  <span >Air Conditioning</span> : <span style={{textDecoration:"line-through"}}>Air Conditioning</span>}
+                                            </div>
+                                            <div className='my-2'>
+                                            <i className='px-3 fa fa-wifi'></i>
+                                            {data.length >0 && data[0].aminities.air_internet == 1 ?  <span >Internet</span> : <span style={{textDecoration:"line-through"}}>Internet</span>}
+                                            </div>
+                                            <div className='my-2'>
+                                            <i className='px-3 fa fa-cutlery'></i>
+                                            {data.length >0 && data[0].aminities.kitchen == 1 ?  <span >Kitchen</span> : <span style={{textDecoration:"line-through"}}>Kitchen</span>}
+                                            </div>
+                                            <div className='my-2'>
+                                            <i className='px-3 fas fa-smoking-ban'></i>
+                                            {data.length >0 && data[0].aminities.no_smoking == 1 ?  <span >No Smoking</span> : <span style={{textDecoration:"line-through"}}>No Smoking</span>}
+                                            </div>
+                                            <div className='my-2'>
+                                            <i className='px-3 far fa-snowflake'></i>
+                                            {data.length >0 && data[0].aminities.parking == 1 ?  <span >Parking</span> : <span style={{textDecoration:"line-through"}}>Parking</span>}
+                                            </div>
+                                           
+                                       </div>
+                                       <div className='col-4 offset-2 fontSizeAmenities'>
+                                       <div className='my-2'>
+                                            <i className='px-3 fas fa-dog'></i>
+                                            {data.length >0 && data[0].aminities.air_pet_allowed == 1 ?  <span >Pet Allowed</span> : <span style={{textDecoration:"line-through"}}>Pet Allowed</span>}
+                                            </div> <div className='my-2'>
+                                            <i className='px-3 fas fa-swimming-pool'></i>
+                                            {data.length >0 && data[0].aminities.pool == 1 ?  <span >Pool</span> : <span style={{textDecoration:"line-through"}}>Pool</span>}
+                                            </div> <div className='my-2'>
+                                            <i className='px-3 fas fa-smoking'></i>
+                                            {data.length >0 && data[0].aminities.smoking == 1 ?  <span >Smoking</span> : <span style={{textDecoration:"line-through"}}>Smoking</span>}
+                                            </div> <div className='my-2'>
+                                            <i className='px-3 fa fa-television'></i>
+                                            {data.length >0 && data[0].aminities.tv == 1 ?  <span >TV</span> : <span style={{textDecoration:"line-through"}}>TV</span>}
+                                            </div>
+                                       </div>
+                                   </div>
+                            </div>
+                            <hr />
+                            <br/>
                             <div className='mt-3'>
                                 <h4 className='font-weight-bold'>Select checkout date</h4>
                                 <small>Minimum stay: 2 nights</small>
                                 <DayPicker numberOfMonths={2} />;
                             </div>
+                          
                         </div>
                         <div className="col-5">
                             <div className="row ml-5" style={{ border: '1px solid gray', width: '330px' }}>
                                 <div className="col-6">
-                                    <i class="fas fa-dollar-sign text-warning mr-1"></i>{price} /night
+                                    <i class="fas fa-dollar-sign text-warning mr-1"></i>{data.length > 0 && data[0].price} /night
                             </div>
                                 <div className="col-6">
                                     <i class="fa fa-star text-warning ml-4 mr-1" aria-hidden="true"></i>4.66(29)
@@ -248,18 +282,35 @@ render() {
                         </div>
                     </div>
                     <hr className='hrFull' />
+                    <div className='my-2'>
+                        <h4 className='font-weight-bold'>{data.length >0 && data[0].rating}({review.length} reviews)</h4>
+                            {review?.map((elem,i)=> <p style={{fontSize:"20px"}}>{i+1}. {elem.review} - {elem.rating}</p>)}
+                    </div>
+                    <hr className='hrFull' />
+                    <div className='my-2'>
+                         <h4 className='font-weight-bold'>Recommendations</h4>
+                           {recommendations?.map((item,i)=> {
+                               return (
+                                   <div>
+                                       
+                                    </div>
+                               )
+                           })}
+                    </div>
                 </div>
             </div>
         )
     }
 }
 
+
 const mapStateToProps = state => ({
     user: state.signup.user,
     images: state.entity.images,
     data: state.entity.data,
     review: state.entity.review,
-    recommendations:state.entity.recommendations
+    recommendations: state.entity.recommendations,
+    guestCounter: state.search.guestCounter,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -270,4 +321,5 @@ const mapDispatchToProps = dispatch => ({
 
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailsCard)
+export default connect(mapStateToProps, mapDispatchToProps)(TempCard)
+

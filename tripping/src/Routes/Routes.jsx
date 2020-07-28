@@ -16,7 +16,7 @@ function Routes() {
             <Route path='/vacation-rentals/s/:id' render= {(props)=> <VacationRentalsSearch {...props} />} />
             <Route path='/register' exact render={()=> <Register />} />
             <Route path='/signin' exact render={(props)=> <Signin />} />
-            <Route path='/detailscard/:id'  render={(props)=> <TempCard {...props} />} />
+            <Route path='/detailscard/:id'  render={(props)=> <DetailsCard {...props} />} />
             </Switch>
         </div>
     )
