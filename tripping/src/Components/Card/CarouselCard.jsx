@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export class CarouselCard extends Component {
 
     render() {
-        let { accomodation_type, bedroom, city, country, guest, hotel_name, price, state, rating, image, hotel_id, area, locality } = this.props;
+        let { accomodation_type, bedroom, city, country, guest, hotel_name, price, state, rating, image, hotel_id, area, locality, room_type } = this.props;
 
 
 
@@ -14,25 +14,25 @@ export class CarouselCard extends Component {
 
             <div>
 
-                <div id="carouselExampleCaptions" className="carousel slide mr-3" data-ride="carousel" style={{ width: '20rem' }}>
+                <div id={"carouselExampleCaptions" + hotel_id} className="carousel slide mr-3" data-ride="carousel" style={{ width: '20rem' }}>
                     <ol className="carousel-indicators">
-                        <li data-target="#carouselExampleCaptions" data-slide-to="0" className="active"></li>
-                        <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                        <li data-target={"#" + "carouselExampleCaptions" + hotel_id} data-slide-to="0" className="active"></li>
+                        <li data-target={"#" + "carouselExampleCaptions" + hotel_id} data-slide-to="1"></li>
+                        <li data-target={"#" + "carouselExampleCaptions" + hotel_id} data-slide-to="2"></li>
                     </ol>
                     <div className="carousel-inner">
                         <div className="carousel-inner">
                             <div className="carousel-item active">
-                                <img src={image[0]} className="d-block w-100 h-200" alt="..." />
+                                <img src={image[0]} className="d-block w-100 h-100 img-fluid" alt="..." />
                             </div>
                             <div className="carousel-item">
-                                <img src={image[1]} className="d-block w-100" alt="..." />
+                                <img src={image[1]} className="d-block w-100 h-100 img-fluid" alt="..." />
                             </div>
                             <div className="carousel-item">
-                                <img src={image[2]} className="d-block w-100" alt="..." />
+                                <img src={image[2]} className="d-block w-100 h-100 img-fluid" alt="..." />
                             </div>
                             <div className="carousel-item">
-                                <img src={image[3]} className="d-block w-100" alt="..." />
+                                <img src={image[3]} className="d-block w-100 h-100 img-fluid" alt="..." />
                             </div>
 
 
@@ -47,11 +47,11 @@ export class CarouselCard extends Component {
                      </div> */}
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" href={"#" + "carouselExampleCaptions" + hotel_id} role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                    <a class="carousel-control-next" href={"#" + "carouselExampleCaptions" + hotel_id} role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
@@ -59,7 +59,7 @@ export class CarouselCard extends Component {
                     <div class="card-body">
                         <p className="text-muted float"> {area} FT<sup>2</sup> {accomodation_type} . {guest} Guests . {bedroom} Bedroom</p>
                         <small className="text-muted float">{hotel_name}, {city} {state} {country}</small>
-                        <Link to={`/detailscard/tripping/?id=${hotel_id}&country=${country}&state=${state}&locality=${locality}&area=${area}&accomodation=${accomodation_type}`} target='_blank' ><button className="button mt-2">DETAILS</button></Link>
+                        <Link to={`/detailscard/tripping/?id=${hotel_id}&country=${country}&state=${state}&locality=${locality}&area=${area}&accomodation=${accomodation_type}&room_type=${room_type}`} target='_blank' ><button className="button mt-2">DETAILS</button></Link>
                         <span><small className="text-muted clear mt-1">from </small><p className="float fontWeight">&nbsp; $&nbsp; </p><p className="fontWeight float"> {price} </p></span>
                         <small className="clear text-++d">virbo</small>
                         <p className="orange clear">

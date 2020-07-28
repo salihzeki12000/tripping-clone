@@ -11,6 +11,7 @@ import 'react-day-picker/lib/style.css';
 import axios from 'axios';
 import { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest } from '../../Redux/EntityAPI/Action'
 import querystring from 'query-string';
+import SearchBar from '../SearchBar/SearchBar';
 
 Modal.setAppElement('#root');
 class DetailsCard extends React.Component {
@@ -23,7 +24,6 @@ class DetailsCard extends React.Component {
             click: false,
             open: false,
             counter: false,
-
         }
     }
 
@@ -76,13 +76,14 @@ class DetailsCard extends React.Component {
     //   };
 
 render() {
-        let { user, images, review, data, recommendations } = this.props;
-        let { startDate, endDate, click, open, counter } = this.state
+        let { user, images, review, data, recommendations, guestCounter } = this.props;
+        let { startDate, endDate, click, open, counter} = this.state
         console.log(images, data, review)
         // console.log(this.props.location.search)
 
         // let { accomodation_type, aminities, area, bedroom, city, country, descrption, guest, hotel_name, rating, locality, price, room_type, state } = data[0]  
         // let {air_conditioning, internet, kitchen, no_smoking, parking, pet_allwed, pool, smoking, tv} = aminities
+  
         return (
             <div className="container-fluid">
                 <br />
@@ -96,10 +97,34 @@ render() {
 
                         {/* Modal */}
                         <div className='col-4 offset-2 '>
-                            <button className=' px-5 border shadow-sm inputDiv' contenteditable="true">
+                            <button className=' px-5 border shadow-sm inputDiv' onClick={() => this.setState({ open: !open })}>
                                 <i class="fa fa-search text-warning px-2"></i>
                         Add a location
                     </button>
+                            <Modal
+                                isOpen={open}
+                                style={{
+                                    content: {
+                                        position: 'absolute',
+                                        height: '28rem',
+                                        border: '1px solid #ccc',
+                                        background: '#fff',
+                                        overflow: 'auto',
+                                        WebkitOverflowScrolling: 'touch',
+                                        borderRadius: '4px',
+                                        outline: 'none',
+                                        padding: '20px'
+                                    }
+                                }}
+                            >
+                                <button onClick={() => this.setState({ open: false })} className="float-right"><i class="fas fa-times" style={{ color: 'orange' }}></i></button>
+                                <div className="text-center" style={{marginLeft:'100px'}}>
+                                    <p className="float-left ml-5 mr-2 font-weight-bold" style={{marginLeft:'100px'}}>Places to stay</p>
+                                    <p className="float-left mr-2 font-weight-bold">Monthly stays</p>
+                                    <p className="float-left font-weight-bold">Experiences</p>
+                                </div>
+                                <SearchBar />
+                            </Modal>
                         </div>
 
                         {/* Modal */}
@@ -205,13 +230,19 @@ render() {
                                         <div className="row">
                                             <div className="col-6">
                                                 <p className="font-weight-bold">Guests</p>
-                                                <p>{1} guests</p>
+                                                <p>{guestCounter} guests</p>
                                             </div>
                                             <div className="col-6">
                                                 {click ? <i class="fa fa-angle-up text-warning" aria-hidden="true"></i> : <i class="fa fa-angle-down text-warning" aria-hidden="true"></i>}
                                             </div>
                                         </div>
                                     </button>
+                                    <div>
+                                        {counter && <CounterComponent clickHandler={this.handleClick} />}
+                                    </div>
+                                    <div>
+                                        <button className="btn btn-block reserve">Reserve</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

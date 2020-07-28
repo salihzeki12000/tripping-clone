@@ -86,3 +86,17 @@
     outline:none;
 }
 
+.reserve {
+    background-color:orange; 
+    border: 2px solid orange;
+    color:white;
+    text-decoration: none;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.reserve:hover{
+    background-color:white;
+    color:orange;
+}
+

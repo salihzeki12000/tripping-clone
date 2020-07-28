@@ -32,8 +32,8 @@ Modal.setAppElement('#root');
 
                await getImageRequest(Number(values.id))
               await  getReviewRequest(Number(values.id))
-             await   getDataRequest({id:Number(values.id), room_type: values.accomodation })
-              await  getRecommendRequest({id:Number(values.id), room_type: values.accomodation })
+             await   getDataRequest({id:Number(values.id), room_type: values.room_type })
+              await  getRecommendRequest({id:Number(values.id), room_type: values.room_type })
     }
 
 
