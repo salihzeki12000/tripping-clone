@@ -1,11 +1,12 @@
 import {
- IMAGEREQUEST, DATAREQUEST, REVIEWREQUEST
+ IMAGEREQUEST, DATAREQUEST, REVIEWREQUEST, RECOMMENDATIONREQUEST
 } from './ActionTypes'
 
 const initState = {
    images:[],
    data:[],
-   review:[]
+   review:[],
+   recommendations:[]
 }
 
 const reducer = (state = initState, { type, payload }) => {
@@ -28,7 +29,16 @@ const reducer = (state = initState, { type, payload }) => {
             console.log(payload)
             return {
                 ...state,
-                review:payload.result.sort((a,b) => b.rating - a.rating)
+                // review:payload.result.sort((a,b) => b.rating - a.rating)
+                review:payload.result
+            }
+        }
+        case RECOMMENDATIONREQUEST: {
+            console.log(payload)
+            return {
+                ...state,
+                // review:payload.result.sort((a,b) => b.rating - a.rating)
+                recommendations:payload.result
             }
         }
         default:

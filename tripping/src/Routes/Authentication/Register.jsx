@@ -86,9 +86,12 @@ class Register extends React.Component {
         }
 
         return (
-            <div className='container marginTop-Reg'>
+            <div className='container-fluid backgroundColorAuth'>
+                <br />
+            <div className='container marginTop-Reg '>
+                
                 <div className='row '>
-                    <div className='col-4 offset-4 text-center'>
+                    <div className='col-4 offset-4 text-center bg-white'>
 
                         <h4 className='text-left'>Create your account</h4>
                         <p className='text-left'>Create an account to use Tripping.com services easily.</p>
@@ -114,7 +117,7 @@ class Register extends React.Component {
                             </>
                             }
                         </div>
-                        {!checkEmailFlag && <button onClick={() => this.handleGetStarted()} className='btn px-5 bg-orange text-white btnWidth'>Get started</button>}
+                        {!checkEmailFlag && <button onClick={() => this.handleGetStarted()} className='btn px-5 bg-orange  text-white btnWidth' >Get started</button>}
 
                         {checkEmailFlag && <button onClick={() => this.handleCreateAccount()} className='btn btnWidth bg-orange text-white'>Create Account</button>}
 
@@ -133,6 +136,8 @@ class Register extends React.Component {
                     </div>
                 </div>
 
+            </div>
+            
             </div>
         )
     }

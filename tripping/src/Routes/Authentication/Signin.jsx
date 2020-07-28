@@ -79,9 +79,11 @@ class Signin extends Component {
         }
 
         return (
-            <div className='container marginTop-Reg'>
+            <div className='container-fluid backgroundColorAuth'>
+                <br/>
+            <div className='container marginTop-Reg '>
                 <div className='row'>
-                    <div className='col-4 offset-4'>
+                    <div className='col-4 offset-4 bg-white'>
 
                         <h4>Sign in</h4>
                         <p>You can sign in using your tripping.com account to access our services</p>
@@ -116,6 +118,8 @@ class Signin extends Component {
                 </div>
 
             </div >
+            
+            </div>
         )
     }
 }

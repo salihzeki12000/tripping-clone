@@ -9,7 +9,6 @@ import HomeSearchBar from './HomeComponents/HomeSearchBar'
 // import { Link } from 'react-router-dom'
 import HomeNavbar from './HomeComponents/HomeNavbar'
 import Payment from '../Components/Payment'
-import DetailsCard from '../Components/Card/DetailsCard'
 
 export default function Home() {
     return (

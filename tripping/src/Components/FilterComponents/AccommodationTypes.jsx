@@ -93,4 +93,22 @@ class Accommodation extends React.Component {
     }
 }
 
-export default Accommodation;
+const mapStateToProps = state => ({
+    country: state.data.country,
+    state: state.data.state,
+    city: state.data.city,
+    free_cancellation: state.data.free_cancellation,
+    rating: state.data.rating,
+    bedroom: state.data.bedroom,
+    guest: state.data.guest,
+    sort: state.data.sort,
+    price: state.data.price,
+    aminities: state.data.aminities
+})
+const mapDispatchToProps = dispatch => ({
+    getDataFromAPI: (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
+    // changeFreeCancellation: (payload) => dispatch(changeFreeCancellation(payload)),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Accommodation)
