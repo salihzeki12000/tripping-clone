@@ -85,7 +85,8 @@ class VacationRentalsSearch extends Component {
                                     price={elem.price}
                                     locality={elem.locality}
                                     hotel_id={elem.hotel_id}
-                                     area={elem.area} />
+                                     area={elem.area}
+                                     room_type={elem.room_type} />
                                 )
                                     :  <div>Sorry Data not found</div>
 

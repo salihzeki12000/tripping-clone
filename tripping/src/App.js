@@ -9,9 +9,9 @@ function App() {
   return (
     <div >
       {/* <Link to='/'></Link> */}
-      {/* <Routes /> */}
-      <DetailsCard />
-      <CounterComponent />
+      <Routes />
+       {/* <DetailsCard /> */}
+      {/* <CounterComponent /> */} 
     </div>
   );
 }

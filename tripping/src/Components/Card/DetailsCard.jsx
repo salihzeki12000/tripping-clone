@@ -9,7 +9,8 @@ import CounterComponent from './CounterComponent';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import axios from 'axios';
-import { imageRequest, dataRequest, reviewRequest } from '../../Redux/EntityAPI/Action';
+import { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest } from '../../Redux/EntityAPI/Action'
+import querystring from 'query-string';
 import SearchBar from '../SearchBar/SearchBar';
 
 Modal.setAppElement('#root');
@@ -23,22 +24,28 @@ class DetailsCard extends React.Component {
             click: false,
             open: false,
             counter: false,
-            images: []
         }
     }
 
+//     componentDidMount() {
+// console.log('enter')
+//         const values = querystring.parse(this.props.location.search)
 
-    componentDidMount() {
+//         console.log(values)
 
-        // axios.get("http://054c31d9426d.ngrok.io/entity/images/1")
-        // .then(res => res.data)
-        // .then(res => res.result)
-        // .then(res => {
-        //     this.setState({
-        //         images : res
-        //     })
-        // })
-    }
+//         const { getImageRequest, getDataRequest, getReviewRequest } = this.props
+
+//         getImageRequest(Number(values.id))
+//         getDataRequest({id:Number(values.id), room_type: values.accomodation })
+//         getReviewRequest(Number(values.id))
+//         getRecommendRequest({id:Number(values.id), room_type: values.accomodation })
+
+    
+//     }
+
+//    componentDidMount() {
+//        console.log('enter')
+//    }
 
     handleClick = () => {
         let { click, counter } = this.state
@@ -68,9 +75,15 @@ class DetailsCard extends React.Component {
     //     },
     //   };
 
-    render() {
-        let { user, guestCounter } = this.props;
-        let { startDate, endDate, click, open, counter, images } = this.state
+render() {
+        let { user, images, review, data, recommendations, guestCounter } = this.props;
+        let { startDate, endDate, click, open, counter} = this.state
+        console.log(images, data, review)
+        // console.log(this.props.location.search)
+
+        // let { accomodation_type, aminities, area, bedroom, city, country, descrption, guest, hotel_name, rating, locality, price, room_type, state } = data[0]  
+        // let {air_conditioning, internet, kitchen, no_smoking, parking, pet_allwed, pool, smoking, tv} = aminities
+  
         return (
             <div className="container-fluid">
                 <br />
@@ -127,11 +140,11 @@ class DetailsCard extends React.Component {
                 <hr className='hrFull' />
                 <br />
                 <div className='container'>
-                    <h1 className='text-dark'>Apartment in Bengaluru</h1>
+        <h1 className='text-dark'>{data[0].hotel_name} @{data[0].locality}</h1>
                     <div className='d-flex flex-row'>
                         <p><i class="fa fa-star text-warning" aria-hidden="true"></i></p>
-                        <p className='mx-3 text-secondary'>4.77(52)</p>
-                        <p className="mx-1">.</p>
+                        <p className='mx-3 text-secondary'>{rating}(32)</p>
+        <p className="mx-1">. {`${city}, ${state}, ${country}`}</p>
                     </div>
                     <div className="row my-3">
                         <div className="col-6 p-2">
@@ -148,8 +161,8 @@ class DetailsCard extends React.Component {
                     </div>
                     <div className='row'>
                         <div className='col-7'>
-                            <h2>Entire Apartment hosted by Masai</h2>
-                            <p>16+ guests . 2 bedroom . 2  bed . 4 bathrooms</p>
+        <h2>{accomodation_type}, {room_type}</h2>
+                            <p>{guest}+ . guests . {bedroom} bedrooms</p>
                             <hr className='hrFull' />
 
                             {/* second part */}
@@ -160,7 +173,7 @@ class DetailsCard extends React.Component {
                                     </button>
                                 </div>
                                 <div className='col-11'>
-                                    <h5 className="font-weight-bold">Enitre home</h5>
+                                    <h5 className="font-weight-bold">Enitre locality</h5>
                                     <p className='text-muted'>You’ll have the serviced apartment to yourself.</p>
                                 </div>
                             </div>
@@ -182,7 +195,7 @@ class DetailsCard extends React.Component {
                                     </button>
                                 </div>
                                 <div className='col-11'>
-                                    <h5 className="font-weight-bold">Free cancellation until Jul 27</h5>
+        <h5 className="font-weight-bold">Free cancellation until {Date.toString()}</h5>
                                     <p className='text-muted'>After that, cancel before 3:00 PM on Aug 3 and get a 50% refund, minus the service fee.</p>
                                 </div>
                             </div>
@@ -195,7 +208,7 @@ class DetailsCard extends React.Component {
                         <div className="col-5">
                             <div className="row ml-5" style={{ border: '1px solid gray', width: '330px' }}>
                                 <div className="col-6">
-                                    <i class="fas fa-dollar-sign text-warning mr-1"></i>200 /night
+                                    <i class="fas fa-dollar-sign text-warning mr-1"></i>{price} /night
                             </div>
                                 <div className="col-6">
                                     <i class="fa fa-star text-warning ml-4 mr-1" aria-hidden="true"></i>4.66(29)
@@ -246,16 +259,14 @@ const mapStateToProps = state => ({
     images: state.entity.images,
     data: state.entity.data,
     review: state.entity.review,
-    guestCounter: state.search.guestCounter
+    recommendations:state.entity.recommendations
 })
 
 const mapDispatchToProps = dispatch => ({
-    imageRequest: (payload) => dispatch(imageRequest(payload)),
-    dataRequest: (payload) => dispatch(dataRequest(payload)),
-    reviewRequest: (payload) => dispatch(dataRequest(payload)),
-    imageRequest : (payload) => dispatch(imageRequest(payload)),
-    dataRequest : (payload) => dispatch(dataRequest(payload)),
-    reviewRequest: (payload) => dispatch(reviewRequest(payload))
+    getImageRequest: (payload) => dispatch(getImageRequest(payload)),
+    getDataRequest: (payload) => dispatch(getDataRequest(payload)),
+    getReviewRequest: (payload) => dispatch(getReviewRequest(payload)),
+    getRecommendRequest: (payload) => dispatch(getRecommendRequest(payload))
 
 })
 

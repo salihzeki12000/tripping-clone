@@ -21,15 +21,15 @@
     clear: both;
     float: right;
     background-color:white; 
-    border: 2px solid orange;
-    color:orange;
+    border: 2px solid #FB8C00;
+    color:"#FB8C00";
     text-decoration: none;
     transition-duration: 0.1s;
     cursor: pointer;
 }
 
 .button:hover {
-    background-color:orange;
+    background-color:#FB8C00;
     color:white;
   }
 

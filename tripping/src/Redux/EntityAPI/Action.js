@@ -1,7 +1,8 @@
 import {
     IMAGEREQUEST,
     DATAREQUEST,
-     REVIEWREQUEST
+     REVIEWREQUEST,
+     RECOMMENDATIONREQUEST
 } from './ActionTypes'
 import axios from 'axios'
 
@@ -20,10 +21,15 @@ export const reviewRequest = (payload) => ({
     payload
 })
 
+export const recommendationRequest = (payload) => ({
+    type: RECOMMENDATIONREQUEST,
+    payload
+})
+
 export const getImageRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
-  
-    axios.get("http://3f5a8e3ada55.ngrok.io/search/" + payload)
+  console.log(payload)
+    axios.get("https://8ebd7315d37a.ngrok.io/entity/images/" + payload)
         .then(res => res.data)
         .then(res => dispatch(imageRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
@@ -31,8 +37,8 @@ export const getImageRequest = (payload) => dispatch => {
 
 export const getDataRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
-  
-    axios.get("http://3f5a8e3ada55.ngrok.io/entity/basic_detail/" + payload)
+    console.log(payload)
+    axios.get("https://8ebd7315d37a.ngrok.io/entity/basic_detail/" + payload.id + "/" + payload.room_type)
         .then(res => res.data)
         .then(res => dispatch(dataRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
@@ -40,17 +46,23 @@ export const getDataRequest = (payload) => dispatch => {
 
 export const getReviewRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
-  
-    axios.get("http://3f5a8e3ada55.ngrok.io/entity/review/" + payload)
+    console.log(payload)
+    axios.get("https://8ebd7315d37a.ngrok.io/entity/review/" + payload)
         .then(res => res.data)
         .then(res => dispatch(reviewRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
 }
 
-export const changeFreeCancellation = payload => ({
-    type: FREECANCELLATION,
-    payload
-})
+export const getRecommendRequest = (payload) => dispatch => {
+    // console.log('getDataFromAPI')
+    console.log(payload)
+    axios.get("https://8ebd7315d37a.ngrok.io/entity/recommendation/" + payload.id + "/" + payload.room_type)
+        .then(res => res.data)
+        .then(res => dispatch(recommendationRequest(res)))
+        // .catch(err => dispatch(apiFailure(err)));
+}
+
+
 
 
 

@@ -108,7 +108,7 @@ class SearchBar extends React.Component {
                                 </div>
                             </div>
                             <Link to={`/vacation-rentals/s/search?location=${region}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
-                                <div className='searchDiv col-md-1 col-12  px-4 rounded-right' >
+                                <div className='searchDiv col-md-1 col-12  px-4 rounded-right'  >
                                     <i class="fa fa-search text-white mt-3" onClick={() => this.handleSearch()} style={{ fontSize: "20px" }}></i>
                                 </div>
                             </Link>
@@ -120,8 +120,12 @@ class SearchBar extends React.Component {
 
                 <div className='row mx-4 '>
                     {locationFlag && <div className='col-3'>
-                        <div className='borderDivDown mt-1 text-secondary'>
-                            <p className='text-left ml-3 pt-3'>Recent Searches</p>
+                        <div className='borderDivDown mt-1 '>
+                            <p className='text-left ml-3 pt-3 text-secondary'>Recent Searches</p>
+                            <hr />
+                            <h6 className='text-left ml-3 pt-3'>India</h6>
+                            <h6 className='text-left ml-3 pt-3'>France</h6>
+                            <h6 className='text-left ml-3 pt-3'>Germany</h6>
                         </div>
                     </div>
                     }

@@ -5,6 +5,7 @@ import Register from './Authentication/Register'
 import Signin from './Authentication/Signin'
 import VacationRentalsSearch from './VacationRentalsSearch'
 import DetailsCard from '../Components/Card/DetailsCard'
+import TempCard from '../Components/Card/TempCard'
 
 function Routes() {
     return (
@@ -15,7 +16,7 @@ function Routes() {
             <Route path='/vacation-rentals/s/:id' render= {(props)=> <VacationRentalsSearch {...props} />} />
             <Route path='/register' exact render={()=> <Register />} />
             <Route path='/signin' exact render={(props)=> <Signin />} />
-            <Route path='/detailscard/:id'  render={(props)=> <DetailsCard />} />
+            <Route path='/detailscard/:id'  render={(props)=> <TempCard {...props} />} />
             </Switch>
         </div>
     )
