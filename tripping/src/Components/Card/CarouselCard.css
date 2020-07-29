@@ -16,19 +16,103 @@
     color:orange;
 }
 
+.black {
+    color:black
+}
+
+.math{
+    border:1px solid black;
+    border-radius: 2px;
+    padding: 2px;
+}
+
+.imgDim{
+    height: 200px !important;
+    widows: 200px !important;
+    border-radius: 5px;
+}
+
 .button {
     padding: 10px 20px 10px 20px;
     clear: both;
     float: right;
     background-color:white; 
-    border: 2px solid orange;
-    color:orange;
+    border: 2px solid #FB8C00;
+    color:"#FB8C00";
     text-decoration: none;
     transition-duration: 0.1s;
     cursor: pointer;
 }
 
 .button:hover {
-    background-color:orange;
+    background-color:#FB8C00;
     color:white;
   }
+
+  .detCard {
+      width:600px;
+      height: 600px;
+      border-radius: 3%;
+  }
+  .childCard {
+    width:250px ;
+    height: 288px;
+    border-radius: 3%;
+}
+
+.hrFull {
+  width: 100%;
+}
+
+.inputDiv {
+    text-align: center;
+    vertical-align: middle;
+    float: left;
+    border: 1px solid orange;
+    outline: none !important;
+    border-radius: 30px;
+    height: 50px;
+    padding:10px;
+    margin-left: 1px;
+}   
+
+.inputDiv:focus { 
+    outline: none !important;
+    border-color:orange !important;
+}
+
+.angleDown {
+    width:328px;
+    height: 70px;
+    border-radius: 5px;
+    border:none !important;
+}
+
+.angleDown:focus{
+    outline:none !important;
+}
+
+.closeButton {
+    border:none;
+    background-color:white;
+    float: right;
+}
+
+.closeButton:focus{
+    outline:none;
+}
+
+.reserve {
+    background-color:orange; 
+    border: 2px solid orange;
+    color:white;
+    text-decoration: none;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.reserve:hover{
+    background-color:white;
+    color:orange;
+}
+

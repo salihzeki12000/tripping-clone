@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import CardComponent from '../Components/Card/CardComponent'
 import CarouselCard from '../Components/Card/CarouselCard'
 import FileNavBar from '../Components/FilterComponents/FileNavBar'
-import axios from 'axios'
 import { connect } from 'react-redux'
-import Amenities from '../Components/FilterComponents/Amenities'
 import SearchLogo from '../Components/FilterComponents/SearchLogo'
-import { getDataFromAPI, changeFreeCancellation } from '../Redux/SearchApi/Action'
+import { getDataFromAPI} from '../Redux/SearchApi/Action'
+import querystring from 'query-string'
 
 
 class VacationRentalsSearch extends Component {
@@ -16,34 +14,86 @@ class VacationRentalsSearch extends Component {
         this.state = {
             data: []
         }
-
     }
 
     componentDidMount() {
-        let { history, match, getDataFromAPI } = this.props
-        let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-        console.log(match.params.name, country)
-        // let x = match.params.name
-        getDataFromAPI(country, match.params.name, city, free_cancellation, 2, guest, sort, price, aminities)
+        let { getDataFromAPI } = this.props
+        let { loc,free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+        const values = querystring.parse(this.props.location.search)
+        console.log(values)
+        let x = Object.keys(values)
+        if (x.length == 0) {
+            getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+        } else {
+            for (var key in values) {
+                if (key == "location") {
+                    loc = values[key]
+                } 
+                else if (key == "free_cancellation") {
+                    if (typeof (values[key]) != "number") {
+                        free_cancellation = ''
+                    } else {
+                        free_cancellation = Number(values[key])
+                    }
+                }
+                 else if (key == "rating") {
+                    rating = Number(values[key])
+                }
+                else if(key=='guest'){
+                    guest = Number(values[key])
+                }
+                else if(key=='bedroom'){
+                    bedroom = Number(values[key])
+                }else if(key=='price'){
+                    price = Number(values[key])
+                }
+                else if (key == "aminities") {
+                    aminities = values[key]
+                  }
+            }
+            getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+        }
 
+        // history.push(`?free_cancellation=${free_cancellation}`)
     }
+
 
     render() {
         // let { data } = this.state
-        let { history, data } = this.props
-
+        let { history, data, location } = this.props
+        // const values = querystring.parse(this.props.location.search)
+        // console.log(values)
+           console.log(data)
         return (
             <>
+
+        
                 <SearchLogo />
                 <div className='container-fluid border-top '>
+                    {/* <SearchBar /> */}
 
                     <div className='col-6'>
-                        {/* <SearchBar /> */}
-                        <FileNavBar history={history} />
-                        <div className='row'>
+                        <FileNavBar history={history} location={location} />
+                        <h2 className='text-center m-4'>{data.length ==0 && "Please wait Data is Loading..."}</h2>
+                        <div className='row mt-5'>
                             {
-                                // data?.map(elem => <CardComponent key={elem.id} bedrooms={elem.bedroom} guest={elem.guest} hotel_name={elem.hotel_name} country={elem.country} state={elem.state} img={elem.image} rating={elem.rating} price={elem.price} loaction={elem.locality} />)
-                                data?.map(elem => <CarouselCard />)
+                                data && data ? data.map(elem =>  <CarouselCard key={elem.id}
+                                    bedroom={elem.bedroom}
+                                    accomodation_type={elem.accomodation_type}
+                                    guest={elem.guest}
+                                    hotel_name={elem.hotel_name}
+                                    country={elem.country}
+                                    state={elem.state} image={elem.image}
+                                    rating={elem.rating}
+                                    price={elem.price}
+                                    locality={elem.locality}
+                                    hotel_id={elem.hotel_id}
+                                     area={elem.area}
+                                     room_type={elem.room_type} />
+                                )
+                                    :  <div>Sorry Data not found</div>
+
+                                //    data ? data.map(elem => <CarouselCard />) : <div>Sorry Data not found</div>
                             }
                         </div>
 
@@ -58,9 +108,7 @@ class VacationRentalsSearch extends Component {
 
 
 const mapStateToProps = state => ({
-    country: state.data.country,
-    state: state.data.state,
-    city: state.data.city,
+    loc: state.data.loc,
     free_cancellation: state.data.free_cancellation,
     rating: state.data.rating,
     bedroom: state.data.bedroom,
@@ -71,7 +119,7 @@ const mapStateToProps = state => ({
     data: state.data.data
 })
 const mapDispatchToProps = dispatch => ({
-    getDataFromAPI: (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
+    getDataFromAPI: (loc, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
 })
 
 

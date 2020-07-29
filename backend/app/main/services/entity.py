@@ -123,6 +123,7 @@ def get_recommendation_data(hotel_id,room_type):
 
     except Exception as err:
         return json.dumps({'error': True, 'error_name': format(err)})
+<<<<<<< HEAD
 
 
 def check_available_dates(data):
@@ -157,3 +158,5 @@ def check_available_dates(data):
         return json.dumps({'block': "true", "block_dates":block_dates, 'total_guest':rooms[1]})
     else:
         return json.dumps({'message':'Please select valid date'})
+=======
+>>>>>>> 489fcabc491c5a6545a7e454acdc4706d5066858

@@ -6,21 +6,22 @@ import {
 } from './ActionTypes'
 
 const initState = {
-    country: "",
-    state: "",
-    city: "",
+    loc:'Germany',
     free_cancellation: "",
     bedroom: "",
     quest: "",
+    rating:"",
     sort: "",
     price: "",
     aminities: "",
-    data: []
+    data: [],
+    url:"http://localhost:3000/vacation-rentals/s/search"
 }
 
 const reducer = (state = initState, { type, payload }) => {
     switch (type) {
         case FREECANCELLATION:
+            console.log(payload)
             return {
                 ...state,
                 free_cancellation:payload

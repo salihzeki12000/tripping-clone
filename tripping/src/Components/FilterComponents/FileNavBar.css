@@ -1,4 +1,4 @@
-.filter {
+/* .filter {
     border-radius:50px;
     border:none;
     background:lightgrey;
@@ -7,4 +7,13 @@
     text-decoration: none;
     display: inline-block;
     margin-left: 10px;
+} */
+
+.filter {
+    border-radius: 5px;
+    padding: 5px;
+}
+.filter:hover {
+    background-color: orange;
+    color:wheat
 }

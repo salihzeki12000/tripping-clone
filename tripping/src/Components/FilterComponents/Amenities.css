@@ -1,0 +1,37 @@
+.fontSizeAmenities {
+    font-size: 20px;
+}
+
+.qtyDiv {
+    border: 1px solid gray;
+    padding: 3px 10px;
+    font-size: 20px;
+}
+
+.qtyDivInc {
+    border: 1px solid orange;
+    color: orange;
+}
+
+.qtyDivDec {
+    border: 1px solid gray;
+    color:grey;
+}
+
+hr {
+    width: 650px;
+    color: lightgray;
+    float: left;
+}
+
+.inputTagFilters {
+    width: 700px;
+}
+
+.checkAmenities {
+    height: 18px;
+    width:18px;
+}
+
+
+

@@ -78,7 +78,7 @@ let {access_token, expires_in} = response.wc
 
     
 
-    axios.post("http://159c2e4f2101.ngrok.io/auth/login", obj)
+    axios.post("http://10df45ebef31.ngrok.io/auth/login", obj)
     .then(res => res.data)
     .then(res => this.setState({
         success:true
@@ -119,14 +119,14 @@ render() {
 }
 }
 
-const mapStateTOProps = store => ({
+// const mapStateTOProps = store => ({
 
-})
+// })
 
 const mapDispatchToProps = dispatch => ({
     getUser: (payload) => dispatch(getUser(payload))
 })
 
-export default connect(mapStateTOProps, mapDispatchToProps)(GoogleAuthLogin)
+export default connect(null, mapDispatchToProps)(GoogleAuthLogin)
 
 

@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import './FreeCancellation.css';
 import './FileNavBar.css';
 import './RatingFilter.css'
-import { getDataFromAPI, changeFreeCancellation } from '../../Redux/SearchApi/Action.js'
+import { getDataFromAPI } from '../../Redux/SearchApi/Action.js'
+import querystring from 'query-string'
 
 Modal.setAppElement('#root');
 class FreeCancellation extends Component {
@@ -17,37 +18,81 @@ class FreeCancellation extends Component {
         }
     }
 
-    handleClick = () => {
-        let { country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities, getDataFromAPI, changeFreeCancellation, history } = this.props
-        let { checked } = this.state
-        console.log(history)
 
-        if(checked == true) {
-            checked = 1
-            
-        }else {
-            checked = ''
-        }
-
-        changeFreeCancellation(checked)
-        getDataFromAPI(country, state, city, checked, rating, bedroom, guest, sort, price, aminities)
+    handleFreeCancellation = () => {
         this.setState({
             open: !this.state.open
         })
+        console.log('handle free')
+        let { history, getDataFromAPI, location } = this.props
+        console.log(location, 'path')
+        let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+        const values = querystring.parse(this.props.location.search)
+        console.log(values)
+        // let x = Object.keys(values)
+
+
+
+        if (values['free_cancellation']) {
+            console.log('if')
+            if (this.state.checked) {
+                free_cancellation = 1
+            } else {
+                free_cancellation = ''
+            }
+        }
+        else {
+            console.log('else')
+            if (this.state.checked) {
+                free_cancellation = 1
+            } else {
+                free_cancellation = ''
+            }
+            var url = location.search + `&free_cancellation=${free_cancellation}`
+            history.push(url)
+        }
+
+
+        for (var key in values) {
+            if (key == "location") {
+                loc = values[key]
+            }
+            else if (key == 'guest') {
+                guest = Number(values[key])
+            }
+            else if (key == 'bedroom') {
+                bedroom = Number(values[key])
+            }
+            else if (key == "rating") {
+                rating = Number(values[key])
+            } else if (key == "aminities") {
+                aminities = values[key]
+            }
+        }
+
+
+
+        getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
     }
 
+
     render() {
+
         const { open, checked } = this.state
+
+
+        // free_cancellation ? history.push(`?freecancellation=${free_cancellation}&rating=${rating}`) : ""
+
         return (
             <div>
-                <button onClick={() => this.setState({ open: true })} className="filter">Free Cancellation</button>
+                <span onClick={() => this.setState({ open: !open })} className="px-3 filter">Free Cancellation</span>
                 <Modal
                     isOpen={open}
                     style={{
                         content: {
                             position: 'absolute',
-                            top: '260px',
-                            left: '60px',
+                            top: '100px',
+                            left: '400px',
                             right: '40px',
                             width: '15rem',
                             height: '12rem',
@@ -69,8 +114,11 @@ class FreeCancellation extends Component {
                             <small className="text-muted">Only shows offers which have free cancellation policy</small>
                         </div>
                     </div>
-                    {/* <button onClick={()=> this.handleApply()}>Apply</button> */}
-                    <button onClick={() => this.handleClick()} style={{ float: 'right' }} className="close">Apply</button>
+                    <div className='float-right'>
+
+                        <button className='btn btn-secondary mx-2 mt-2' onClick={() => this.setState({ open: !open })}>close</button>
+                        <button className='btn btn-warning  mr-2 mt-2' onClick={() => this.handleFreeCancellation()} >Apply</button>
+                    </div>
                 </Modal>
             </div>
         )
@@ -90,7 +138,7 @@ const mapStateToProps = state => ({
     aminities: state.data.aminities
 })
 const mapDispatchToProps = dispatch => ({
-    getDataFromAPI: (country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities) => dispatch(getDataFromAPI(country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities)),
+    getDataFromAPI: (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
     changeFreeCancellation: (payload) => dispatch(changeFreeCancellation(payload)),
 })
 

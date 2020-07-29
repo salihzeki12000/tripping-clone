@@ -8,10 +8,13 @@ import VacationRental from './HomeComponents/VacationRental'
 import HomeSearchBar from './HomeComponents/HomeSearchBar'
 // import { Link } from 'react-router-dom'
 import HomeNavbar from './HomeComponents/HomeNavbar'
+import Payment from '../Components/Payment'
 
 export default function Home() {
     return (
         <div>
+            {/* <DetailsCard /> */}
+            {/* <Payment /> */}
             <HomeNavbar />
             <HomeSearchBar />
             <Subscribe />

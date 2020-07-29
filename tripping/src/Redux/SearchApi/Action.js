@@ -21,18 +21,15 @@ export const apiFailure = (payload) => ({
     payload
 })
 
-export const getDataFromAPI = (country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities) => dispatch => {
-    dispatch(apiRequest(country , state , city, free_cancellation , rating, bedroom , guest , sort, price, aminities))
-    // console.log(payload, 'called api')
-    console.log(country, state, 'action')
-    // axios.get("http://3b5fec4d507f.ngrok.io/search/s?country="+country+"&state=&city=Berck&free_cancellation=&rating=&bedroom=&guest=&sort=&price=&aminities=", {
-        axios.get("http://3b5fec4d507f.ngrok.io/search/s", {
+export const getDataFromAPI = (loc,free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch => {
+    console.log('getDataFromAPI')
+    dispatch(apiRequest(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities))
+    console.log(loc,bedroom, guest, 'action')
+    axios.get("http://b234016388a7.ngrok.io/search/s", {
         params: {
-            country: 'Spain',
-            state: state,
-            city: city,
+            location:loc,
             free_cancellation: free_cancellation,
-            rating:rating,
+            rating: rating,
             bedroom: bedroom,
             guest: guest,
             sort: sort,
