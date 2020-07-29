@@ -71,8 +71,10 @@ class SearchBar extends React.Component {
 
         let { locationFlag, guestsFlag, region, guests, startDate, endDate } = this.state
         let { guestCounter, bedroomCounter } = this.props;
-        console.log(region)
-        console.log(guestCounter, bedroomCounter)
+        console.log(startDate)
+        if(startDate && endDate){
+            console.log(startDate._d,endDate._d)
+        }
         return (
 
             <div className="container-fluid-md container-lg">
