@@ -10,3 +10,4 @@ class Location(db.Model):
     state = db.Column(db.String(100))
     city = db.Column(db.String(100))
     locality = db.Column(db.String(255))
+    
