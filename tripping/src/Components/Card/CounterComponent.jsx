@@ -42,10 +42,10 @@ export class CounterComponent extends Component {
                         </div>
 
                         <span className='borderDec mx-2 text-center' onClick={() => this.handleDecrement('guest')}><i className='fas fa-minus math black'></i></span>
-                        <span className=' text-center'>{guestCounter}</span>
+                        <span className=' text-center mx-2'>{guestCounter}</span>
                         <span className='borderInc mx-2 text-center ' onClick={() => this.handleIncrement('guest')}><i className='fas fa-plus math orange'></i></span>
                     </div>
-                    <div className="d-flex flex-row ml-3 mt-2">
+                    {/* <div className="d-flex flex-row ml-3 mt-2">
                         <div>
                             <i class="fa fa-child"></i>
                         </div>
@@ -55,7 +55,7 @@ export class CounterComponent extends Component {
                         <span className='borderDec ml-4 mr-2 text-center' onClick={() => this.handleDecrement('bedrooms')}><i className='fas fa-minus math black'></i></span>
                         <span className=' text-center'>{bedroomCounter}</span>
                         <span className='borderInc mx-2 text-center' onClick={() => this.handleIncrement('bedrooms')}><i className='fas fa-plus math orange'></i></span>
-                    </div>
+                    </div> */}
                     <h6 className="ml-3 text-muted">5 guests maximum. Infants don’t count toward the number of guests</h6>
                     <button className="closeButton font-weight-bold" onClick={clickHandler}>Close</button>
                 </div>

@@ -6,7 +6,8 @@ const initState = {
    images:[],
    data:[],
    review:[],
-   recommendations:[]
+   recommendations:[],
+   bookingResponse:[]
 }
 
 const reducer = (state = initState, { type, payload }) => {

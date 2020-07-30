@@ -42,12 +42,12 @@ const reducer = (state=initState,{type,payload})=>{
             }
         }
 
-        case SEARCHDATA: {
-            return {
-                ...state,
-                searchData:{...searchData, payload}
-            }
-        }
+        // case SEARCHDATA: {
+        //     return {
+        //         ...state,
+        //         searchData:{...searchData, payload}
+        //     }
+        // }
         default:
             return state
     }
