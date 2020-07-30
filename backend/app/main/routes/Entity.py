@@ -9,12 +9,12 @@ def entity_home():
     return 'entity home'
 
 
-@entity.route('/images/<id>')
-def get_images(id):
+# @entity.route('/images/<id>')
+# def get_images(id):
     
-    res = get_image_data(id)
+#     res = get_image_data(id)
 
-    return res
+#     return res
 
 
 @entity.route('/basic_detail/<id>')
