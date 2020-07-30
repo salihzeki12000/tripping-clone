@@ -2,7 +2,7 @@ import {
     APIREQUEST,
     APISUCCESS,
     APIFAILURE,
-    FREECANCELLATION
+    FREECANCELLATION,
 } from './ActionTypes'
 import axios from 'axios'
 
@@ -21,20 +21,23 @@ export const apiFailure = (payload) => ({
     payload
 })
 
-export const getDataFromAPI = (loc,free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch => {
+export const getDataFromAPI = (loc,check_in,check_out,free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch => {
     console.log('getDataFromAPI')
     dispatch(apiRequest(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities))
     console.log(loc,bedroom, guest, 'action')
-    axios.get("http://b234016388a7.ngrok.io/search/s", {
+    axios.get("https://1b336d5f96a0.ngrok.io/search/s", {
         params: {
             location:loc,
+            check_in:check_in,
+            check_out:check_out,
             free_cancellation: free_cancellation,
             rating: rating,
             bedroom: bedroom,
             guest: guest,
             sort: sort,
             price: price,
-            aminities: aminities
+            aminities: aminities,
+
         }
     })
         .then(res => res.data)

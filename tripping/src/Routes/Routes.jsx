@@ -6,6 +6,7 @@ import Signin from './Authentication/Signin'
 import VacationRentalsSearch from './VacationRentalsSearch'
 import DetailsCard from '../Components/Card/DetailsCard'
 import TempCard from '../Components/Card/TempCard'
+import Reserve from '../Components/PaymentComponents/Reserve'
 import ReactGA from 'react-ga';
 
 
@@ -17,11 +18,13 @@ function Routes() {
         <div>
 
             <Switch>
-                <Route path='/' exact render={() => <Home />} />
-                <Route path='/vacation-rentals/s/:id' render={(props) => <VacationRentalsSearch {...props} />} />
-                <Route path='/register' exact render={() => <Register />} />
-                <Route path='/signin' exact render={(props) => <Signin />} />
-                <Route path='/detailscard/:id' render={(props) => <DetailsCard {...props} />} />
+            <Route path='/' exact render={()=> <Home />} />
+            <Route path='/vacation-rentals/s/:id' render= {(props)=> <VacationRentalsSearch {...props} />} />
+            <Route path='/register' exact render={()=> <Register />} />
+            <Route path='/signin' exact render={(props)=> <Signin />} />
+            <Route path='/detailscard/:id'  render={(props)=> <DetailsCard {...props} />} />
+            <Route path='/payment/:id'  render={(props)=> <Reserve {...props} />} />
+               
             </Switch>
         </div>
     )

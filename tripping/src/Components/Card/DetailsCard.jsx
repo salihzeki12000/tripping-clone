@@ -20,26 +20,29 @@ class TempCard extends React.Component {
         this.state = {
             data: "",
             flag: false,
-            id:''
+            id: '',
+            startDate: null,
+            endDate: null,
+            dateFlag: false
         }
     }
-     componentDidMount() {
+    componentDidMount() {
         console.log('enter')
         const values = querystring.parse(this.props.location.search)
 
         console.log(values)
-        
-        
+
+
         this.setState({
             data: "uday"
         })
 
         const { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest } = this.props
 
-         getImageRequest(Number(values.id))
-         getReviewRequest(Number(values.id))
-         getDataRequest({ id: Number(values.id), room_type: values.room_type })
-         getRecommendRequest({ id: Number(values.id), room_type: values.room_type })
+        getImageRequest(Number(values.id))
+        getReviewRequest(Number(values.id))
+        getDataRequest(Number(values.id))
+        getRecommendRequest(Number(values.id))
     }
 
 
@@ -53,71 +56,80 @@ class TempCard extends React.Component {
     }
 
 
-    handlePayment = async () => {
-   let {data} = this.props
-        let order_res = await axios.post("https://b234016388a7.ngrok.io/booking/order_id",{
-            "amount": 9000,
-            "currency" :"INR",
-            "receipt": 32 + "#" + "uday",
-            "payment_capture":"1"
+    // handlePayment = async () => {
+    //     let { data } = this.props
+    //     let order_res = await axios.post("http://ac26c3ee3bc6.ngrok.io/booking/order_id", {
+    //         "amount": 9000,
+    //         "currency": "INR",
+    //         "receipt": 32 + "#" + "uday",
+    //         "payment_capture": "1"
 
-        })
+    //     })
 
 
-    const options = {
-        "key":  "rzp_test_sG3R7ERqPCjPFP" ,      // Enter the Key ID generated from the Dashboard
-        "amount": "9000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        "currency": "INR",
-        "name": "Book Trip",
-        "description": "Transaction",
-        "image": "/logo.svg",
-        "order_id": order_res.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        handler: async function (response){
-            // alert(response.razorpay_payment_id);
-            // alert(response.razorpay_order_id);
-            // alert(response.razorpay_signature)
-            console.log(response)
-            let final_res = await axios.post("https://b234016388a7.ngrok.io/booking/varification", {
-                ...response
+    //     const options = {
+    //         "key": "rzp_test_sG3R7ERqPCjPFP",      // Enter the Key ID generated from the Dashboard
+    //         "amount": "9000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    //         "currency": "INR",
+    //         "name": "Book Trip",
+    //         "description": "Transaction",
+    //         "image": "/logo.svg",
+    //         "order_id": order_res.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    //         handler: async function (response) {
+    //             // alert(response.razorpay_payment_id);
+    //             // alert(response.razorpay_order_id);
+    //             // alert(response.razorpay_signature)
+    //             console.log(response)
+    //             let final_res = await axios.post("http://ac26c3ee3bc6.ngrok.io/booking/varification", {
+    //                 ...response
+    //             })
+
+    //             if (final_res.data.result == 'success') {
+    //                 alert(final_res.data.message)
+    //                 this.props.history.push('/')
+    //             } else {
+    //                 alert(final_res.data.message)
+    //             }
+
+    //         },
+    //         "prefill": {
+    //             "name": "Uday",
+    //             "email": "",
+    //             "contact": ""
+    //         },
+    //         // "notes": {
+    //         //     "address": ""
+    //         // },
+    //         "theme": {
+    //             "color": "#F37254"
+    //         }
+    //     };
+
+
+
+    //     const paymentObject = new window.Razorpay(options)
+    //     paymentObject.open()
+
+    // }
+
+    handleAvailabity = () => {
+        let { startDate, endDate } = this.state
+        if (startDate && endDate) {
+            this.setState({
+                dateFlag: true
             })
-
-            if(final_res.data.result == 'success') {
-                alert(final_res.data.message)
-                this.props.history.push('/')
-            }else {
-                alert(final_res.data.message)
-            }
-
-        },
-        "prefill": {
-            "name": "Uday",
-            "email": "",
-            "contact": ""
-        },
-        // "notes": {
-        //     "address": ""
-        // },
-        "theme": {
-            "color": "#F37254"
         }
-    };
-
-
-
-    const paymentObject = new window.Razorpay(options)
-    paymentObject.open()
-
-  }
+    }
 
     render() {
 
-      
 
-        let { user, images, review, data, recommendations, guestCounter } = this.props;
-        let { startDate, endDate, click, open, counter } = this.state
-        console.log(images, data, review, recommendations)
+
+        let { user,  review, data, recommendations, guestCounter } = this.props;
+        let { startDate, endDate, click, open, counter, dateFlag } = this.state
+        console.log( data, review, recommendations)
         // console.log(data[0].hotel_name)
-console.log(user.success, user.image, user)
+        console.log(user.success, user.image, user)
         return (
             <div className='container-fluid'>
                 {/* {this.state.date} */}
@@ -176,22 +188,22 @@ console.log(user.success, user.image, user)
                 <br />
                 <div className='container'>
                     {data.length > 0 && <>
-                        <h1 className='text-dark'>{data[0].hotel_name} @{data.length > 0 && data[0].locality}</h1>
+                        <h1 className='text-dark'>{data[0].property_name} @{data && data[0].locality}</h1>
                         <div className='d-flex flex-row'>
                             <p><i class="fa fa-star text-warning" aria-hidden="true"></i></p>
                             <p className='mx-3 text-secondary'>{data[0].rating}({review.length})</p>
-                    <p className="mx-1">. {`${data[0].city}, ${data[0].state}, ${data[0].country}`}</p>
+                            <p className="mx-1">. {`${data[0].city}, ${data[0].state}, ${data[0].country}`}</p>
                         </div></>}
                     <div className="row my-3">
                         <div className="col-6 p-2">
-                            <img className="img-fluid detCard" src={images[0]} />
+                            <img className="img-fluid detCard" src={data[0].image && data[0].image[0]} />
                         </div>
                         <div className="col-6">
                             <div className="row">
-                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src={images[1]} /></div>
-                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src={images[2]} /></div>
-                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src={images[3]} /></div>
-                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src={images[4]} /></div>
+                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src={data[0].image  && data[0].image[1]} /></div>
+                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src={data[0].image  && data[0].image[2]} /></div>
+                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src={data[0].image  && data[0].image[3]} /></div>
+                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src={data[0].image  && data.image[4]} /></div>
                             </div>
                         </div>
                     </div>
@@ -296,15 +308,15 @@ console.log(user.success, user.image, user)
                             </div>
 
                         </div>
-                        <div className="col-5">
-                            <div className="row ml-5" style={{ border: '1px solid gray', width: '330px' }}>
-                                <div className="col-6">
-                                    <i class="fas fa-rupee-sign text-warning mr-1"></i>{data.length > 0 && data[0].price} /night
-                            </div>
-                                <div className="col-6">
-                                    <i class="fa fa-star text-warning ml-4 mr-1" aria-hidden="true"></i>4.66(29)
-                            </div>
-                                <div className='Date_div col-12 border mt-2'>
+                        <div className="col-5 ">
+                            <div className="row p-2 ml-3 border" >
+                                <div className="col-6 d-flex flex-row">
+                                    <i class="fas fa-rupee-sign text-warning mx-2 mt-1 "></i> <span><h5 className='font-weight-bold mx-2'>{data.length > 0 && data[0].price}price</h5></span>  <span className='mx-2'> /night</span>
+                                </div>
+                                {/* <div className="col-6">
+                                    <i class="fa fa-star text-warning  mr-1" aria-hidden="true"></i>
+                                </div> */}
+                                <div className='mt-4 ml-5 border dateGuest ml-5'>
                                     <DateRangePicker
                                         className='CalendarDay__selected CalendarDay__selected_span'
                                         startDate={startDate}
@@ -317,22 +329,27 @@ console.log(user.success, user.image, user)
                                     />
                                 </div>
                                 <div>
-                                    <button className="angleDown" onClick={this.handleClick}>
+                                    <div className="border ml-5 p-3 mt-1 dateGuest pt-2 " style={{ width: '280px' }} onClick={this.handleClick}>
                                         <div className="row">
                                             <div className="col-6">
-                                                <p className="font-weight-bold">Guests</p>
-                                                <p>{guestCounter} guests</p>
+                                                <span className="font-weight-bold">Guests</span>
                                             </div>
-                                            <div className="col-6">
+                                            <div className='offset-1 col-2'>
+                                                <span className=''>{guestCounter}</span>
+
+                                            </div>
+                                            <div className="col-2">
                                                 {click ? <i class="fa fa-angle-up text-warning" aria-hidden="true"></i> : <i class="fa fa-angle-down text-warning" aria-hidden="true"></i>}
                                             </div>
                                         </div>
-                                    </button>
-                                    <div>
-                                        {counter && <CounterComponent  clickHandler={this.handleClick} />}
                                     </div>
-                                    <div>
-                                        <button className="btn btn-block reserve" onClick={()=>this.handlePayment()}>Reserve</button>
+                                    <div className=' p-2'>
+                                        {counter && <CounterComponent clickHandler={this.handleClick} />}
+                                    </div>
+                                    <div className='ml-5'>
+                                        {!dateFlag ?
+                                            <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button>
+                                            : data.length > 0 && startDate && endDate && <Link to={`/payment/tripping/?id=${data[0].property_id}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link>}
                                     </div>
                                 </div>
                             </div>
@@ -340,32 +357,33 @@ console.log(user.success, user.image, user)
                     </div>
                     <hr className='hrFull' />
                     <div className='my-2'>
-                        <h4 className='font-weight-bold'>{data.length > 0 && data[0].rating}({review.length} reviews)</h4>
+                        <h4 className='font-weight-bold'>{data   && data[0].rating}({review.length} reviews)</h4>
                         {review?.map((elem, i) => <p style={{ fontSize: "20px" }}>{i + 1}. {elem.review} - {elem.rating}</p>)}
                     </div>
                     <hr className='hrFull' />
                     <div className='my-2'>
                         <h4 className='font-weight-bold'>Recommendations</h4>
                         <div className='row'>
-                        {recommendations?.filter((elem,i) => i < 6 && elem ).map((item, i) => {
-                            return (
-                                <div key={item.hotel_id} className="col-4">
-                                    <div className="card" >
-                                        <img src={item.image[0]} className="card-img-top" alt="..." />
-                                        <div className="card-body">
-                            <h5 className="card-title">{item.hotel_name}</h5>
-                            <p className="card-text">Rs.{item.price} . Room:{item.room_type} . Bedroom:{item.bedroom} </p>
-                            
-                                            {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                            {recommendations?.filter((elem, i) => i < 6 && elem).map((item, i) => {
+                                return (
+                                    <div key={item.property_id} className="col-4">
+                                        <div className="card" >
+                                            <img src={item.image[0]} className="card-img-top" alt="..." />
+                                            <div className="card-body">
+                                                <h5 className="card-title">{item.property_name}</h5>
+                                                <p className="card-text">Rs.{item.price} . Room:{item.room_type} . Bedroom:{item.bedroom} </p>
+
+                                                {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
-                        })}
-                         </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
+            // <div>hi</div>
         )
     }
 }
