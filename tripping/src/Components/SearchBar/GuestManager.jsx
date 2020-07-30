@@ -30,7 +30,7 @@ export class GuestManager extends Component {
         const { guestCounter, bedroomCounter } = this.props;
         console.log(guestCounter, bedroomCounter)
         return (
-            <div className="bg-white borderDivGuests">
+            <div className="bg-white">
                      <p className='pt-2 font-weight-bold text-secondary'>Guests and Bedrooms</p>
                 <div className=' '>
                
@@ -39,12 +39,12 @@ export class GuestManager extends Component {
                         <i class="fa fa-male text-secondary" aria-hidden="true"></i>
                         </div>
                         <div>
-                        <p className='pl-2 pr-5'>Guests</p>
+                        <p className='pl-2 pr-5 mr-1'>Guests</p>
                         </div>
                    
-                        <span onClick={() => this.handleDecrement("guest")} className='borderDec mx-2'>-</span>
+                        <span onClick={() => this.handleDecrement("guest")} className='borderDec mx-2'><i className='fas fa-minus' style={{color:"black", border:"1px solid black",padding:'3px'}}></i></span>
                         <span className=' text-center'>{guestCounter}</span>
-                        <span onClick={() => this.handleIncrement('guest')} className='borderInc mx-2 '>+</span>
+                        <span onClick={() => this.handleIncrement('guest')} className='borderInc mx-2 '><i className='fas fa-plus' style={{color:"orange", border:"1px solid black",padding:'3px'}}></i></span>
                     </div>
                     <div className="d-flex flex-row ml-4 mt-2">
                         <div>
@@ -54,9 +54,9 @@ export class GuestManager extends Component {
                         <p className='pl-2 pr-3'>Bedrooms</p>
                         </div>
                    
-                        <span onClick={() => this.handleDecrement("bedrooms")} className='borderDec mx-2'>-</span>
+                        <span onClick={() => this.handleDecrement("bedrooms")} className='borderDec mx-2'><i className='fas fa-minus' style={{color:"black", border:"1px solid black",padding:'3px'}}></i></span>
                         <span className=' text-center'>{bedroomCounter}</span>
-                        <span onClick={() => this.handleIncrement('bedrooms')} className='borderInc mx-2 '>+</span>
+                        <span onClick={() => this.handleIncrement('bedrooms')} className='borderInc mx-2 '><i className='fas fa-plus' style={{color:"orange", border:"1px solid black",padding:'3px'}}></i></span>
                     </div>
                     <div className="d-flex flex-row mt-2 text-center">
                         <input type='checkbox' className="mt-2 ml-3 px-2 mr-3"/>

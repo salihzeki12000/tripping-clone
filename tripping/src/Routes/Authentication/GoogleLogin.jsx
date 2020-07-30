@@ -119,14 +119,14 @@ render() {
 }
 }
 
-const mapStateTOProps = store => ({
+// const mapStateTOProps = store => ({
 
-})
+// })
 
 const mapDispatchToProps = dispatch => ({
     getUser: (payload) => dispatch(getUser(payload))
 })
 
-export default connect(mapStateTOProps, mapDispatchToProps)(GoogleAuthLogin)
+export default connect(null, mapDispatchToProps)(GoogleAuthLogin)
 
 

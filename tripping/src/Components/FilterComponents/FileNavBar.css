@@ -8,3 +8,12 @@
     display: inline-block;
     margin-left: 10px;
 } */
+
+.filter {
+    border-radius: 5px;
+    padding: 5px;
+}
+.filter:hover {
+    background-color: orange;
+    color:wheat
+}

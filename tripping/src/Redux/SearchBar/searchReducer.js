@@ -6,9 +6,7 @@ const initState = {
     searchData:{
         region:'',
         startDate:'',
-        endDate:'',
-        guestCounter:'',
-        bedroomCounter:''
+        endDate:''
     }
 }
  

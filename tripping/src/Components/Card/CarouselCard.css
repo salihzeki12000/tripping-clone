@@ -16,20 +16,36 @@
     color:orange;
 }
 
+.black {
+    color:black
+}
+
+.math{
+    border:1px solid black;
+    border-radius: 2px;
+    padding: 2px;
+}
+
+.imgDim{
+    height: 200px !important;
+    widows: 200px !important;
+    border-radius: 5px;
+}
+
 .button {
     padding: 10px 20px 10px 20px;
     clear: both;
     float: right;
     background-color:white; 
-    border: 2px solid orange;
-    color:orange;
+    border: 2px solid #FB8C00;
+    color:"#FB8C00";
     text-decoration: none;
     transition-duration: 0.1s;
     cursor: pointer;
 }
 
 .button:hover {
-    background-color:orange;
+    background-color:#FB8C00;
     color:white;
   }
 
@@ -84,5 +100,19 @@
 
 .closeButton:focus{
     outline:none;
+}
+
+.reserve {
+    background-color:orange; 
+    border: 2px solid orange;
+    color:white;
+    text-decoration: none;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.reserve:hover{
+    background-color:white;
+    color:orange;
 }
 

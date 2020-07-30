@@ -23,6 +23,9 @@ class SearchBar extends React.Component {
         }
     }
 
+    handleClear = ()=>{
+        this.setState({region:''})
+    }
     handleChange = (event) => {
         this.setState({ region: event.target.value });
     }
@@ -68,12 +71,14 @@ class SearchBar extends React.Component {
 
         let { locationFlag, guestsFlag, region, guests, startDate, endDate } = this.state
         let { guestCounter, bedroomCounter } = this.props;
-        console.log(region)
-        console.log(guestCounter, bedroomCounter)
+        console.log(startDate)
+        if(startDate && endDate){
+            console.log(startDate._d,endDate._d)
+        }
         return (
 
             <div className="container-fluid-md container-lg">
-                <div className='mt-5 mx-5 fontSizeText'>
+                {/* <div className='mt-5 mx-5 fontSizeText'>
 
                     <div className="d-flex flex-row" >
                         <div className="row">
@@ -108,32 +113,59 @@ class SearchBar extends React.Component {
                                 </div>
                             </div>
                             <Link to={`/vacation-rentals/s/search?location=${region}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
-                                <div className='searchDiv col-md-1 col-12  px-4 rounded-right' >
+                                <div className='searchDiv col-md-1 col-12  px-4 rounded-right text-center' >
                                     <i class="fa fa-search text-white mt-3" onClick={() => this.handleSearch()} style={{ fontSize: "20px" }}></i>
                                 </div>
                             </Link>
 
                         </div>
-                    </div>
+                    </div> */}
 
-                </div>
-
-                <div className='row mx-4 '>
-                    {locationFlag && <div className='col-3'>
-                        <div className='borderDivDown mt-1 text-secondary'>
-                            <p className='text-left ml-3 pt-3'>Recent Searches</p>
+                {/* </div> */}
+                <div className="ml-5">
+                    <div className="divContainer ml-5 mt-5">
+                        <div className="border ml-5 regionDiv" onClick={() => this.handleLocation()}>
+                            <input
+                                placeholder="Enter a location"
+                                className="input mt-2 p-1"
+                                value={region}
+                                onChange={this.handleChange}
+                            />
+                            <i class="fas fa-times cross" onClick={this.handleClear}></i>
                         </div>
+                        <div className="border">
+                            <DateRangePicker
+                                startDate={this.state.startDate}
+                                startDateId="your_unique_start_date_id"
+                                endDate={this.state.endDate}
+                                endDateId="your_unique_end_date_id"
+                                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                                focusedInput={this.state.focusedInput}
+                                onFocusChange={focusedInput => this.setState({ focusedInput })}
+                            />
+                        </div>
+                        <div className="border guests text-center" onClick={this.handleGuests}>
+                            <i class="fas fa-male mt-2 ml-2 mr-1 float-left mt-3"></i>
+                            <p className="guests mt-2"> {guestCounter} guests</p>
+                        </div>
+                        <Link to={`/vacation-rentals/s/search?location=${region}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
+                            <div className="border">
+                                <button className="btn btn-block search" onClick={() => this.handleSearch()}><i className="fas fa-search text-white"></i></button>
+                            </div>
+                        </Link>
                     </div>
-                    }
-                    <div className='col-4 offset-4'>
-
+                    <div className="absolute">
+                        {guestsFlag && <GuestManager />}
                     </div>
-
-                    {guestsFlag && <div className='col-3  mt-1'>
-                        <GuestManager />
-                    </div>
-                    }
-
+                    {/* <div className='row mx-4 '>
+                        {
+                            locationFlag && <div className='col-3'>
+                                <div className='borderDivDown mt-1 text-secondary bg-white'>
+                                    <p className='text-left ml-3 pt-3'>Recent Searches</p>
+                                </div>
+                            </div>
+                        }
+                    </div> */}
                 </div>
             </div>
 
@@ -162,4 +194,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
-

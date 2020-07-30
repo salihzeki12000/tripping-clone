@@ -89,7 +89,7 @@ class RatingFilter extends React.Component {
         const { rating } = this.props
         return (
             <div>
-                <span onClick={() => this.setState({ open: !open })} className="px-3">Rating</span>
+                <span onClick={() => this.setState({ open: !open })} className="px-3 filter">Rating</span>
                 <Modal
                     isOpen={open}
                     style={{
