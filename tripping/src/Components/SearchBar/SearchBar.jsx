@@ -74,6 +74,8 @@ class SearchBar extends React.Component {
         console.log(startDate)
         if(startDate && endDate){
             console.log(startDate._d,endDate._d)
+            
+            console.log(startDate._d.getDay(),startDate._d.getMonth(),startDate._d.getFullYear())
         }
         return (
 

@@ -25,7 +25,7 @@ export const getDataFromAPI = (loc,free_cancellation, rating, bedroom, guest, so
     console.log('getDataFromAPI')
     dispatch(apiRequest(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities))
     console.log(loc,bedroom, guest, 'action')
-    axios.get("http://b234016388a7.ngrok.io/search/s", {
+    axios.get("https://1b336d5f96a0.ngrok.io/search/s", {
         params: {
             location:loc,
             free_cancellation: free_cancellation,
