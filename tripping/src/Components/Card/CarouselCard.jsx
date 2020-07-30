@@ -14,7 +14,7 @@ export class CarouselCard extends Component {
 
             <div>
 
-                <div id={"carouselExampleCaptions" + property_id} className="carousel slide mr-3" data-ride="carousel" style={{ width: '20rem' }}>
+                <div id={"carouselExampleCaptions" + property_id} className="carousel slide ml-5 mr-5" data-ride="carousel" style={{ width: '20rem' }}>
                     <ol className="carousel-indicators">
                         <li data-target={"#" + "carouselExampleCaptions" + property_id} data-slide-to="0" className="active"></li>
                         <li data-target={"#" + "carouselExampleCaptions" + property_id} data-slide-to="1"></li>
@@ -40,7 +40,7 @@ export class CarouselCard extends Component {
                          <img src="https:encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSB4c0q25JcnrvhS7GKyMrssoc9JootgZLoPA&usqp=CAU" class="d-block w-100" alt="..." />
                      </div>
                      <div class="carousel-item">
-                         <img src="https:encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT465Z5vP_r7x9I2nM3szL4Xww8oX372YEDfQ&usqp=CAU" class="d-block w-100" alt="..." />
+                         <img src="https:encrypted-tbn0.gstati5.com/images?q=tbn%3AANd9GcT465Z5vP_r7x9I2nM3szL4Xww8oX372YEDfQ&usqp=CAU" class="d-block w-100" alt="..." />
                      </div>
                      <div class="carousel-item">
                          <img src="https:encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrhYAE0NiGAGVe3lvbQQ8uL9qwRj5i3jcU6g&usqp=CAU" class="d-block w-100" alt="..." />

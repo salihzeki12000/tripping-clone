@@ -47,4 +47,4 @@ def booking_msg():
 
     res = send_booking_msg(request.json)
 
-    return
+    return res

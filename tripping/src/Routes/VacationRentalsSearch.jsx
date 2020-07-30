@@ -3,8 +3,9 @@ import CarouselCard from '../Components/Card/CarouselCard'
 import FileNavBar from '../Components/FilterComponents/FileNavBar'
 import { connect } from 'react-redux'
 import SearchLogo from '../Components/FilterComponents/SearchLogo'
-import { getDataFromAPI} from '../Redux/SearchApi/Action'
-import querystring from 'query-string'
+import { getDataFromAPI } from '../Redux/SearchApi/Action'
+import querystring from 'query-string';
+import MapComponent from '../Components/MapComponent';
 
 
 class VacationRentalsSearch extends Component {
@@ -15,13 +16,13 @@ class VacationRentalsSearch extends Component {
             data: [],
             loc:'',
             check_in:'', 
-            check_out:''
+            check_out:'',
         }
     }
 
     componentDidMount() {
         let { getDataFromAPI } = this.props
-        let { loc, check_in, check_out,free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+        let { loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
         const values = querystring.parse(this.props.location.search)
         console.log(values)
 
@@ -38,12 +39,12 @@ class VacationRentalsSearch extends Component {
 
         let x = Object.keys(values)
         if (x.length == 0) {
-            getDataFromAPI(loc, check_in, check_out , free_cancellation, rating, bedroom, guest, sort, price, aminities)
+            getDataFromAPI(loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities)
         } else {
             for (var key in values) {
                 if (key == "location") {
                     loc = values[key]
-                } 
+                }
                 else if (key == "free_cancellation") {
                     if (typeof (values[key]) != "number") {
                         free_cancellation = ''
@@ -51,22 +52,22 @@ class VacationRentalsSearch extends Component {
                         free_cancellation = Number(values[key])
                     }
                 }
-                 else if (key == "rating") {
+                else if (key == "rating") {
                     rating = Number(values[key])
                 }
-                else if(key=='guest'){
+                else if (key == 'guest') {
                     guest = Number(values[key])
                 }
-                else if(key=='bedroom'){
+                else if (key == 'bedroom') {
                     bedroom = Number(values[key])
-                }else if(key=='price'){
+                } else if (key == 'price') {
                     price = Number(values[key])
                 }
                 else if (key == "aminities") {
                     aminities = values[key]
-                }else if(key == 'check_in') {
+                } else if (key == 'check_in') {
                     check_in = values[key]
-                }else if(key == 'check_out') {
+                } else if (key == 'check_out') {
                     check_out = values[key]
                 }
             }
@@ -78,25 +79,24 @@ class VacationRentalsSearch extends Component {
 
 
     render() {
-        // let { data } = this.state
         let { history, data, location } = this.props
-        // const values = querystring.parse(this.props.location.search)
-        // console.log(values)
-          // console.log(this.state.loc)
+        if (data.length != 0) {
+            console.log(data)
+        }
         return (
             <>
 
-        
-                <SearchLogo location={this.state.loc}  />
-                <div className='container-fluid border-top '>
+
+                <SearchLogo location={this.state.loc} />
+                <div className='container-fluid border-top row'>
                     {/* <SearchBar /> */}
 
                     <div className='col-6'>
                         <FileNavBar history={history} location={location} />
-                        <h2 className='text-center m-4'>{data.length ==0 && "Please wait Data is Loading..."}</h2>
+                        <h2 className='text-center m-4'>{data.length == 0 && "Please wait Data is Loading..."}</h2>
                         <div className='row mt-5'>
                             {
-                                data && data ? data.map(elem =>  <CarouselCard key={elem.id}
+                                data && data ? data.map(elem => <CarouselCard key={elem.id}
                                     bedroom={elem.bedroom}
                                     accomodation_type={elem.accomodation_type}
                                     guest={elem.guest}
@@ -112,7 +112,7 @@ class VacationRentalsSearch extends Component {
                                      check_in={this.state.check_in}
                                      check_out={this.state.check_out} />
                                 )
-                                    :  <div>Sorry Data not found</div>
+                                    : <div>Sorry Data not found</div>
 
                                 //    data ? data.map(elem => <CarouselCard />) : <div>Sorry Data not found</div>
                             }
@@ -120,8 +120,13 @@ class VacationRentalsSearch extends Component {
 
                         {/* <Amenities /> */}
                     </div>
-
+                    <div className="pt-4 mt-4">
+                        {
+                            data && <MapComponent data={data}/>
+                        }
+                    </div>
                 </div>
+
             </>
         )
     }
@@ -130,8 +135,8 @@ class VacationRentalsSearch extends Component {
 
 const mapStateToProps = state => ({
     loc: state.data.loc,
-    check_in:state.data.check_in,
-    check_out:state.data.check_out,
+    check_in: state.data.check_in,
+    check_out: state.data.check_out,
     free_cancellation: state.data.free_cancellation,
     rating: state.data.rating,
     bedroom: state.data.bedroom,

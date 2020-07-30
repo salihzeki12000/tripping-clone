@@ -14,6 +14,7 @@ import querystring from 'query-string';
 import SearchBar from '../SearchBar/SearchBar';
 import Amenities from '../FilterComponents/Amenities';
 import { format } from 'fecha'
+import MapComponent from '../MapComponent';
 
 Modal.setAppElement('#root');
 class TempCard extends React.Component {
@@ -430,6 +431,12 @@ class TempCard extends React.Component {
                                 </div>
                             </div>)}
                         </div>
+                    </div>
+                    <hr className='hrFull' />
+                    <div className='my-2'>
+
+                            {data && <MapComponent data={data} /> }
+
                     </div>
                     <hr className='hrFull' />
                     <div className='my-2'>
