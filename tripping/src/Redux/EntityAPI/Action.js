@@ -44,7 +44,7 @@ export const getImageRequest = (payload) => dispatch => {
 export const getDataRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
     console.log(payload)
-    axios.get("https://1b336d5f96a0.ngrok.io/entity/basic_detail/" + payload)
+    axios.get("https://0e332314fd66.ngrok.io/entity/basic_detail/" + payload)
         .then(res => res.data)
         .then(res => dispatch(dataRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
@@ -53,7 +53,7 @@ export const getDataRequest = (payload) => dispatch => {
 export const getReviewRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
     console.log(payload)
-    axios.get("https://1b336d5f96a0.ngrok.io/entity/review/" + payload)
+    axios.get("https://0e332314fd66.ngrok.io/entity/review/" + payload)
         .then(res => res.data)
         .then(res => dispatch(reviewRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
@@ -62,17 +62,23 @@ export const getReviewRequest = (payload) => dispatch => {
 export const getRecommendRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
     console.log(payload)
-    axios.get("https://1b336d5f96a0.ngrok.io/entity/recommendation/" + payload)
+    axios.get("https://0e332314fd66.ngrok.io/entity/recommendation/" + payload)
         .then(res => res.data)
         .then(res => dispatch(recommendationRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
 }
 
 
-export const getBookingRequest = (payload) => dispatch => {
+export const getBookingRequest = (property_id, check_in, check_out) => dispatch => {
     // console.log('getDataFromAPI')
-    console.log(payload)
-    axios.get("https://29c2b33b277b.ngrok.io/entity/" + 1 )
+    // console.log(payload)
+    axios.get("https://0e332314fd66.ngrok.io/entity/check_dates", {
+        params: {
+           property_id: property_id,
+           check_in: check_in,
+           check_out: check_out
+        }
+    })
         .then(res => res.data)
         .then(res => dispatch(bookingRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));

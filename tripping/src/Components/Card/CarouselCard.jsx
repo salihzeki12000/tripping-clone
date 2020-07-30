@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export class CarouselCard extends Component {
 
     render() {
-        let { accomodation_type, bedroom, city, country, guest, property_name, price, state, rating, image, property_id, area, locality } = this.props;
+        let { accomodation_type, bedroom, city, country, guest, property_name, price, state, rating, image, property_id, area, locality, check_in, check_out } = this.props;
 
 
 
@@ -59,7 +59,7 @@ export class CarouselCard extends Component {
                     <div class="card-body">
                         <p className="text-muted float"> {area} FT<sup>2</sup> {accomodation_type} . {guest} Guests . {bedroom} Bedroom</p>
                         <small className="text-muted float">{property_name}, {city} {state} {country}</small>
-                        <Link to={`/detailscard/tripping/?id=${property_id}&country=${country}&state=${state}&locality=${locality}&area=${area}&accomodation=${accomodation_type}`} target='_blank' ><button className="button mt-2">DETAILS</button></Link>
+                        <Link to={`/detailscard/tripping/?id=${property_id}&check_in=${check_in}&check_out=${check_out}&country=${country}&state=${state}&locality=${locality}&area=${area}&accomodation=${accomodation_type}`} target='_blank' ><button className="button mt-2">DETAILS</button></Link>
                         <span><small className="text-muted clear mt-1">from </small><p className="float fontWeight">&nbsp; $&nbsp; </p><p className="fontWeight float"> {price} </p></span>
                         <small className="clear text-++d">virbo</small>
                         <p className="orange clear">
