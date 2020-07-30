@@ -9,10 +9,13 @@ import CounterComponent from './CounterComponent';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import axios from 'axios';
-import { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest, reviewRequest } from '../../Redux/EntityAPI/Action'
+import { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest, reviewRequest, getBookingRequest } from '../../Redux/EntityAPI/Action'
 import querystring from 'query-string';
 import SearchBar from '../SearchBar/SearchBar';
 import Amenities from '../FilterComponents/Amenities';
+import { format } from 'fecha'
+import MapComponent from '../MapComponent';
+
 Modal.setAppElement('#root');
 class TempCard extends React.Component {
     constructor(props) {
@@ -23,7 +26,9 @@ class TempCard extends React.Component {
             id: '',
             startDate: null,
             endDate: null,
-            dateFlag: false
+            dateFlag: false,
+            bookingRes: '',
+            bookingDate: []
         }
     }
     componentDidMount() {
@@ -32,17 +37,27 @@ class TempCard extends React.Component {
 
         console.log(values)
 
+        console.log(values.check_in, values.check_out)
+        let checkIn = values.check_in.split('-')
+        let checkOut = values.check_out.split('-')
+        // console.log(checkIn)
+
+        let x = format(new Date(Number(checkIn[0]), Number(checkIn[1]) - 1, Number(checkIn[2])), 'isoDate')
+        let y = format(new Date(Number(checkOut[0]), Number(checkOut[1]) - 1, Number(checkOut[2])), 'isoDate')
+        console.log(x, y)
 
         this.setState({
-            data: "uday"
+            data: "uday",
+            id: Number(values.id)
         })
 
-        const { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest } = this.props
+        const { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest, getBookingRequest } = this.props
 
-        getImageRequest(Number(values.id))
+        // getImageRequest(Number(values.id))
         getReviewRequest(Number(values.id))
         getDataRequest(Number(values.id))
         getRecommendRequest(Number(values.id))
+        getBookingRequest(Number(values.id), x, y)
     }
 
 
@@ -113,22 +128,54 @@ class TempCard extends React.Component {
     // }
 
     handleAvailabity = () => {
-        let { startDate, endDate } = this.state
+        let { startDate, endDate, id } = this.state
+
+        var start = ''
+        var end = ''
+        var arr = []
         if (startDate && endDate) {
+            start = startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()
+            end = endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()
+
+            this.setState({
+                dateFlag: true,
+            })
+
+            arr.push(start, end)
+
+        }
+        else {
             this.setState({
                 dateFlag: true
             })
         }
+
+
+        axios.get("https://0e332314fd66.ngrok.io/entity/check_dates", {
+            params: {
+                property_id: id,
+                check_in: start,
+                check_out: end
+            }
+        })
+            .then(res => res.data)
+            .then(res => {
+                this.setState({
+                    bookingRes: res,
+                    bookingDate: arr
+                })
+            })
     }
 
     render() {
 
 
 
-        let { user,  review, data, recommendations, guestCounter } = this.props;
-        let { startDate, endDate, click, open, counter, dateFlag } = this.state
-        console.log( data, review, recommendations)
+        let { user, review, data, recommendations, guestCounter, bookingResponse } = this.props;
+        let { startDate, endDate, click, open, counter, dateFlag, bookingRes } = this.state
+        console.log(data, review, recommendations)
         // console.log(data[0].hotel_name)
+        console.log(bookingRes, bookingResponse)
         console.log(user.success, user.image, user)
         return (
             <div className='container-fluid'>
@@ -191,19 +238,19 @@ class TempCard extends React.Component {
                         <h1 className='text-dark'>{data[0].property_name} @{data && data[0].locality}</h1>
                         <div className='d-flex flex-row'>
                             <p><i class="fa fa-star text-warning" aria-hidden="true"></i></p>
-                            <p className='mx-3 text-secondary'>{data[0].rating}({review.length})</p>
+                            <p className='mx-3 text-secondary'>{data.length > 0 && data[0].rating}({review && review.length})</p>
                             <p className="mx-1">. {`${data[0].city}, ${data[0].state}, ${data[0].country}`}</p>
                         </div></>}
                     <div className="row my-3">
                         <div className="col-6 p-2">
-                            <img className="img-fluid detCard" src={data[0].image && data[0].image[0]} />
+                            <img className="img-fluid detCard" src={data.length > 0 && data[0].image[0]} />
                         </div>
                         <div className="col-6">
                             <div className="row">
-                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src={data[0].image  && data[0].image[1]} /></div>
-                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src={data[0].image  && data[0].image[2]} /></div>
-                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src={data[0].image  && data[0].image[3]} /></div>
-                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src={data[0].image  && data.image[4]} /></div>
+                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src={data.length > 0 && data[0].image[1]} /></div>
+                                <div className="col-6 pt-2"> <img className="img-fluid childCard" src={data.length > 0 && data[0].image[2]} /></div>
+                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src={data.length > 0 && data[0].image[3]} /></div>
+                                <div className="col-6 pt-2 mt-3"> <img className="img-fluid childCard" src={data.length > 0 && data[0].image[4]} /></div>
                             </div>
                         </div>
                     </div>
@@ -211,7 +258,7 @@ class TempCard extends React.Component {
                     <div className='row'>
                         <div className='col-7'>
                             {data.length > 0 && <>
-                                <h2>{data[0].accomodation_type}, {data[0].room_type}</h2>
+                                <h2>{data[0].accomodation_type}</h2>
                                 <p>{data[0].guest}+ . guests . {data[0].bedroom} bedrooms</p>
                                 <hr className='hrFull' />
                             </>}
@@ -311,7 +358,7 @@ class TempCard extends React.Component {
                         <div className="col-5 ">
                             <div className="row p-2 ml-3 border" >
                                 <div className="col-6 d-flex flex-row">
-                                    <i class="fas fa-rupee-sign text-warning mx-2 mt-1 "></i> <span><h5 className='font-weight-bold mx-2'>{data.length > 0 && data[0].price}price</h5></span>  <span className='mx-2'> /night</span>
+                                    <i class="fas fa-rupee-sign text-warning mx-2 mt-1 "></i> <span><h5 className='font-weight-bold mx-2'>{data.length > 0 && data[0].price}</h5></span>  <span className='mx-2'> /night</span>
                                 </div>
                                 {/* <div className="col-6">
                                     <i class="fa fa-star text-warning  mr-1" aria-hidden="true"></i>
@@ -325,7 +372,10 @@ class TempCard extends React.Component {
                                         endDateId="your_unique_end_date_id"
                                         onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                                         focusedInput={this.state.focusedInput}
+                                        disabledDates={""}
                                         onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                        color="#FB8C00"
+
                                     />
                                 </div>
                                 <div>
@@ -346,10 +396,15 @@ class TempCard extends React.Component {
                                     <div className=' p-2'>
                                         {counter && <CounterComponent clickHandler={this.handleClick} />}
                                     </div>
+                                    <div className='ml-5 p-2 text-danger'>
+                                        {bookingRes && bookingRes.error == "true" && <> <h5>{bookingRes.message + bookingRes.error_name}</h5> <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
+                                        {!bookingRes && !dateFlag && <>  <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
+
+                                    </div>
                                     <div className='ml-5'>
-                                        {!dateFlag ?
-                                            <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button>
-                                            : data.length > 0 && startDate && endDate && <Link to={`/payment/tripping/?id=${data[0].property_id}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link>}
+                                        {/* {data.length>0 && startDate && endDate && <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link>} */}
+                                        {/* {!dateFlag && <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button>} */}
+                                        {bookingRes && bookingRes.error == "false" && <> <h5 className="text-success">{bookingRes.message}</h5>  <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link></>}
                                     </div>
                                 </div>
                             </div>
@@ -357,8 +412,31 @@ class TempCard extends React.Component {
                     </div>
                     <hr className='hrFull' />
                     <div className='my-2'>
-                        <h4 className='font-weight-bold'>{data   && data[0].rating}({review.length} reviews)</h4>
-                        {review?.map((elem, i) => <p style={{ fontSize: "20px" }}>{i + 1}. {elem.review} - {elem.rating}</p>)}
+
+                        <h4 className='font-weight-bold'> <i class="fa fa-star text-warning mx-2" aria-hidden="true"></i> {data.length > 0 && data[0].rating} ({review.length > 0 && review.length} reviews)</h4>
+                        <div className='row'>
+
+                            {review?.map((elem, i) => <div className='col-6 my-2'>
+                                <div className='d-flex flex-row'>
+                                    <img src="/revIcon.jpeg" className='w-10 h-5' style={{ borderRadius: "50%" }} />
+                                    <div className='ml-3 mt-2 text-secondary'>
+                                        <small style={{ fontSize: '20px' }}>{elem.first_name}</small>
+                                        <br />
+                                        <small>{elem.reviewed_at.substring(0, 16)}</small>
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 className='my-2'>{elem.review}</h5>
+                                </div>
+                            </div>)}
+                        </div>
+                    </div>
+                    <hr className='hrFull' />
+                    <div className='my-2'>
+
+                            {data && <MapComponent data={data} /> }
+
                     </div>
                     <hr className='hrFull' />
                     <div className='my-2'>
@@ -366,12 +444,17 @@ class TempCard extends React.Component {
                         <div className='row'>
                             {recommendations?.filter((elem, i) => i < 6 && elem).map((item, i) => {
                                 return (
-                                    <div key={item.property_id} className="col-4">
+                                    <div key={item.property_id} className="col-4 my-2">
                                         <div className="card" >
                                             <img src={item.image[0]} className="card-img-top" alt="..." />
                                             <div className="card-body">
-                                                <h5 className="card-title">{item.property_name}</h5>
-                                                <p className="card-text">Rs.{item.price} . Room:{item.room_type} . Bedroom:{item.bedroom} </p>
+                                                <h3 className="card-title">{item.property_name}</h3>
+                                                <div className='d-flex flex-row card-text'>
+                                                    <span className='font-weight-bold mx-2'>price: $</span>
+                                                    <span>{item.price}</span>
+                                                    <span className='font-weight-bold mx-2'>Rooms: </span> <span>{item.total_room}</span>
+                                                    <span className='font-weight-bold mx-2'>City: </span> <spam>{item.city}</spam>
+                                                </div>
 
                                                 {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
                                             </div>
@@ -394,6 +477,7 @@ const mapStateToProps = state => ({
     images: state.entity.images,
     data: state.entity.data,
     review: state.entity.review,
+    bookingResponse: state.entity.bookingResponse,
     recommendations: state.entity.recommendations,
     guestCounter: state.search.guestCounter,
 })
@@ -402,7 +486,8 @@ const mapDispatchToProps = dispatch => ({
     getImageRequest: (payload) => dispatch(getImageRequest(payload)),
     getDataRequest: (payload) => dispatch(getDataRequest(payload)),
     getReviewRequest: (payload) => dispatch(getReviewRequest(payload)),
-    getRecommendRequest: (payload) => dispatch(getRecommendRequest(payload))
+    getRecommendRequest: (payload) => dispatch(getRecommendRequest(payload)),
+    getBookingRequest: (payload) => dispatch(getBookingRequest(payload))
 
 })
 

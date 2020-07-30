@@ -14,7 +14,7 @@ class BillingCard extends Component {
             <div className='p-3 border'>
                 <div className='row'>
                     <div className='col-8'>
-                        <h6 className='font-weight-bold'>{data.length > 0 && data[0].hotel_name}</h6>
+                        <h6 className='font-weight-bold'>{data.length > 0 && data[0].property_name}</h6>
                         <div className=''>located in {data.length > 0 && data[0].state}</div>
                         <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i>{reviews && reviews.length} reviews
                     </div>

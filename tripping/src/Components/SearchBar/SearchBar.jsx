@@ -8,6 +8,7 @@ import { DateRangePicker } from 'react-dates';
 import './react-dates-overrides.css';
 import GuestManager from './GuestManager';
 import { getDataFromAPI } from '../../Redux/SearchApi/Action'
+import Autocomplete from 'react-google-autocomplete';
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -20,17 +21,17 @@ class SearchBar extends React.Component {
             guests: '',
             locationFlag: false,
             guestsFlag: false,
-            startDay:null,
-            startMonth:null, 
-            startYear:null,
-            endDay:null,
-            endMonth:null, 
-            endYear:null
+            startDay: null,
+            startMonth: null,
+            startYear: null,
+            endDay: null,
+            endMonth: null,
+            endYear: null
         }
     }
 
-    handleClear = ()=>{
-        this.setState({region:''})
+    handleClear = () => {
+        this.setState({ region: '' })
     }
     handleChange = (event) => {
         this.setState({ region: event.target.value });
@@ -81,8 +82,8 @@ class SearchBar extends React.Component {
         console.log(guestCounter, bedroomCounter)
         // console.log(startDate._d.getDay,startDate._d.getMonth, startDate._d.getfullYear , endDate)
         console.log(startDay, startMonth)
-        if(startDate && endDate) {
-            console.log(startDate._d.getDate(),startDate._d.getMonth(), startDate._d.getFullYear() , endDate._d.getDate(),endDate._d.getMonth(), endDate._d.getFullYear() ,)
+        if (startDate && endDate) {
+            console.log(startDate._d.getDate(), startDate._d.getMonth(), startDate._d.getFullYear(), endDate._d.getDate(), endDate._d.getMonth(), endDate._d.getFullYear(),)
         }
         return (
 
@@ -134,12 +135,26 @@ class SearchBar extends React.Component {
                 <div className="ml-5">
                     <div className="divContainer ml-5 mt-5">
                         <div className="border ml-5 regionDiv" onClick={() => this.handleLocation()}>
-                            <input
+                            {/* <input
                                 placeholder="Enter a location"
                                 className="input mt-2 p-1"
                                 value={region}
                                 onChange={this.handleChange}
+                            /> */}
+
+                            <Autocomplete
+                             className="input mt-2 p-1"
+                                style={{ width: '90%' }}
+                                value={region}
+                                onChange={(e)=> this.setState({region:e.target.value})}
+                                onPlaceSelected={(place) => {
+                                    console.log(place);
+                                    this.setState({location:place.formatted_address})
+                                }}
+                                types={['(regions)']}
+                                componentRestrictions={{ country: "us" }}
                             />
+
                             <i class="fas fa-times cross" onClick={this.handleClear}></i>
                         </div>
                         <div className="border">
@@ -148,7 +163,7 @@ class SearchBar extends React.Component {
                                 startDateId="your_unique_start_date_id"
                                 endDate={endDate}
                                 endDateId="your_unique_end_date_id"
-                                onDatesChange={({ startDate, endDate }) => this.setState({startDate,endDate})}
+                                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                                 focusedInput={this.state.focusedInput}
                                 onFocusChange={focusedInput => this.setState({ focusedInput })}
                             />
@@ -157,13 +172,13 @@ class SearchBar extends React.Component {
                             <i class="fas fa-male mt-2 ml-2 mr-1 float-left mt-3"></i>
                             <p className="guests mt-2"> {guestCounter} guests</p>
                         </div>
-                        { startDate && endDate &&
-                        <Link to={`/vacation-rentals/s/search?location=${region}&check_in=${startDate._d.getFullYear() +"-" +  (1 + Number(startDate._d.getMonth()))+"-" + startDate._d.getDate()  }&check_out=${endDate._d.getFullYear() +"-" +  (1 + Number(endDate._d.getMonth()))+"-" + endDate._d.getDate()  }&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
-                            <div className="border">
-                                <button className="btn btn-block search" onClick={() => this.handleSearch()}><i className="fas fa-search text-white"></i></button>
-                            </div>
-                        </Link>
-    }
+                        {startDate && endDate &&
+                            <Link to={`/vacation-rentals/s/search?location=${region}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
+                                <div className="border">
+                                    <button className="btn btn-block search" onClick={() => this.handleSearch()}><i className="fas fa-search text-white"></i></button>
+                                </div>
+                            </Link>
+                        }
                     </div>
                     <div className="absolute">
                         {guestsFlag && <GuestManager />}

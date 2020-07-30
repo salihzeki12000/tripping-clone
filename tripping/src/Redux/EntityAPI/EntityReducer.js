@@ -1,5 +1,5 @@
 import {
- IMAGEREQUEST, DATAREQUEST, REVIEWREQUEST, RECOMMENDATIONREQUEST
+ IMAGEREQUEST, DATAREQUEST, REVIEWREQUEST, RECOMMENDATIONREQUEST, BOOKINGREQUEST
 } from './ActionTypes'
 
 const initState = {
@@ -40,6 +40,13 @@ const reducer = (state = initState, { type, payload }) => {
                 ...state,
                 // review:payload.result.sort((a,b) => b.rating - a.rating)
                 recommendations:payload.result
+            }
+        }
+        case BOOKINGREQUEST: {
+            console.log(payload)
+            return {
+                ...state,
+                bookingResponse:payload
             }
         }
         default:

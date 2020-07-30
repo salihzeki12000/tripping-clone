@@ -14,7 +14,9 @@ class VacationRentalsSearch extends Component {
         super(props)
         this.state = {
             data: [],
-            loc: ''
+            loc:'',
+            check_in:'', 
+            check_out:'',
         }
     }
 
@@ -25,7 +27,9 @@ class VacationRentalsSearch extends Component {
         console.log(values)
 
         this.setState({
-            loc: values.location
+            loc: values.location,
+            check_in:values.check_in,
+            check_out:values.check_out
         })
 
         // let checkIn = values.check_in
@@ -103,8 +107,10 @@ class VacationRentalsSearch extends Component {
                                     price={elem.price}
                                     locality={elem.locality}
                                     property_id={elem.property_id}
-                                    area={elem.area}
-                                    room_type={elem.room_type} />
+                                     area={elem.area}
+                                     room_type={elem.room_type}
+                                     check_in={this.state.check_in}
+                                     check_out={this.state.check_out} />
                                 )
                                     : <div>Sorry Data not found</div>
 

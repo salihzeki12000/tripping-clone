@@ -33,7 +33,7 @@ class TempCard extends React.Component {
 
         const { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest } = this.props
 
-        await getImageRequest(Number(values.id))
+        // await getImageRequest(Number(values.id))
         await getReviewRequest(Number(values.id))
         await getDataRequest({ id: Number(values.id), room_type: values.room_type })
         await getRecommendRequest({ id: Number(values.id), room_type: values.room_type })
