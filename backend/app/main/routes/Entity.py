@@ -17,10 +17,10 @@ def get_images(id):
     return res
 
 
-@entity.route('/basic_detail/<id>/<room_type>')
-def get_basic_detail(id,room_type):
+@entity.route('/basic_detail/<id>')
+def get_basic_detail(id):
     
-    res = get_basic_data(id,room_type)
+    res = get_basic_data(id)
 
     return res
 
@@ -31,10 +31,10 @@ def get_review_detail(id):
 
     return res
 
-@entity.route('/recommendation/<id>/<room_type>')
-def get_recommendation_detail(id,room_type):
+@entity.route('/recommendation/<id>')
+def get_recommendation_detail(id):
     
-    res = get_recommendation_data(id,room_type)
+    res = get_recommendation_data(id)
 
     return res
 

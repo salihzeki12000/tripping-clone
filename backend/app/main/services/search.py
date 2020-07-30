@@ -1,6 +1,6 @@
-from ..models import db
+    from ..models import db
 from ..models.AminitiesModel import Aminities
-from ..models.HotelsModel import Hotels
+from ..models.PropertyModel import Property
 from ..models.LocationModel import Location
 from ..models.RoomDetailsModel import RoomDetails
 import json
@@ -23,9 +23,9 @@ def search_uisng_filter(data):
 
         data = []
         
-        query = '''SELECT * FROM hotels AS hh JOIN location AS ll ON hh.id=ll.hotel_id 
-                JOIN room_details AS rr ON hh.id=rr.hotel_id 
-                JOIN aminities AS aa ON hh.id=aa.hotel_id
+        query = '''SELECT * FROM property AS hh JOIN location AS ll ON hh.id=ll.property_id 
+                JOIN room_details AS rr ON hh.id=rr.property_id 
+                JOIN aminities AS aa ON hh.id=aa.property_id
                 WHERE (ll.country="%s" OR ll.state="%s" OR ll.city="%s") '''%(location,location,location)
 
         # res = db.session.execute(query)
@@ -62,7 +62,7 @@ def search_uisng_filter(data):
         # return jsonify({'result': [dict(row) for row in res]})
 
         for i in res:
-            rating = db.session.execute('''SELECT AVG(rating) AS rating FROM review where hotel_id=%d'''%(int(i['id'])))
+            rating = db.session.execute('''SELECT AVG(rating) AS rating FROM review where property_id=%d'''%(int(i['id'])))
             rating = float(round(rating.first()[0], 2))
 
             obj={}
@@ -70,8 +70,8 @@ def search_uisng_filter(data):
             obj['state'] = i['state']
             obj['city'] = i['city']
             obj['locality'] = i['locality']
-            obj['hotel_name'] = i['hotel_name']
-            obj['hotel_id'] = i['id']
+            obj['property_name'] = i['property_name']
+            obj['property_id'] = i['id']
             obj['accomodation_type'] = i['accomodation_type']
             obj['area'] = i['area']
             obj['free_cancellation'] = i['free_cancellation']
@@ -98,9 +98,9 @@ def search_uisng_filter(data):
             
             # total_booked_room = db.session.execute('''SELECT COUNT(*),SUM(booked_room) as booked,booking_date
             #     FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
-            #     AND CAST('%s' as date) AND hotel_id = %d 
+            #     AND CAST('%s' as date) AND property_id = %d 
             #     AND room_type = '%s'
-            #     GROUP BY booking_date,hotel_id;'''%(start, end, int(i[id])))
+            #     GROUP BY booking_date,property_id;'''%(start, end, int(i[id])))
 
         if rating:
             rating = float(rating)
