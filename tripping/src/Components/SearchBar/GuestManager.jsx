@@ -30,7 +30,7 @@ export class GuestManager extends Component {
         const { guestCounter, bedroomCounter } = this.props;
         console.log(guestCounter, bedroomCounter)
         return (
-            <div className="bg-white borderDivGuests">
+            <div className="bg-white">
                      <p className='pt-2 font-weight-bold text-secondary'>Guests and Bedrooms</p>
                 <div className=' '>
                

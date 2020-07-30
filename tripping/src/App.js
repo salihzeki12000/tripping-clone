@@ -1,5 +1,4 @@
 import React from 'react';
-import Home from './Routes/Home';
 import Routes from './Routes/Routes';
 import { Link } from 'react-router-dom';
 import DetailsCard from './Components/Card/DetailsCard';
@@ -9,7 +8,6 @@ import Reserve from './Components/PaymentComponents/Reserve';
 function App() {
   return (
     <div >
-      {/* <Link to='/'></Link> */}
       <Routes />
       {/* <Reserve /> */}
        {/* <DetailsCard /> */}

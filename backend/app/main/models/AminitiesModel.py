@@ -1,10 +1,11 @@
 from . import db
-from .HotelsModel import Hotels
+from .PropertyModel import Property
+
 
 class Aminities(db.Model):
     __table__name = 'aminities'
     id = db.Column(db.Integer, primary_key = True)
-    hotel_id = db.Column(db.Integer, db.ForeignKey(Hotels.id), unique=True)
+    property_id = db.Column(db.Integer, db.ForeignKey(Property.id), unique=True)
     pool = db.Column(db.Boolean)
     internet = db.Column(db.Boolean)
     tv = db.Column(db.Boolean)
@@ -13,4 +14,3 @@ class Aminities(db.Model):
     kitchen = db.Column(db.Boolean)
     pet_allowed = db.Column(db.Boolean)
     smoking = db.Column(db.Boolean)
-    no_smoking = db.Column(db.Boolean)
