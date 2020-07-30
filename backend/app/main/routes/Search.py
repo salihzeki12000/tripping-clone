@@ -15,3 +15,11 @@ def Search_data():
     res = search_uisng_filter(request.args.get)
 
     return res
+
+@search.route('/<location>')
+def send_locations(location):
+
+    res = send_all_location(location)
+
+    return res
+    

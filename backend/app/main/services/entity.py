@@ -52,6 +52,8 @@ def get_basic_data(property_id):
             obj['bedroom'] = i['total_room']
             obj['guest'] = i['guest']
             obj['price'] = i['price']
+            obj['latitude'] = i['lati']
+            obj['longitude'] = i['longi']
             if rating[0] is not None:
                 rating = float(round(rating[0], 2))
                 obj['rating'] = rating
@@ -83,15 +85,8 @@ def get_review_data(property_id):
         reviews = db.session.execute('''SELECT rating,review,reviewed_at,first_name 
                             FROM review JOIN users ON review.user_id=users.id 
                             WHERE review.property_id=%d'''%(property_id))
-        data = []
-        for i in reviews:
-            obj= {}
-            obj['rating'] = i['rating']
-            obj['review'] = i['review']
-            obj['reviewed_at'] = i['reviewed_at']
-            obj['first_name'] = i['first_name']
+        return jsonify({'result': [dict(row) for row in reviews]})
 
-        return json.dumps({'result': reviews}) 
     except Exception as err:
         return json.dumps({'error': True, 'error_name': format(err)})
 
@@ -100,20 +95,20 @@ def get_recommendation_data(property_id):
     try:
         property_id = int(property_id)
         
-        query = '''SELECT ll.state,rr.price,rr.guest FROM property AS pp JOIN location AS ll ON pp.id=ll.property_id 
+        query = '''SELECT ll.city,rr.price,rr.guest FROM property AS pp JOIN location AS ll ON pp.id=ll.property_id 
                 JOIN room_details AS rr ON pp.id=rr.property_id 
                 JOIN aminities AS aa ON pp.id=aa.property_id
                 WHERE pp.id = %d'''%(property_id)
                 
         res = db.session.execute(query).first()
 
-        state, price, guest = res[0], res[1], res[2]
+        city, price, guest = res[0], res[1], res[2]
     
-        query1 = '''SELECT pp.property_name, pp.id, rr.total_room, rr.price, pp.image
+        query1 = '''SELECT pp.property_name, pp.id, rr.total_room, rr.price, pp.image,ll.city
                  FROM property AS pp JOIN location AS ll ON pp.id=ll.property_id 
                 JOIN room_details AS rr ON pp.id=rr.property_id
-                WHERE rr.price < %d AND guest BETWEEN %d AND %d 
-                AND ll.state="%s"'''%(price, guest-1, guest+2, state)
+                WHERE rr.price < %d AND guest = %d
+                AND ll.city="%s"'''%(price, guest, city)
         res1 = db.session.execute(query1)
         
         data = []
@@ -123,6 +118,7 @@ def get_recommendation_data(property_id):
             obj['property_id'] = i['id']
             obj['total_room'] = i['total_room']
             obj['price'] = i['price']
+            obj['city'] = i['city']
             image = json.loads(i['image'])
             obj['image'] = image
             data.append(obj)
@@ -132,33 +128,41 @@ def get_recommendation_data(property_id):
 
 
 def check_available_dates(data):
-    property_id = data('property_id')
-    check_in = data('check_in')
-    check_out = data('check_out')
+    try:
+        property_id = data('property_id')
+        check_in = data('check_in')
+        check_out = data('check_out')
 
 
-    start = datetime.datetime.strptime(check_in, "%Y-%m-%d")
-    end = datetime.datetime.strptime(check_out, "%Y-%m-%d")
-    date_diff =  (end-start).days
+        start = datetime.datetime.strptime(check_in, "%Y-%m-%d")
+        end = datetime.datetime.strptime(check_out, "%Y-%m-%d")
+        date_diff =  (end-start).days
 
-    if date_diff > 31:
-        return json.dumps({'message':'Sorry ,we are only accepting \
-                            booking for one month only'})
-    elif date_diff > 0:
-        query = '''SELECT booking_date FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
-                AND CAST('%s' as date) AND property_id = %d 
-                GROUP BY booking_date,property_id;'''%(check_in, check_out, int(property_id))
-        
-        booking_date = db.session.execute(query).fetchall()
+        if date_diff > 31:
+            return json.dumps({'error':'true','message':'Sorry ,we are only accepting \
+                                booking for one month only'})
+        elif date_diff > 0:
+            query = '''SELECT booking_date FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
+                    AND CAST('%s' as date) AND property_id = %d 
+                    GROUP BY booking_date,property_id;'''%(check_in, check_out, int(property_id))
+            
+            booking_date = db.session.execute(query).fetchall()
 
-        query1 = '''SELECT guest from room_details where property_id=%d'''%(int(property_id))
-        rooms = db.session.execute(query1).first()
+            query1 = '''SELECT guest from room_details where property_id=%d'''%(int(property_id))
+            rooms = db.session.execute(query1).first()
 
-        block_dates = []
-        for i in booking_date:
-            # if int(i[1]) >= rooms[0]:
-            block_dates.append(i[0].strftime('%d-%m-%Y'))
-        return json.dumps({'block': "true", "block_dates":block_dates,'guest':rooms[0]})
-        # return jsonify({'result': [dict(row) for row in booking_date]})
-    else:
-        return json.dumps({'message':'Please select valid date'})
+            block_dates = []
+            for i in booking_date:
+                # if int(i[1]) >= rooms[0]:
+                block_dates.append(i[0].strftime('%d-%m-%Y'))
+            
+            if len(block_dates) > 0:
+                return json.dumps({'error':'true', "block_dates":block_dates,
+                'guest':rooms[0], 'message':'property is not available for choosen dates'})
+            else:
+                return json.dumps({'error':'false', 'message':'property is available'})
+            # return jsonify({'result': [dict(row) for row in booking_date]})
+        else:
+            return json.dumps({'error':'true', 'message':'Please select valid date'})
+    except Exception as err:
+        return json.dumps({'error': True, 'error_name': format(err)})
