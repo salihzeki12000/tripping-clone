@@ -103,8 +103,8 @@
 }
 
 .reserve {
-    background-color:orange; 
-    border: 2px solid orange;
+    background-color:#FB8C00; 
+    border: 2px solid #FB8C00;
     color:white;
     text-decoration: none;
     transition-duration: 0.1s;
@@ -113,6 +113,10 @@
 
 .reserve:hover{
     background-color:white;
-    color:orange;
+    color:#FB8C00;
+}
+
+.dateGuest:hover {
+    border: 2px solid black;
 }
 

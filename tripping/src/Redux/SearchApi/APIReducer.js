@@ -7,6 +7,8 @@ import {
 
 const initState = {
     loc:'Germany',
+    check_in:'',
+    check_out:'',
     free_cancellation: "",
     bedroom: "",
     quest: "",

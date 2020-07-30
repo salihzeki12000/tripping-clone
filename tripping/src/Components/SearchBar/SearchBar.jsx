@@ -19,7 +19,13 @@ class SearchBar extends React.Component {
             region: '',
             guests: '',
             locationFlag: false,
-            guestsFlag: false
+            guestsFlag: false,
+            startDay:null,
+            startMonth:null, 
+            startYear:null,
+            endDay:null,
+            endMonth:null, 
+            endYear:null
         }
     }
 
@@ -69,11 +75,14 @@ class SearchBar extends React.Component {
 
     render() {
 
-        let { locationFlag, guestsFlag, region, guests, startDate, endDate } = this.state
+        let { locationFlag, guestsFlag, region, guests, startDate, endDate, startDay, startMonth } = this.state
         let { guestCounter, bedroomCounter } = this.props;
-        console.log(startDate)
-        if(startDate && endDate){
-            console.log(startDate._d,endDate._d)
+        console.log(region)
+        console.log(guestCounter, bedroomCounter)
+        // console.log(startDate._d.getDay,startDate._d.getMonth, startDate._d.getfullYear , endDate)
+        console.log(startDay, startMonth)
+        if(startDate && endDate) {
+            console.log(startDate._d.getDate(),startDate._d.getMonth(), startDate._d.getFullYear() , endDate._d.getDate(),endDate._d.getMonth(), endDate._d.getFullYear() ,)
         }
         return (
 
@@ -135,11 +144,11 @@ class SearchBar extends React.Component {
                         </div>
                         <div className="border">
                             <DateRangePicker
-                                startDate={this.state.startDate}
+                                startDate={startDate}
                                 startDateId="your_unique_start_date_id"
-                                endDate={this.state.endDate}
+                                endDate={endDate}
                                 endDateId="your_unique_end_date_id"
-                                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                                onDatesChange={({ startDate, endDate }) => this.setState({startDate,endDate})}
                                 focusedInput={this.state.focusedInput}
                                 onFocusChange={focusedInput => this.setState({ focusedInput })}
                             />
@@ -148,11 +157,13 @@ class SearchBar extends React.Component {
                             <i class="fas fa-male mt-2 ml-2 mr-1 float-left mt-3"></i>
                             <p className="guests mt-2"> {guestCounter} guests</p>
                         </div>
-                        <Link to={`/vacation-rentals/s/search?location=${region}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
+                        { startDate && endDate &&
+                        <Link to={`/vacation-rentals/s/search?location=${region}&check_in=${startDate._d.getFullYear() +"-" +  (1 + Number(startDate._d.getMonth()))+"-" + startDate._d.getDate()  }&check_out=${endDate._d.getFullYear() +"-" +  (1 + Number(endDate._d.getMonth()))+"-" + endDate._d.getDate()  }&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
                             <div className="border">
                                 <button className="btn btn-block search" onClick={() => this.handleSearch()}><i className="fas fa-search text-white"></i></button>
                             </div>
                         </Link>
+    }
                     </div>
                     <div className="absolute">
                         {guestsFlag && <GuestManager />}
