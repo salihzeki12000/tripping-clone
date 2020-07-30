@@ -11,12 +11,19 @@ export default class SearchLogo extends Component {
         this.state = {
             startDate: null,
             endDate: null,
-            region: "",
+            region: this.props.location,
             guests: '',
             locationFlag: false,
             guestsFlag: false
         }
     }
+
+    // componentDidMount() {
+    //     console.log(this.props.location)
+    //     this.setState({
+    //         region:this.props.location
+    //     })
+    // }
 
     handleLocation = () => {
         // console.log(this.state.locationFlag)
@@ -34,6 +41,7 @@ export default class SearchLogo extends Component {
     render() {
         let { locationFlag, guestsFlag, region, guests, startDate, endDate } = this.state
         let { guestCounter, bedroomCounter } = this.props;
+        console.log(this.props.location, region)
         return (
            
             <>
@@ -44,8 +52,9 @@ export default class SearchLogo extends Component {
                     <div className=' border-left p-2 pl-4 pr-4' onClick={() => this.handleLocation()} >
                         <div className='float-left '>
                             {/* Berlin */}
+                            <i className="fa fa-search text-secondary px-3"></i>
                             <input type='text'
-                                value={region}
+                                value={this.props.location}
                                 className=''
                                 style={{ border: "0px solid" }}
                                 placeholder="Enter location"

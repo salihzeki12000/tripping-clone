@@ -77,6 +77,11 @@ class RatingFilter extends React.Component {
                 } else if (key == "aminities") {
                     aminities = values[key]
                 }
+                else if(key == 'check_in') {
+                    check_in = values[key]
+                }else if(key == 'check_out') {
+                    check_out = values[key]
+                }
             }
 
         }
@@ -148,10 +153,10 @@ class RatingFilter extends React.Component {
                             </div>
                             <div className='d-flex flex-row ml-3 '>
                                 <div>
-                                    <input type="radio" name='rating' className=" mr-5  mt-2 checkAmenities" onChange={(e) => this.handleChange(e, 3)} />
+                                    <input type="radio" name='rating' className=" mr-3  mt-2 checkAmenities" onChange={(e) => this.handleChange(e, 3)} />
                                 </div>
                                 <div>
-                                    <p className="fontSizeAmenities mr-4">Good: 3+</p>
+                                    <p className="fontSizeAmenities mr-5">Good: 3+</p>
                                 </div>
                                 <div className='ml-5'>
                                     <StarComponent actual='3' />
