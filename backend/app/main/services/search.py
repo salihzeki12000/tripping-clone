@@ -80,6 +80,8 @@ def search_uisng_filter(data):
             obj['bedroom'] = i['total_room']
             obj['guest'] = i['guest']
             obj['price'] = i['price']
+            obj['latitude'] = i['lati']
+            obj['longitude'] = i['longi']
             if rating[0] is not None:
                 rating = float(round(rating[0], 2))
                 obj['rating'] = rating
@@ -132,3 +134,25 @@ def search_uisng_filter(data):
             #     AND CAST('%s' as date) AND property_id = %d 
             #     AND room_type = '%s'
             #     GROUP BY booking_date,property_id;'''%(start, end, int(i[id])))
+
+
+def send_all_location(location):
+    try:
+        query = '''SELECT pp.property_name,rr.price,ll.lati,ll.longi 
+                    FROM property AS pp JOIN location AS ll ON pp.id=ll.property_id 
+                    JOIN room_details AS rr ON pp.id=rr.property_id 
+                    WHERE (ll.country="%s" OR ll.state="%s" OR ll.city="%s")'''%(location,location,location)
+        res = db.session.execute(query)
+
+        data = []
+        for i in res:
+            obj = {}
+            obj['property_name'] = i['property_name']
+            obj['price'] = i['price']
+            obj['latitude'] = i['lati']
+            obj['longitude'] = i['longi']
+            data.append(obj)
+        return json.dumps({'result':data})
+    except Exception as err:
+        return json.dumps({'error': True, 'error_name': format(err)})
+        
