@@ -123,9 +123,9 @@ console.log(total)
 
 
         return (
-            <>
+            <div className="container-fluid">
                 <SearchLogo location={this.state.loc} />
-                <div className='container-fluid border-top row'>
+                <div className='border-top row'>
                     <div className='col-lg-7 col-12 mt-2'>
                         <FileNavBar history={history} location={location} className="col-12" />
                         <hr className="col-12"></hr>
@@ -167,13 +167,12 @@ console.log(total)
                     </div>
                     </div>
                    
-                  
                     <div className="col-lg-5 col-12" >
                 {data && <MapComponent data={data} /> }
                     </div>
                 </div>
 
-            </>
+            </div>
         )
     }
 }

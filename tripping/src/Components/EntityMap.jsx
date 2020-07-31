@@ -21,7 +21,7 @@ export class MapComponent extends Component {
             area: '',
             state: '',
             zoom: 10,
-            height:"100%",
+            height: "100%",
             mapPosition: {
                 lat: 0,
                 lng: 0
@@ -118,7 +118,7 @@ export class MapComponent extends Component {
                             >
                                 <InfoWindow>
                                     <div>
-                                       <h4> $ {ele.price}</h4>
+                                        <h4>{ele.property_name}</h4>
                                     </div>
                                 </InfoWindow>
                             </Marker>
@@ -133,7 +133,7 @@ export class MapComponent extends Component {
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M&v=3.exp&libraries=geometry,drawing,places"
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `100%`, width: '100%' }} />}
-                mapElement={<div style={{ height: `100%`, width:`100%`}} />}
+                mapElement={<div style={{ height: `100%`, width: `100%` }} />}
             />
         )
     }
