@@ -6,7 +6,7 @@ import SearchLogo from '../Components/FilterComponents/SearchLogo'
 import { getDataFromAPI } from '../Redux/SearchApi/Action'
 import querystring from 'query-string';
 import MapComponent from '../Components/MapComponent';
-
+import { uuid } from 'uuidv4';
 
 class VacationRentalsSearch extends Component {
 
@@ -114,18 +114,18 @@ console.log(total)
 
         return (
             <>
-
-
                 <SearchLogo location={this.state.loc} />
                 <div className='container-fluid border-top row'>
-                    {/* <SearchBar /> */}
+                    <div className='col-lg-7 col-12 mt-2'>
+                        <FileNavBar history={history} location={location} className="col-12" />
+                        <hr className="col-12"></hr>
+                        <div className='row'>
 
-                    <div className='col-6'>
-                        <FileNavBar history={history} location={location} />
-                        <h2 className='text-center m-4'>{data.length == 0 && "Please wait Data is Loading..."}</h2>
-                        <div className='row mt-5'>
+                            <small className="col-12"></small>
+                            <small className='text-center col-12'>{data.length == 0 && "Please wait Data is Loading..."}</small>
                             {
-                                data && data ? data.map(elem => <CarouselCard key={elem.id}
+                                data && data ? data.map(elem => <CarouselCard key={uuid()}
+                                    city={elem.city}
                                     bedroom={elem.bedroom}
                                     accomodation_type={elem.accomodation_type}
                                     guest={elem.guest}
@@ -141,9 +141,7 @@ console.log(total)
                                     check_in={this.state.check_in}
                                     check_out={this.state.check_out} />
                                 )
-                                    : <div>Sorry Data not found</div>
-
-                                //    data ? data.map(elem => <CarouselCard />) : <div>Sorry Data not found</div>
+                                    : <div><small>Sorry Data not found</small></div>
                             }
                         </div>
 
@@ -159,10 +157,9 @@ console.log(total)
                     </div> */}
                     </div>
                    
-                    <div className="pt-4 mt-4">
-                        {
-                            data && <MapComponent data={data} />
-                        }
+                  
+                    <div className="col-lg-5 col-12" >
+                        <MapComponent data={data} />
                     </div>
                 </div>
 

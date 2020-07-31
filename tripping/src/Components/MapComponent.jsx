@@ -7,6 +7,8 @@ import {
     Marker,
 } from "react-google-maps";
 import GeoCode from 'react-geocode';
+import { uuid } from 'uuidv4';
+
 
 GeoCode.setApiKey('AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M')
 export class MapComponent extends Component {
@@ -19,7 +21,7 @@ export class MapComponent extends Component {
             area: '',
             state: '',
             zoom: 10,
-            height: 700,
+            height:"100%",
             mapPosition: {
                 lat: 0,
                 lng: 0
@@ -107,6 +109,7 @@ export class MapComponent extends Component {
                 {
                     data.map(ele =>
                         <GoogleMap
+                            key={uuid()}
                             defaultZoom={7}
                             defaultCenter={{ lat: Number(ele.latitude), lng: Number(ele.longitude) }}
                         >
@@ -129,7 +132,7 @@ export class MapComponent extends Component {
             <MapWithAMarker
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M&v=3.exp&libraries=geometry,drawing,places"
                 loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `1000px`, width: '850px' }} />}
+                containerElement={<div style={{ height: `100%`, width: '100%' }} />}
                 mapElement={<div style={{ height: `100%`}} />}
             />
         )

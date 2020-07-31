@@ -1,67 +1,38 @@
-.float {
-    float: left;
-    margin:0
-}
-
-.clear {
-    clear: left;
-    float: left;
-}
-
-.fontWeight {
-    font-weight: bold
-}
-
 .orange {
-    color:orange;
+    color:#FB8C00;
 }
 
-.black {
-    color:black
-}
 
 .math{
     border:1px solid black;
-    border-radius: 2px;
-    padding: 2px;
 }
 
 .imgDim{
     height: 200px !important;
     widows: 200px !important;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 .button {
-    padding: 10px 20px 10px 20px;
-    clear: both;
-    float: right;
     background-color:white; 
-    border: 2px solid #FB8C00;
-    color:"#FB8C00";
-    text-decoration: none;
-    transition-duration: 0.1s;
+    color:#FB8C00;
     cursor: pointer;
+    border: 1px solid #FB8C00;
+    border-radius: 5px;
+    padding: 7px 15px ;
+    font-weight: 500;
+    outline: none !important;
 }
+
 
 .button:hover {
     background-color:#FB8C00;
     color:white;
-  }
-
-  .detCard {
-      width:600px;
-      height: 600px;
-      border-radius: 3%;
-  }
-  .childCard {
-    width:250px ;
-    height: 288px;
-    border-radius: 3%;
 }
 
-.hrFull {
-  width: 100%;
+.carousel-indicators > li {
+    border-radius: 100%;
+    width: 10px;
 }
 
 .inputDiv {
@@ -76,7 +47,16 @@
     margin-left: 1px;
 }   
 
-.inputDiv:focus { 
+.card-footer {
+    background-color: white;
+    border-top: none;
+}
+
+/* .black {
+    color:black
+} */
+
+/* .inputDiv:focus { 
     outline: none !important;
     border-color:orange !important;
 }
@@ -86,9 +66,25 @@
     height: 70px;
     border-radius: 5px;
     border:none !important;
+} */
+
+/* .detCard {
+        width:600px;
+        height: 600px;
+        border-radius: 3%;
+}
+    
+.childCard {
+    width:250px ;
+    height: 288px;
+    border-radius: 3%;
 }
 
-.angleDown:focus{
+.hrFull {
+    width: 100%;
+} */
+
+/* .angleDown:focus{
     outline:none !important;
 }
 
@@ -118,5 +114,5 @@
 
 .dateGuest:hover {
     border: 2px solid black;
-}
+} */
 

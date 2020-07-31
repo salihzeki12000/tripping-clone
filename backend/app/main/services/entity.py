@@ -75,7 +75,7 @@ def get_basic_data(property_id):
             data.append(obj)
         return json.dumps({'result': data})
     except Exception as err:
-        return json.dumps({'error': True, 'error_name': format(err)})
+        return json.dumps({'error': True, 'message': format(err)})
 
 
 def get_review_data(property_id):
@@ -88,7 +88,7 @@ def get_review_data(property_id):
         return jsonify({'result': [dict(row) for row in reviews]})
 
     except Exception as err:
-        return json.dumps({'error': True, 'error_name': format(err)})
+        return json.dumps({'error': True, 'message': format(err)})
 
 
 def get_recommendation_data(property_id):
@@ -124,7 +124,7 @@ def get_recommendation_data(property_id):
             data.append(obj)
         return json.dumps({'result': data})
     except Exception as err:
-        return json.dumps({'error': True, 'error_name': format(err)})
+        return json.dumps({'error': True, 'message': format(err)})
 
 
 def check_available_dates(data):
@@ -139,7 +139,7 @@ def check_available_dates(data):
         date_diff =  (end-start).days
 
         if date_diff > 31:
-            return json.dumps({'error':'true','message':'Sorry ,we are only accepting \
+            return json.dumps({'error':True,'message':'Sorry ,we are only accepting \
                                 booking for one month only'})
         elif date_diff > 0:
             query = '''SELECT booking_date FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
@@ -157,12 +157,12 @@ def check_available_dates(data):
                 block_dates.append(i[0].strftime('%d-%m-%Y'))
             
             if len(block_dates) > 0:
-                return json.dumps({'error':'true', "block_dates":block_dates,
+                return json.dumps({'error':True, "block_dates":block_dates,
                 'guest':rooms[0], 'message':'property is not available for choosen dates'})
             else:
-                return json.dumps({'error':'false', 'message':'property is available'})
+                return json.dumps({'error':False, 'message':'property is available'})
             # return jsonify({'result': [dict(row) for row in booking_date]})
         else:
-            return json.dumps({'error':'true', 'message':'Please select valid date'})
+            return json.dumps({'error':True, 'message':'Please select valid date'})
     except Exception as err:
-        return json.dumps({'error': True, 'error_name': format(err)})
+        return json.dumps({'error': True, 'message': format(err)})

@@ -101,7 +101,8 @@ class PriceFilter extends Component {
     return (
 
       <div>
-        <span onClick={() => this.setState({ open: !open })} className="px-3 filter">Price</span>
+        <span onClick={() => this.setState({ open: !open })} 
+        className="m-2 p-2 pl-3 pr-3 rounded-pill filter font-weight-lighter">Price</span>
 
         <Modal
           isOpen={open}

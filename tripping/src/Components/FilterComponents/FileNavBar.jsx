@@ -12,7 +12,6 @@ export default function FilterNavBar(props) {
 
      return (
           <div className='my-2'>
-               {/* {components.map(component =><span className="filter text-muted">{component}</span>)} */}
                <div className='d-flex flex-row'>
                     <div className=''>
                          <Amenities history={history} location={location} />
@@ -29,7 +28,6 @@ export default function FilterNavBar(props) {
                     <div className=''>
                          <FreeCancellation history={history} location={location} />
                     </div>
-
                </div>
           </div>
      )
