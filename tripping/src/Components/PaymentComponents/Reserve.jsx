@@ -14,7 +14,10 @@ class Reserve extends Component {
         this.state = {
             phone: null,
             message: '',
-            otp: '',
+            otp1: '',
+            otp2: '',
+            otp3: '',
+            otp4: '',
             flag: false,
             phoneFlag: false,
             status: '',
@@ -37,7 +40,7 @@ class Reserve extends Component {
 
         let { data, guestCounter } = this.props
 
-        let order_res = await axios.post("https://42dc6de86567.ngrok.io/booking/order_id", {
+        let order_res = await axios.post("https://22a9fddbc1bc.ngrok.io/booking/order_id", {
             "amount": (Number(data[0].price) * 3 + 100 + 200 + 300) * 100,
             "currency": "USD",
             "receipt": values.id + "#" + values.propety_name,
@@ -49,7 +52,7 @@ class Reserve extends Component {
 
 
         const options = {
-            "key": "rzp_test_deyJ8kZP9d4HEh",      // Enter the Key ID generated from the Dashboard
+            "key": "rzp_test_4iW8M3X7pbNUvK",      // Enter the Key ID generated from the Dashboard
             "amount": (Number(data[0].price) * guestCounter + 100 + 200 + 300) * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "USD",
             "name": "Book Trip",
@@ -61,7 +64,7 @@ class Reserve extends Component {
                 // alert(response.razorpay_order_id);
                 // alert(response.razorpay_signature)
                 console.log(response)
-                let final_res = await axios.post("https://42dc6de86567.ngrok.io/booking/varification", {
+                let final_res = await axios.post("https://22a9fddbc1bc.ngrok.io/booking/varification", {
                     // ...response, 
                     "razorpay_payment_id": response.razorpay_payment_id,
                     "razorpay_order_id": response.razorpay_order_id,
@@ -103,35 +106,37 @@ class Reserve extends Component {
     }
 
     handleOTP = () => {
-        // axios.get("https://42dc6de86567.ngrok.io/booking/get_otp/91" + this.state.phone)
-        //     .then(res => {
-        //         this.setState({
-        //             message: res
-        //         })
-        //     })
+        axios.get("https://22a9fddbc1bc.ngrok.io/booking/get_otp/91" + this.state.phone)
+            .then(res => {
+                this.setState({
+                    message: res
+                })
+            })
 
 
-        this.setState({
-            message: 'dfs'
-        })
+        // this.setState({
+        //     message: 'dfs'
+        // })
     }
 
     enterOTP = () => {
-        // axios.get("https://42dc6de86567.ngrok.io/booking/varify_otp/" + this.state.otp)
-        //     .then(res => res.data)
-        //     .then(res => {
-        //         this.setState({
-        //             status: res
-        //         })
-        //     })
+        let {otp1, otp2,otp3,otp4} = this.state
+      var otp = otp1+otp2+otp3+otp4
+        axios.get("https://22a9fddbc1bc.ngrok.io/booking/varify_otp/" + otp)
+            .then(res => res.data)
+            .then(res => {
+                this.setState({
+                    status: res
+                })
+            })
 
-        this.setState({
-             status:"verified"
-        })
+        // this.setState({
+        //      status:"verified"
+        // })
     }
 
     render() {
-
+        let {otp1, otp2,otp3,otp4} = this.state
 
         return (
             <div className='container-fluid '>
@@ -178,10 +183,10 @@ class Reserve extends Component {
                           />
                           <ResendOTP onResendClick={() => console.log("Resend clicked")} /> */}
                                 <div className='d-flex flex-row text-center'>
-                                    <input type="text" class="form-control py-4 text-center mx-2" maxlength="1" />
-                                    <input type="text" class="form-control py-4 text-center mx-2" maxlength="1" />
-                                    <input type="text" class="form-control py-4 text-center mx-2" maxlength="1" />
-                                    <input type="text" class="form-control py-4 text-center mx-2" maxlength="1" />
+                                    <input type="text" value={otp1} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e)=> this.setState({otp1:e.target.value}) } />
+                                    <input type="text" value={otp2} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e)=> this.setState({otp2:e.target.value}) } />
+                                    <input type="text" value={otp3} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e)=> this.setState({otp3:e.target.value}) } />
+                                    <input type="text" value={otp4} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e)=> this.setState({otp4:e.target.value}) } />
                                 </div>
 
                                 <p className='text-center text-info my-2 text-decoration-underline' onClick={() => this.handleOTP()}>ResendOTP</p>

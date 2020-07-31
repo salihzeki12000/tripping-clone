@@ -172,13 +172,20 @@ class SearchBar extends React.Component {
                             <i class="fas fa-male mt-2 ml-2 mr-1 float-left mt-3"></i>
                             <p className="guests mt-2"> {guestCounter} guests</p>
                         </div>
+
+                        {!startDate && !endDate && <Link to={`/vacation-rentals/s/search?location=${region}`}>
+                                <div className="border">
+                                    <button className="btn btn-block search" onClick={() => this.handleSearch()}><i className="fas fa-search text-white"></i></button>
+                                </div>
+                            </Link>}
+
                         {startDate && endDate &&
                             <Link to={`/vacation-rentals/s/search?location=${region}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
                                 <div className="border">
                                     <button className="btn btn-block search" onClick={() => this.handleSearch()}><i className="fas fa-search text-white"></i></button>
                                 </div>
                             </Link>
-                        }
+                     } 
                     </div>
                     <div className="absolute">
                         {guestsFlag && <GuestManager />}

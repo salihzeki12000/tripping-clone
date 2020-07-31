@@ -17,7 +17,10 @@ const initState = {
     price: "",
     aminities: "",
     data: [],
-    url:"http://localhost:3000/vacation-rentals/s/search"
+    url:"http://localhost:3000/vacation-rentals/s/search",
+    total:null,
+    page:1,
+    per_page:6
 }
 
 const reducer = (state = initState, { type, payload }) => {
@@ -33,7 +36,8 @@ const reducer = (state = initState, { type, payload }) => {
             console.log(payload)
             return {
                 ...state,
-                data:payload.result
+                data:payload.result,
+                total:payload.total_pages
             }
         default:
             return state

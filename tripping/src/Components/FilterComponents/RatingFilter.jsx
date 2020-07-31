@@ -35,7 +35,7 @@ class RatingFilter extends React.Component {
         console.log('handle Apply')
         let { history, getDataFromAPI, location } = this.props
         console.log(location, 'path')
-        let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+        let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities, check_in, check_out } = this.props
         const values = querystring.parse(this.props.location.search)
         console.log(values)
         // let x = Object.keys(values)
@@ -216,7 +216,9 @@ const mapStateToProps = state => ({
     sort: state.data.sort,
     price: state.data.price,
     aminities: state.data.aminities,
-    data: state.data.data
+    data: state.data.data,
+    check_in: state.data.check_in,
+    check_out: state.data.check_out
 })
 
 const mapDispatchToProps = dispatch => ({
