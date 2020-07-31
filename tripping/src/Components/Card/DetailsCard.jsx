@@ -151,7 +151,7 @@ class TempCard extends React.Component {
         }
 
 
-        axios.get("https://0e332314fd66.ngrok.io/entity/check_dates", {
+        axios.get("https://42dc6de86567.ngrok.io/entity/check_dates", {
             params: {
                 property_id: id,
                 check_in: start,
@@ -397,14 +397,14 @@ class TempCard extends React.Component {
                                         {counter && <CounterComponent clickHandler={this.handleClick} />}
                                     </div>
                                     <div className='ml-5 p-2 text-danger'>
-                                        {bookingRes && bookingRes.error == "true" && <> <h5>{bookingRes.message + bookingRes.error_name}</h5> <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
+                                        {bookingRes && bookingRes.error && <> <h5>{bookingRes.message + bookingRes.error_name}</h5> <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
                                         {!bookingRes && !dateFlag && <>  <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
 
                                     </div>
                                     <div className='ml-5'>
                                         {/* {data.length>0 && startDate && endDate && <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link>} */}
                                         {/* {!dateFlag && <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button>} */}
-                                        {bookingRes && bookingRes.error == "false" && <> <h5 className="text-success">{bookingRes.message}</h5>  <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link></>}
+                                        {bookingRes && bookingRes.error && <> <h5 className="text-success">{bookingRes.message}</h5>  <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link></>}
                                     </div>
                                 </div>
                             </div>
@@ -435,7 +435,7 @@ class TempCard extends React.Component {
                     <hr className='hrFull' />
                     <div className='my-2'>
 
-                            {data && <MapComponent data={data} /> }
+                            {/* {data && <MapComponent data={data} /> } */}
 
                     </div>
                     <hr className='hrFull' />
