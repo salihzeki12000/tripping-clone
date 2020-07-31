@@ -30,7 +30,7 @@ def search_uisng_filter(data):
         guest = data('guest')
         aminities = data('aminities')
         page = data("page",default=1,type=int)
-        per_page = data("per_page", default=5,type=int)
+        per_page = data("per_page", default=6,type=int)
         
         data = []
         
@@ -120,13 +120,13 @@ def search_uisng_filter(data):
         
         return json.dumps({'result': data, "total_pages":res[2],"curr_page":page})
     except KeyError as err:
-        return json.dumps({'error': True, 'error_name': format(err)})
+                return json.dumps({'error': True, 'message': format(err)})
     except TypeError as err:
-        return json.dumps({'error': True, 'error_name': format(err)})
+                return json.dumps({'error': True, 'message': format(err)})
     except NameError as err:
-        return json.dumps({'error': True, 'error_name': format(err)})
+                return json.dumps({'error': True, 'message': format(err)})
     except Exception as err:
-        return json.dumps({'error': True, 'error_name': format(err)})
+        return json.dumps({'error': True, 'message': format(err)})
 
 
             # total_booked_room = db.session.execute('''SELECT COUNT(*),SUM(booked_room) as booked,booking_date
@@ -154,5 +154,5 @@ def send_all_location(location):
             data.append(obj)
         return json.dumps({'result':data})
     except Exception as err:
-        return json.dumps({'error': True, 'error_name': format(err)})
+        return json.dumps({'error': True, 'message': format(err)})
         
