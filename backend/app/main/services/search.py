@@ -118,7 +118,7 @@ def search_uisng_filter(data):
         res = pagination(page,per_page,total)
         data = data[res[0]:res[1]]
         
-        return json.dumps({'result': data, "total_pages":res[2],"curr_page":page})
+        return json.dumps({'result': data, "total_pages":res[2],"curr_page":page, "total":total})
     except KeyError as err:
                 return json.dumps({'error': True, 'message': format(err)})
     except TypeError as err:

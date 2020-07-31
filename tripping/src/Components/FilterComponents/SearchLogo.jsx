@@ -18,12 +18,6 @@ export default class SearchLogo extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     console.log(this.props.location)
-    //     this.setState({
-    //         region:this.props.location
-    //     })
-    // }
 
     handleLocation = () => {
         // console.log(this.state.locationFlag)
@@ -58,7 +52,9 @@ export default class SearchLogo extends Component {
                                 className=''
                                 style={{ border: "0px solid" }}
                                 placeholder="Enter location"
-                                onChange={(e) => this.setState({ region: e.targetvalue })} />
+                                onChange={(e) => this.setState({ region: e.targetvalue })} 
+                                style={{fontWeight:"lighter" , border: '0px solid'}}
+                            />
                         </div>
                     </div>
 

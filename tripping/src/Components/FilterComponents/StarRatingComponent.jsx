@@ -11,6 +11,7 @@ export default function StarComponent(props) {
                 renderStarIcon={() => <span><i class="fa fa-star"></i></span>}
                 starCount={5}
                 value={actual}
+                starColor={"#FB8C00"}
             />
         </div>
     )

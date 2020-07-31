@@ -16,8 +16,6 @@ export default class Payment extends Component {
           }
       }
 
-      
-
         // try {
         //     let order_res = await axios.post("")
         // }

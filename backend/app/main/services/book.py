@@ -155,7 +155,7 @@ def send_booking_msg(data,property_name):
 # razorpay validateion functions
 # generate the order id
 def order_id(booking_data):
-    client = razorpay.Client(auth=("rzp_test_deyJ8kZP9d4HEh", "wzbh6WZvPXOY2MUsjD4uaZ8T"))
+    client = razorpay.Client(auth=("rzp_test_4iW8M3X7pbNUvK", "6lhsV0IMPNPf5Z0tLsV5sc5S"))
     
     res = client.order.create(data=booking_data)
 
@@ -163,7 +163,7 @@ def order_id(booking_data):
 
 # validate the signature
 def varification(validate_data):
-    secret = 'wzbh6WZvPXOY2MUsjD4uaZ8T'
+    secret = '6lhsV0IMPNPf5Z0tLsV5sc5S'
     secret_key = bytes(secret, 'utf-8')
     msg = bytes(validate_data['razorpay_order_id'] + "|" + validate_data['razorpay_payment_id'], 'utf-8')
     dig = hmac.new(key=secret_key,msg=msg,digestmod=hashlib.sha256)

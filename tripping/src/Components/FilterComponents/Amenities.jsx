@@ -101,7 +101,8 @@ class Amenities extends React.Component {
         const { open } = this.state
         return (
             <div>
-                <span onClick={() => this.setState({ open: !open })} className="px-3 filter" >Amenities</span>
+                <span onClick={() => this.setState({ open: !open })}
+                    className="m-2 p-2 pl-3 pr-3 rounded-pill filter font-weight-lighter" >Amenities</span>
                 <Modal
                     isOpen={open}
                     style={{
@@ -145,7 +146,7 @@ class Amenities extends React.Component {
                         <hr />
                         <br />
                         <div className='clear-both '></div>
-                        <div className='text-secondary mt-3 font-weight-bold '>AMENITIES</div>
+                        <div className='text-secondary mt-3 '>AMENITIES</div>
                         <div className='d-flex flex-row mt-3'>
                             <div className='row inputTagFilters'>
                                 {amenites.map(item => {
@@ -162,8 +163,12 @@ class Amenities extends React.Component {
                     </div>
                     <div className='float-right'>
 
-                        <button className='btn btn-secondary mx-2 mt-2' onClick={() => this.setState({ open: !open })}>close</button>
-                        <button className='btn btn-warning  mr-2 mt-2' onClick={() => this.handleAmenities()} >Apply</button>
+                        <button className='btn m-1 text-light'
+                            style={{backgroundColor:"#FB8C00"}}
+                            onClick={() => this.setState({ open: !open })}>close</button>
+                        <button className='btn m-1 text-light' 
+                        style={{backgroundColor:"#FB8C00"}}
+                        onClick={() => this.handleAmenities()} >Apply</button>
                     </div>
                 </Modal>
 

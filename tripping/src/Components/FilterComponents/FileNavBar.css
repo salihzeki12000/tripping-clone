@@ -11,9 +11,9 @@
 
 .filter {
     border-radius: 5px;
-    padding: 5px;
+    background-color: #F5F5F5;
+    font-size: 14px;
 }
 .filter:hover {
-    background-color: orange;
-    color:wheat
+    background-color:#E0E0E0;
 }
