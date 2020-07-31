@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { increment, decrement } from '../../Redux/SearchBar/action';
-import Payment from '../Payment';
+import Payment from '../PaymentSuccess';
 
 export class CounterComponent extends Component {
     constructor(props) {

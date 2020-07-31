@@ -23,56 +23,73 @@ class FreeCancellation extends Component {
         this.setState({
             open: !this.state.open
         })
-        console.log('handle free')
+        // console.log('handle free')
         let { history, getDataFromAPI, location } = this.props
-        console.log(location, 'path')
-        let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+        // console.log(location, 'path')
+        // let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+        // const values = querystring.parse(this.props.location.search)
+        // console.log(values)
+        // // let x = Object.keys(values)
+
+
+
+        // if (values['free_cancellation']) {
+        //     console.log('if')
+        //     if (this.state.checked) {
+        //         free_cancellation = 1
+        //     } else {
+        //         free_cancellation = ''
+        //     }
+        // }
+        // else {
+        //     console.log('else')
+        //     if (this.state.checked) {
+        //         free_cancellation = 1
+        //     } else {
+        //         free_cancellation = ''
+        //     }
+        //     var url = location.search + `&free_cancellation=${free_cancellation}`
+        //     history.push(url)
+        // }
+
+
+        // for (var key in values) {
+        //     if (key == "location") {
+        //         loc = values[key]
+        //     }
+        //     else if (key == 'guest') {
+        //         guest = Number(values[key])
+        //     }
+        //     else if (key == 'bedroom') {
+        //         bedroom = Number(values[key])
+        //     }
+        //     else if (key == "rating") {
+        //         rating = Number(values[key])
+        //     } else if (key == "aminities") {
+        //         aminities = values[key]
+        //     }
+        // }
+        // getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+
+var free_cancellation = ''
+        if (this.state.checked) {
+            free_cancellation = 1
+        } else {
+            free_cancellation = ''
+        }
+
+        console.log(free_cancellation)
+
         const values = querystring.parse(this.props.location.search)
-        console.log(values)
-        // let x = Object.keys(values)
+
+        getDataFromAPI(values.location, values.check_in, values.check_out, free_cancellation, values.rating, values.bedroom, values.guest, values.sort, values.price, values.aminities, values.page, values.per_page, values.accomodation_type)
 
 
-
-        if (values['free_cancellation']) {
-            console.log('if')
-            if (this.state.checked) {
-                free_cancellation = 1
-            } else {
-                free_cancellation = ''
-            }
-        }
-        else {
-            console.log('else')
-            if (this.state.checked) {
-                free_cancellation = 1
-            } else {
-                free_cancellation = ''
-            }
-            var url = location.search + `&free_cancellation=${free_cancellation}`
-            history.push(url)
-        }
+        var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${values.rating}&aminities=${values.aminities}&page=${values.page}&per_page=${values.per_page}&accomodation_type=${values.accomodation_type}&free_cancellation=${free_cancellation}&price=${values.price}`
+        
+        history.push(url)
 
 
-        for (var key in values) {
-            if (key == "location") {
-                loc = values[key]
-            }
-            else if (key == 'guest') {
-                guest = Number(values[key])
-            }
-            else if (key == 'bedroom') {
-                bedroom = Number(values[key])
-            }
-            else if (key == "rating") {
-                rating = Number(values[key])
-            } else if (key == "aminities") {
-                aminities = values[key]
-            }
-        }
-
-
-
-        getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
     }
 
 

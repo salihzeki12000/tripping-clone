@@ -14,7 +14,8 @@ import querystring from 'query-string';
 import SearchBar from '../SearchBar/SearchBar';
 import Amenities from '../FilterComponents/Amenities';
 import { format } from 'fecha'
-import MapComponent from '../MapComponent';
+// import MapComponent from '../MapComponent';
+import EntityMap from '../EntityMap'
 import './CarouselCard.css';
 
 Modal.setAppElement('#root');
@@ -152,7 +153,7 @@ class TempCard extends React.Component {
         }
 
 
-        axios.get("https://22a9fddbc1bc.ngrok.io/entity/check_dates", {
+        axios.get("https://d9e34f5ae330.ngrok.io/entity/check_dates", {
             params: {
                 property_id: id,
                 check_in: start,
@@ -385,7 +386,10 @@ class TempCard extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-
+                                 <div className="col-12 mt-2 mb-2" style={{height:"500px", width:"300px"}}>
+                                   {data && <EntityMap data={data} />}
+<br/>
+                                 </div>
                                 <div className='col-12 mt-2 mb-2'>
                                     <div className='row ml-5 mr-5'>
                                         <hr className="col-12"></hr>

@@ -8,7 +8,7 @@ import DetailsCard from '../Components/Card/DetailsCard'
 import TempCard from '../Components/Card/TempCard'
 import Reserve from '../Components/PaymentComponents/Reserve'
 import ReactGA from 'react-ga';
-
+import PaymentSuccess from '../Components/PaymentSuccess'
 
 function Routes() {
     ReactGA.initialize('UA-173994542-1');
@@ -24,7 +24,7 @@ function Routes() {
             <Route path='/signin' exact render={(props)=> <Signin />} />
             <Route path='/detailscard/:id'  render={(props)=> <DetailsCard {...props} />} />
             <Route path='/payment/:id'  render={(props)=> <Reserve {...props} />} />
-               
+            <Route path='tripping/payment/success' render={(props)=> <PaymentSuccess />} />
             </Switch>
         </div>
     )

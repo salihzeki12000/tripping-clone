@@ -26,7 +26,9 @@ class PriceFilter extends Component {
     super(props)
     this.state = {
       price: 100,
-      open: false
+      open: false,
+      // min:null,
+      // max:null
     }
   }
 
@@ -41,57 +43,65 @@ class PriceFilter extends Component {
     this.setState({
       open: !this.state.open
     })
-    console.log('handle Price')
-    let { history, getDataFromAPI, location } = this.props
-    console.log(location, 'path')
-    let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+    // console.log('handle Price')
+    // let { history, getDataFromAPI, location } = this.props
+    // console.log(location, 'path')
+    // let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+    // const values = querystring.parse(this.props.location.search)
+    // console.log(values)
+    // // let x = Object.keys(values)
+
+    // if (values['price']) {
+    //   console.log('if')
+    //   price = this.state.price
+    // }
+    // else {
+    //   console.log('else')
+
+    //   price = this.state.price
+    //   var url = location.search + `&price=${this.state.price}`
+    //   history.push(url)
+    // }
+
+
+    // for (var key in values) {
+    //   if (key == "location") {
+    //     loc = values[key]
+    //   }
+    //   else if (key == "free_cancellation") {
+    //     free_cancellation = Number(values[key])
+    //   }
+    //   else if (key == 'guest') {
+    //     guest = Number(values[key])
+    //   }
+    //   else if (key == 'bedroom') {
+    //     bedroom = Number(values[key])
+    //   }
+    //   else if (key == "rating") {
+    //     rating = Number(values[key])
+    //   }
+    //   else if (key == "free_cancellation") {
+    //     if (typeof (values[key]) != "number") {
+    //       free_cancellation = ''
+    //     } else {
+    //       free_cancellation = Number(values[key])
+    //     }
+    //   }
+    //   else if (key == "aminities") {
+    //     aminities = values[key]
+    //   }
+
+    // }
+
+    // getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
     const values = querystring.parse(this.props.location.search)
     console.log(values)
-    // let x = Object.keys(values)
+    let { history, getDataFromAPI, location } = this.props
+    getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, values.bedroom, values.guest, values.sort, (100,this.state.price), values.aminities, values.page, values.per_page, values.accomodation_type)
+    var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${values.rating}&aminities=${values.aminities}&page=${values.page}&per_page=${values.per_page}&accomodation_type=${values.accomodation_type}&free_cancellation=${values.free_cancellation}&price=${0,this.state.price}`
+            
+    history.push(url)
 
-    if (values['price']) {
-      console.log('if')
-      price = this.state.price
-    }
-    else {
-      console.log('else')
-
-      price = this.state.price
-      var url = location.search + `&price=${this.state.price}`
-      history.push(url)
-    }
-
-
-    for (var key in values) {
-      if (key == "location") {
-        loc = values[key]
-      }
-      else if (key == "free_cancellation") {
-        free_cancellation = Number(values[key])
-      }
-      else if (key == 'guest') {
-        guest = Number(values[key])
-      }
-      else if (key == 'bedroom') {
-        bedroom = Number(values[key])
-      }
-      else if (key == "rating") {
-        rating = Number(values[key])
-      }
-      else if (key == "free_cancellation") {
-        if (typeof (values[key]) != "number") {
-          free_cancellation = ''
-        } else {
-          free_cancellation = Number(values[key])
-        }
-      }
-      else if (key == "aminities") {
-        aminities = values[key]
-      }
-
-    }
-
-    getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
   }
 
 
@@ -112,7 +122,7 @@ class PriceFilter extends Component {
               top: '100px',
               left: '60px',
               right: '40px',
-              width: '12rem',
+              width: '15rem',
               height: '10rem',
               bottom: '40px',
               border: '1px solid #ccc',
@@ -132,8 +142,8 @@ class PriceFilter extends Component {
             {/* <h5 className='font-weight-bold text-dark'>₹500 - ₹40000</h5> */}
             <Slider
               // defaultValue={this.state.value}
-              min={500}
-              max={40000}
+              min={0}
+              max={5000}
               aria-labelledby="discrete-slider-always"
 
               value={this.state.value}

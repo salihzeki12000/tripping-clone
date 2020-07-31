@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import Modal from 'react-modal';
 import { getDataFromAPI } from '../../Redux/SearchApi/Action.js'
 import querystring from 'query-string';
@@ -9,31 +9,45 @@ class Accommodation extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            accommodation: [],
+            accomodation: '',
             open: false
         }
-        this.handleChange = this.handleChange.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
     }
     handleChange = (e) => {
-        if (e.target.checked) {
-            this.setState({
-                accommodation: [...this.state.accommodation, e.target.id]
-            })
-        }
-        else {
-            this.setState({
-                accommodation: this.state.accommodation.filter(item => item !== e.target.id)
-            })
-        }
+        console.log(e.target.id)
+        //if (e.target.checked) {
+        this.setState({
+            accomodation:e.target.id
+        })
+        //}
+
+    }
+
+    handleAcc = () => {
+console.log(this.state.accomodation)
+        this.setState({
+            open: !this.state.open
+        })
+        let { history, getDataFromAPI, location } = this.props
+
+        const values = querystring.parse(this.props.location.search)
+
+        getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, values.bedroom, values.guest, values.sort, values.price, values.aminities, values.page, values.per_page, this.state.accomodation)
+        var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${values.rating}&aminities=${values.aminities}&page=${values.page}&per_page=${values.per_page}&accomodation_type=${this.state.accomodation}&free_cancellation=${values.free_cancellation}&price=${values.price}`
+
+        history.push(url)
+
+
     }
 
     render() {
-        let accomodation = ['Apartment','Hotel','Castle','Private room','Resort','Boat','Other','House','Bed & BreakFast','Farmhouse','Pension','Hostel','Camping','Shared room' ]
-        const {open} = this.state;
+        let accomodation = ['Apartment', 'Hotel', 'Castle', 'Private room', 'Resort', 'Boat', 'Other', 'House', 'Bed & BreakFast', 'Farmhouse', 'Pension', 'Hostel', 'Camping', 'Shared room']
+        const { open } = this.state;
         return (
             <div>
-              <span onClick={() => this.setState({ open: !open })} 
-              className="m-2 p-2 pl-3 pr-3 rounded-pill filter font-weight-lighter">Accommodation types</span>
+                <span onClick={() => this.setState({ open: !open })}
+                    className="m-2 p-2 pl-3 pr-3 rounded-pill filter font-weight-lighter">Accommodation types</span>
                 <Modal
                     isOpen={open}
                     style={{
@@ -56,37 +70,37 @@ class Accommodation extends React.Component {
                     }}
                 >
 
-<div className='fontSizeAmenities'>
+                    <div className='fontSizeAmenities'>
 
 
-                    <div className='d-flex flex-row'>
-                    <input type="checkbox" className='checkAmenities mr-2 mt-2' />
-                    <div><p>Instant booking</p></div>
-                    </div>
-                  
-                    <hr></hr>
-                    <small className='text-secondary mt-4'>ACCOMMODATION TYPES</small>
-                    <div className="row mt-3">
-                        {
-                            accomodation.map(type => {
-                                return (
-                                    <div className="col-6">
-                                        <div className="row">
-                                            <div className="col-2"><input type="checkbox" id={type} className='checkAmenities' onChange={this.handleChange} /></div>
-                                            <div className="col-10"><p>{type}</p></div>
+                        <div className='d-flex flex-row'>
+                            <input type="checkbox" className='checkAmenities mr-2 mt-2' />
+                            <div><p>Instant booking</p></div>
+                        </div>
+
+                        <hr></hr>
+                        <small className='text-secondary mt-4'>ACCOMMODATION TYPES</small>
+                        <div className="row mt-3">
+                            {
+                                accomodation.map(type => {
+                                    return (
+                                        <div className="col-6">
+                                            <div className="row">
+                                                <div className="col-2"><input type="checkbox" id={type} className='checkAmenities' onChange={(e) => this.handleChange(e)} /></div>
+                                                <div className="col-10"><p>{type}</p></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                     <div className='float-right'>
 
                         <button className='btn btn-secondary mx-2 mt-2' onClick={() => this.setState({ open: !open })}>close</button>
                         <button className='btn btn-warning  mr-2 mt-2' onClick={() => this.handleAcc()} >Apply</button>
                     </div>
-        
+
                 </Modal>
             </div>
 
@@ -104,7 +118,9 @@ const mapStateToProps = state => ({
     guest: state.data.guest,
     sort: state.data.sort,
     price: state.data.price,
-    aminities: state.data.aminities
+    aminities: state.data.aminities,
+    page: state.data.page,
+    per_page: state.data.page
 })
 const mapDispatchToProps = dispatch => ({
     getDataFromAPI: (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
