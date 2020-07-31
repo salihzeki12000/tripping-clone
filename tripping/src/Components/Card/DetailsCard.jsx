@@ -151,7 +151,7 @@ class TempCard extends React.Component {
         }
 
 
-        axios.get("https://42dc6de86567.ngrok.io/entity/check_dates", {
+        axios.get("https://22a9fddbc1bc.ngrok.io/entity/check_dates", {
             params: {
                 property_id: id,
                 check_in: start,
@@ -223,11 +223,11 @@ class TempCard extends React.Component {
 
                         {/* Modal */}
                         <div className='col-3 offset-3 ml-5'>
-                            {user.success && <>  <img src={user.image} width='50px' height='50px' style={{ borderRadius: '50%' }} /><p style={{ fontSize: '25px', color: 'orange' }}>{user.firstName + " " + user.lastName}</p></>}
+                            {/* {user.success && <>  <img src={user.image} width='50px' height='50px' style={{ borderRadius: '50%' }} /><p style={{ fontSize: '25px', color: 'orange' }}>{user.firstName + " " + user.lastName}</p></>}
                             {!user.success && <div className='d-flex flex-row'>
                                 <Link to='/register'><button className='btn text-white ml-5 mt-2 px-3 mx-3  font-weight-bold' style={{ backgroundColor: "#FB8C00" }}>Register</button></Link>
                                 <Link to='/signin'><button className='btn text-white px-3 mt-2 font-weight-bold' style={{ backgroundColor: "#FB8C00" }}>Sign in</button></Link>
-                            </div>}
+                            </div>} */}
                         </div>
                     </div>
                 </div>
@@ -397,14 +397,14 @@ class TempCard extends React.Component {
                                         {counter && <CounterComponent clickHandler={this.handleClick} />}
                                     </div>
                                     <div className='ml-5 p-2 text-danger'>
-                                        {bookingRes && bookingRes.error && <> <h5>{bookingRes.message + bookingRes.error_name}</h5> <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
+                                        {bookingRes && bookingRes.error && <> <h5>{bookingRes.message }</h5> <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
                                         {!bookingRes && !dateFlag && <>  <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
 
                                     </div>
                                     <div className='ml-5'>
                                         {/* {data.length>0 && startDate && endDate && <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link>} */}
                                         {/* {!dateFlag && <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button>} */}
-                                        {bookingRes && bookingRes.error && <> <h5 className="text-success">{bookingRes.message}</h5>  <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link></>}
+                                        {bookingRes && !bookingRes.error && <> <h5 className="text-success">{bookingRes.message}</h5>  <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link></>}
                                     </div>
                                 </div>
                             </div>
