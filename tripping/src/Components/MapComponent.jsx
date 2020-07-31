@@ -110,7 +110,7 @@ export class MapComponent extends Component {
                     data.map(ele =>
                         <GoogleMap
                             key={uuid()}
-                            defaultZoom={7}
+                            defaultZoom={6}
                             defaultCenter={{ lat: Number(ele.latitude), lng: Number(ele.longitude) }}
                         >
                             <Marker
@@ -133,7 +133,7 @@ export class MapComponent extends Component {
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M&v=3.exp&libraries=geometry,drawing,places"
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `100%`, width: '100%' }} />}
-                mapElement={<div style={{ height: `100%`}} />}
+                mapElement={<div style={{ height: `100%`, width:`100%`}} />}
             />
         )
     }

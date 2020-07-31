@@ -5,8 +5,8 @@ export default function TopLocations() {
     return (
         <div className='container-md container-fluid-sm mt-5 p-4'>
             <div className="offset-md-1 col-md-10 col-12">
-                <h2 className='font-weight-bold ml-3'>Top Locations</h2>
-                <div className='row text-secondary mt-3 mx-2'>
+                <h2 className='font-weight-bold'>Top Locations</h2>
+                <div className='row text-secondary font-weight-lighter mt-3'>
                     <div className='col-3 '>
                         <h6>Asheville</h6>
                         <h6>BlueRidge</h6>

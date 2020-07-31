@@ -75,7 +75,7 @@ export default class SearchLogo extends Component {
                         <div className="row">
                             <div className='col-10 text-center mt-2'>
                                 <i class="fa fa-male text-secondary" aria-hidden="true"></i>
-                                <span className=''><small>{guestCounter} guests</small></span>
+                                <small className='font-weight-lighter ml-2'>{guestCounter} guests</small>
                             </div>
                             <div className=' mt-2'>
                                 {guestsFlag ? <i class="fa fa-angle-up" aria-hidden="true"></i> : <i class="fa fa-angle-down" aria-hidden="true"></i>}

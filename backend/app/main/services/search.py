@@ -23,6 +23,7 @@ def search_uisng_filter(data):
         check_in = data('check_in')
         check_out = data('check_out')
         free_cancellation = data('free_cancellation')
+        accomodation_type = data('accomodation_type')
         sort = data('sort') 
         rating = data('rating')
         price = data('price')
@@ -61,11 +62,14 @@ def search_uisng_filter(data):
 
             query = query + ' AND rr.price >= %d AND rr.price <= %d'%(low,high)
 
+        if accomodation_type:
+            query = query + ' AND pp.accomodation_type="%s"'%(accomodation_type)
+
 
         res = db.session.execute(query)
 
         for i in res:
-            rating = db.session.execute('''SELECT AVG(rating) AS rating FROM review where property_id=%d'''%(int(i['property_id']))).first()
+            rate = db.session.execute('''SELECT AVG(rating) AS rating FROM review where property_id=%d'''%(int(i['property_id']))).first()
             
             obj={}
             obj['country'] = i['country']
@@ -82,9 +86,9 @@ def search_uisng_filter(data):
             obj['price'] = i['price']
             obj['latitude'] = i['lati']
             obj['longitude'] = i['longi']
-            if rating[0] is not None:
-                rating = float(round(rating[0], 2))
-                obj['rating'] = rating
+            if rate[0] is not None:
+                rate = float(round(rate[0], 2))
+                obj['rating'] = rate
             else:
                 obj['rating'] = 0
             image = json.loads(i['image'])
@@ -111,8 +115,8 @@ def search_uisng_filter(data):
     
 
         if rating:
-            rating = float(rating)
-            data = [d for d in data if d['rating'] >= rating]
+
+            data = [d for d in data if str(d['rating']) >= str(rating)]
 
         total = len(data)
         res = pagination(page,per_page,total)
