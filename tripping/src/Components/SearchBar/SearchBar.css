@@ -16,7 +16,7 @@
     background-size: cover;
     height:700px;
 }
-
+/* 
 .fontSizeText {
     font-size: 15px;
 }
@@ -26,7 +26,7 @@
     font-size: 40px;
 }
 
-/* .div {
+.div {
    
     text-align: center;
     vertical-align:middle;
@@ -66,14 +66,14 @@
 
 .searchButton{
     background-color: orange;
-} */
+} 
 
 
-/* .inputMarginLeft {
+.inputMarginLeft {
     margin-left: 100px;
-} */
+}
 
-/* .borderDiv, .borderDivDown {
+ .borderDiv, .borderDivDown {
     width: 400px;
     height: 60px;
     background-color: white;
@@ -81,7 +81,7 @@
 
 .borderDivDown {
     height: 300px;
-} */
+} 
 
 /* .Date_div {
     width: 400px;
@@ -145,7 +145,7 @@
     }
 } */
 
-.divContainer {
+ .divContainer {
     display: flex;
     flex-direction: row;
 }
@@ -221,5 +221,5 @@
   .search:focus{
       outline: none !important;
       border: none !important;
-  }
+  } 
  

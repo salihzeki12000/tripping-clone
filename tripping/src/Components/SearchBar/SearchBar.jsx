@@ -15,9 +15,9 @@ class SearchBar extends React.Component {
         super(props)
 
         this.state = {
-            startDate: null,
+            startDate:null, 
             endDate: null,
-            region: '',
+            region: null,
             guests: '',
             locationFlag: false,
             guestsFlag: false,
@@ -88,9 +88,9 @@ class SearchBar extends React.Component {
         return (
 
             <div className="container-fluid-md container-lg">
-                {/* <div className='mt-5 mx-5 fontSizeText'>
+                {/* <div className='mt-5 mx-5 fontSizeText'> */}
 
-                    <div className="d-flex flex-row" >
+                    {/* <div className="d-flex flex-row" >
                         <div className="row">
                             <div className='borderDiv col-md-4 col-12 rounded-left border' onClick={() => this.handleLocation()} >
                                 <input type='text'
@@ -180,7 +180,7 @@ class SearchBar extends React.Component {
                             </Link>}
 
                         {startDate && endDate &&
-                            <Link to={`/vacation-rentals/s/search?location=${region}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&guest=${guestCounter}&bedroom=${bedroomCounter}`}>
+                            <Link to={`/vacation-rentals/s/search?location=${region}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&guest=${guestCounter}&bedroom=${bedroomCounter}&rating=${''}&aminities=${''}&page=${''}&per_page=${''}&accomodation_type=${''}&free_cancellation=${''}&price=${''}`}>
                                 <div className="border">
                                     <button className="btn btn-block search" onClick={() => this.handleSearch()}><i className="fas fa-search text-white"></i></button>
                                 </div>
@@ -189,8 +189,8 @@ class SearchBar extends React.Component {
                     </div>
                     <div className="absolute">
                         {guestsFlag && <GuestManager />}
-                    </div>
-                    {/* <div className='row mx-4 '>
+                    </div> 
+                     {/* <div className='row mx-4 '>
                         {
                             locationFlag && <div className='col-3'>
                                 <div className='borderDivDown mt-1 text-secondary bg-white'>

@@ -411,7 +411,7 @@ class TempCard extends React.Component {
                         </div>
                     </div>
                     <hr className='hrFull' />
-                    <div className='my-2'>
+                    <div className='my-5'>
 
                         <h4 className='font-weight-bold'> <i class="fa fa-star text-warning mx-2" aria-hidden="true"></i> {data.length > 0 && data[0].rating} ({review.length > 0 && review.length} reviews)</h4>
                         <div className='row'>
@@ -432,14 +432,14 @@ class TempCard extends React.Component {
                             </div>)}
                         </div>
                     </div>
-                    <hr className='hrFull' />
-                    <div className='my-2'>
+                    {/* <hr className='hrFull' /> */}
+                    {/* <div className='my-2'>
 
-                            {/* {data && <MapComponent data={data} /> } */}
+                            {data && <MapComponent data={data} /> }
 
-                    </div>
+                    </div> */}
                     <hr className='hrFull' />
-                    <div className='my-2'>
+                    <div className='my-5'>
                         <h4 className='font-weight-bold'>Recommendations</h4>
                         <div className='row'>
                             {recommendations?.filter((elem, i) => i < 6 && elem).map((item, i) => {

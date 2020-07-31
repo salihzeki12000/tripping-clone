@@ -38,55 +38,63 @@ class RatingFilter extends React.Component {
         let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities, check_in, check_out } = this.props
         const values = querystring.parse(this.props.location.search)
         console.log(values)
+
+    //     var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${parseFloat(this.state.rating)}&aminities=${values.aminities}&page=${values.page}&per_page=${values.per_page}&accomodation_type=${values.accomodation_type}&free_cancellation=${values.free_cancellation}&price=${values.price}`
+        
+    //    history.push(url)
         // let x = Object.keys(values)
+         // console.log(values['rating'])
+//         if (values['rating']) {
+//             console.log('if')
+//             rating = this.state.rating
+//         }
+//         else {
+//             console.log('else')
+//             rating = this.state.rating
+//             var url = location.search + `&rating=${this.state.rating}`
+//             // history.push(`&rating=${this.state.rating}`)
+//             history.push(url)
+//         }
 
-        if (values['rating']) {
-            console.log('if')
-            rating = this.state.rating
-        }
-        else {
-            console.log('else')
-            rating = this.state.rating
-            var url = location.search + `&rating=${this.state.rating}`
-            // history.push(`&rating=${this.state.rating}`)
-            history.push(url)
-        }
+//         for (var key in values) {
+//             for (var key in values) {
+//                 if (key == "location") {
+//                     loc = values[key]
+//                 }
+//                 else if (key == "free_cancellation") {
+//                     free_cancellation = Number(values[key])
+//                 }
+//                 else if (key == 'guest') {
+//                     guest = Number(values[key])
+//                 }
+//                 else if (key == 'bedroom') {
+//                     bedroom = Number(values[key])
+//                 } else if (key == 'price') {
+//                     price = Number(values[key])
+//                 }
+//                 else if (key == "free_cancellation") {
+//                     if (typeof (values[key]) != "number") {
+//                         free_cancellation = ''
+//                     } else {
+//                         free_cancellation = Number(values[key])
+//                     }
+//                 } else if (key == "aminities") {
+//                     aminities = values[key]
+//                 }
+//                 else if(key == 'check_in') {
+//                     check_in = values[key]
+//                 }else if(key == 'check_out') {
+//                     check_out = values[key]
+//                 }
+//             }
 
-        for (var key in values) {
-            for (var key in values) {
-                if (key == "location") {
-                    loc = values[key]
-                }
-                else if (key == "free_cancellation") {
-                    free_cancellation = Number(values[key])
-                }
-                else if (key == 'guest') {
-                    guest = Number(values[key])
-                }
-                else if (key == 'bedroom') {
-                    bedroom = Number(values[key])
-                } else if (key == 'price') {
-                    price = Number(values[key])
-                }
-                else if (key == "free_cancellation") {
-                    if (typeof (values[key]) != "number") {
-                        free_cancellation = ''
-                    } else {
-                        free_cancellation = Number(values[key])
-                    }
-                } else if (key == "aminities") {
-                    aminities = values[key]
-                }
-                else if(key == 'check_in') {
-                    check_in = values[key]
-                }else if(key == 'check_out') {
-                    check_out = values[key]
-                }
-            }
-
-        }
-  console.log(rating, "after assigning")
-        getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+//         }
+// getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+//   console.log(rating, "after assigning")
+getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, this.state.rating, values.bedroom, values.guest, values.sort, values.price, values.aminities, values.page, values.per_page, values.accomodation_type)
+var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${this.state.rating}&aminities=${values.aminities}&page=${values.page}&per_page=${values.per_page}&accomodation_type=${values.accomodation_type}&free_cancellation=${values.free_cancellation}&price=${values.price}`
+        
+history.push(url)
     }
 
     render() {
