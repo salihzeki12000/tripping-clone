@@ -100,6 +100,7 @@ console.log(values.page, values.accomodation_type,  'search')
 
         console.log(values.accomodation_type, 'pageCLick')
 
+        // getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, Number(values.bedroom), values.guest, values.sort, values.price, values.aminities, 1, values.per_page, values.accomodation_type)
         getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, Number(values.bedroom), values.guest, values.sort, values.price, values.aminities, id, values.per_page, values.accomodation_type)
         var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${values.rating}&aminities=${values.aminities}&page=${id}&per_page=${values.per_page}&accomodation_type=${values.accomodation}&free_cancellation=${values.free_cancellation}&price=${values.price}`
 
@@ -195,7 +196,7 @@ const mapStateToProps = state => ({
     per_page: state.data.per_page
 })
 const mapDispatchToProps = dispatch => ({
-    getDataFromAPI: (loc, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page) => dispatch(getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page)),
+    getDataFromAPI: (loc, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type) => dispatch(getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type)),
 })
 
 

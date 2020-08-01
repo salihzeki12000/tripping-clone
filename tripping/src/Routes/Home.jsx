@@ -12,7 +12,7 @@ import Payment from '../Components/PaymentSuccess'
 export default function Home() {
     return (
         <div>
-// import { Link } from 'react-router-dom'
+{/* // import { Link } from 'react-router-dom' */}
             <HomeNavbar />
             <HomeSearchBar />
             <Subscribe />
