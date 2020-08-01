@@ -118,33 +118,29 @@ class Reserve extends Component {
     }
 
     handleOTP = () => {
-        // axios.get("https://f5cf6c72dae5.ngrok.io/booking/get_otp/91" + this.state.phone)
-        //     .then(res => {
-        //         this.setState({
-        //             message: res
-        //         })
-        //     })
+        axios.get("https://f5cf6c72dae5.ngrok.io/booking/get_otp/91" + this.state.phone)
+            .then(res => {
+                this.setState({
+                    message: res
+                })
+            })
 
 
-        this.setState({
-            message: 'dfs'
-        })
+      
     }
 
     enterOTP = () => {
-    //     let {otp1, otp2,otp3,otp4} = this.state
-    //   var otp = otp1+otp2+otp3+otp4
-    //     axios.get("https://f5cf6c72dae5.ngrok.io/booking/varify_otp/" + otp)
-    //         .then(res => res.data)
-    //         .then(res => {
-    //             this.setState({
-    //                 status: res
-    //             })
-    //         })
+        let {otp1, otp2,otp3,otp4} = this.state
+      var otp = otp1+otp2+otp3+otp4
+        axios.get("https://f5cf6c72dae5.ngrok.io/booking/varify_otp/" + otp)
+            .then(res => res.data)
+            .then(res => {
+                this.setState({
+                    status: res
+                })
+            })
 
-        this.setState({
-             status:"verified"
-        })
+        
     }
 
     render() {
