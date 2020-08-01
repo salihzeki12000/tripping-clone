@@ -199,9 +199,7 @@ const mapStateToProps = state => ({
     aminities: state.data.aminities
 })
 const mapDispatchToProps = dispatch => ({
-    getDataFromAPI: (country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(country, state, city, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
-    // changeFreeCancellation: (payload) => dispatch(changeFreeCancellation(payload)),
+    getDataFromAPI: (loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type) => dispatch(getDataFromAPI(loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type)),
 })
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Amenities)

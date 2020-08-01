@@ -39,7 +39,7 @@ class Reserve extends Component {
 
 
         var redirectToPaymentPage = () => {
-            this.props.history.push('tripping/payment/success')
+            this.props.history.push('/tripping/payment/success')
         }
 
         console.log(values)
@@ -48,7 +48,7 @@ class Reserve extends Component {
 
         let { data, guestCounter } = this.props
 
-        let order_res = await axios.post("https://d9e34f5ae330.ngrok.io/booking/order_id", {
+        let order_res = await axios.post("https://0bec60d8d8c8.ngrok.io/booking/order_id", {
             "amount": (Number(data[0].price) * 3 + 100 + 200 + 300) * 100,
             "currency": "INR",
             "receipt": values.id + "#" + values.propety_name,
@@ -72,7 +72,7 @@ class Reserve extends Component {
                 // alert(response.razorpay_order_id);
                 // alert(response.razorpay_signature)
                 console.log(response)
-                let final_res = await axios.post("https://d9e34f5ae330.ngrok.io/booking/varification", {
+                let final_res = await axios.post("https://0bec60d8d8c8.ngrok.io/booking/varification", {
                     // ...response, 
                     "razorpay_payment_id": response.razorpay_payment_id,
                     "razorpay_order_id": response.razorpay_order_id,
@@ -89,6 +89,7 @@ class Reserve extends Component {
                     // this.props.history.push('/')
                     redirectToPaymentPage()
                 } else {
+                    console.log('failure')
                     alert(final_res.data.message)
                 }
 
@@ -115,7 +116,7 @@ class Reserve extends Component {
     }
 
     handleOTP = () => {
-        axios.get("https://d9e34f5ae330.ngrok.io/booking/get_otp/91" + this.state.phone)
+        axios.get("https://0bec60d8d8c8.ngrok.io/booking/get_otp/91" + this.state.phone)
             .then(res => {
                 this.setState({
                     message: res
@@ -131,7 +132,7 @@ class Reserve extends Component {
     enterOTP = () => {
         let {otp1, otp2,otp3,otp4} = this.state
       var otp = otp1+otp2+otp3+otp4
-        axios.get("https://d9e34f5ae330.ngrok.io/booking/varify_otp/" + otp)
+        axios.get("https://0bec60d8d8c8.ngrok.io/booking/varify_otp/" + otp)
             .then(res => res.data)
             .then(res => {
                 this.setState({
