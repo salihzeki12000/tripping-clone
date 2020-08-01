@@ -5,3 +5,13 @@
 .row h6:hover {
    color:black;
 }
+
+.logo{
+    outline: none !important;
+    border: none !important;
+}
+
+.logo:hover{
+    outline: none !important;
+    border: none !important;
+}

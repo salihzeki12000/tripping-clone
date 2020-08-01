@@ -6,15 +6,13 @@ import TopCountries from './HomeComponents/TopCountries'
 import TrippingDescription from './HomeComponents/TrippingDescription'
 import VacationRental from './HomeComponents/VacationRental'
 import HomeSearchBar from './HomeComponents/HomeSearchBar'
-// import { Link } from 'react-router-dom'
 import HomeNavbar from './HomeComponents/HomeNavbar'
 import Payment from '../Components/PaymentSuccess'
 
 export default function Home() {
     return (
         <div>
-            {/* <DetailsCard /> */}
-            {/* <Payment /> */}
+// import { Link } from 'react-router-dom'
             <HomeNavbar />
             <HomeSearchBar />
             <Subscribe />
