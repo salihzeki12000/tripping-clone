@@ -41,9 +41,9 @@ export class CounterComponent extends Component {
                             <p className='pl-2 pr-5'>Guests</p>
                         </div>
 
-                        <span className='borderDec mx-2 text-center' onClick={() => this.handleDecrement('guest')}><i className='fas fa-minus math black'></i></span>
-                        <span className=' text-center mx-2'>{guestCounter}</span>
-                        <span className='borderInc mx-2 text-center ' onClick={() => this.handleIncrement('guest')}><i className='fas fa-plus math orange'></i></span>
+                        <span className='mx-2 text-center' onClick={() => this.handleDecrement('guest')}><i className='fas fa-minus math black p-1'></i></span>
+                        <span className='text-center mx-2'>{guestCounter}</span>
+                        <span className='mx-2 text-center ' onClick={() => this.handleIncrement('guest')}><i className='fas fa-plus math orange p-1'></i></span>
                     </div>
                     {/* <div className="d-flex flex-row ml-3 mt-2">
                         <div>
