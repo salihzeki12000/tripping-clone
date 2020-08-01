@@ -118,7 +118,7 @@ export class MapComponent extends Component {
                             >
                                 <InfoWindow>
                                     <div>
-                                        <h4>{ele.property_name}</h4>
+                                        <h5>{ele.property_name}</h5>
                                     </div>
                                 </InfoWindow>
                             </Marker>

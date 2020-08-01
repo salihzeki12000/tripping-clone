@@ -110,7 +110,7 @@ export class MapComponent extends Component {
                     data.map(ele =>
                         <GoogleMap
                             key={uuid()}
-                            defaultZoom={6}
+                            defaultZoom={7}
                             defaultCenter={{ lat: Number(ele.latitude), lng: Number(ele.longitude) }}
                         >
                             <Marker
@@ -118,7 +118,7 @@ export class MapComponent extends Component {
                             >
                                 <InfoWindow>
                                     <div>
-                                       <h4> $ {ele.price}</h4>
+                                       <h6> $ {ele.price}</h6>
                                     </div>
                                 </InfoWindow>
                             </Marker>

@@ -8,11 +8,11 @@ import VacationRental from './HomeComponents/VacationRental'
 import HomeSearchBar from './HomeComponents/HomeSearchBar'
 import HomeNavbar from './HomeComponents/HomeNavbar'
 import Payment from '../Components/PaymentSuccess'
+// import { Link } from 'react-router-dom'
 
 export default function Home() {
     return (
         <div>
-// import { Link } from 'react-router-dom'
             <HomeNavbar />
             <HomeSearchBar />
             <Subscribe />
