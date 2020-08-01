@@ -18,7 +18,7 @@ export default class Payment extends Component {
            setTimeout(()=> {
                console.log('check')
                this.props.history.push('/')
-        }, 5000)
+        }, 4000)
       }
 
 
