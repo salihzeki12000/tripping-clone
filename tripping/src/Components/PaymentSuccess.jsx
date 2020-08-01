@@ -7,21 +7,33 @@ export default class Payment extends Component {
       constructor(props) {
           super(props)
           this.state = {
-              name:''
+              name:'',
+              flag:false
           }
       }
 
         
+      componentDidMount() {
+          console.log('enter')
+           setTimeout(()=> {
+               console.log('check')
+               this.props.history.push('/')
+        }, 4000)
+      }
 
 
     render() {
 
-        setTimeout(()=> {
-            <Redirect to='/' />
-        }, 5000)
+        // setTimeout(()=> {
+        //     <Redirect to='/' />
+        // }, 5000)
+
+        // if(flag) {
+        //     <Redirect to='/' />
+        // }
             
         return (
-            <div className=''>
+            <div className='text-center'>
                 <div className='text-center text-success mt-5' style={{fontSize:"100px"}}>
 
                   <i class="fa fa-check-circle " aria-hidden="true"></i>

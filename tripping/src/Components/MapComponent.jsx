@@ -118,7 +118,7 @@ export class MapComponent extends Component {
                             >
                                 <InfoWindow>
                                     <div>
-                                       <h6> $ {ele.price}</h6>
+                                       <h6>  &#8377; {ele.price}</h6>
                                     </div>
                                 </InfoWindow>
                             </Marker>

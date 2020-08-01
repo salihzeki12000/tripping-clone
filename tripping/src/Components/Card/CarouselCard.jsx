@@ -83,7 +83,7 @@ export class CarouselCard extends Component {
                     </div>
                     <div className="card-footer">
                         <span className="float-left">
-                            <h5 className="font-weight-bold">$ {price} </h5>
+                            <h5 className="font-weight-bold"> &#8377; {price} </h5>
                             <small className="text-++d">virbo</small>
                             <small><StarComponent actual={Math.ceil(rating)} /></small>
                         </span>
