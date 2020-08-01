@@ -17,7 +17,7 @@ export default class Payment extends Component {
           console.log('enter')
            setTimeout(()=> {
                console.log('check')
-               this.props.history.push('/vacation-rentals/s/:id')
+               this.props.history.push(`/vacation-rentals/s/search?location=${"Texas"}&bedroom=${1}&guest=${1}`)
         }, 4000)
       }
 
