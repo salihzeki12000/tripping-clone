@@ -96,7 +96,7 @@ def change_otp(*args):
     otp = random.randint(1000,9999)
     return otp
 
-r = Timer(30.0,change_otp)
+r = Timer(40.0,change_otp)
 
 
 # create otp message
@@ -203,5 +203,3 @@ def varification(validate_data):
             "status":"failiure",
             "message":"payment unsuccessfull"
         }
-
-
