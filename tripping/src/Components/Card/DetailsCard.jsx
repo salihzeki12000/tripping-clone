@@ -153,7 +153,7 @@ class TempCard extends React.Component {
         }
 
 
-        axios.get("https://0bec60d8d8c8.ngrok.io/entity/check_dates", {
+        axios.get("https://f5cf6c72dae5.ngrok.io/entity/check_dates", {
             params: {
                 property_id: id,
                 check_in: start,
