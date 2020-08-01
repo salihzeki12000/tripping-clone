@@ -5,7 +5,6 @@ import Register from './Authentication/Register'
 import Signin from './Authentication/Signin'
 import VacationRentalsSearch from './VacationRentalsSearch'
 import DetailsCard from '../Components/Card/DetailsCard'
-import TempCard from '../Components/Card/TempCard'
 import Reserve from '../Components/PaymentComponents/Reserve'
 import ReactGA from 'react-ga';
 import PaymentSuccess from '../Components/PaymentSuccess'
@@ -16,7 +15,6 @@ function Routes() {
 
     return (
         <div>
-
             <Switch>
             <Route path='/' exact render={()=> <Home />} />
             <Route path='/vacation-rentals/s/:id' render= {(props)=> <VacationRentalsSearch {...props} />} />
