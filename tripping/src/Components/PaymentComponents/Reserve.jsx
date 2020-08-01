@@ -50,7 +50,7 @@ class Reserve extends Component {
 
         let order_res = await axios.post("https://d9e34f5ae330.ngrok.io/booking/order_id", {
             "amount": (Number(data[0].price) * 3 + 100 + 200 + 300) * 100,
-            "currency": "USD",
+            "currency": "INR",
             "receipt": values.id + "#" + values.propety_name,
             "payment_capture": "1",
 
@@ -62,7 +62,7 @@ class Reserve extends Component {
         const options = {
             "key": "rzp_test_4iW8M3X7pbNUvK",      // Enter the Key ID generated from the Dashboard
             "amount": (Number(data[0].price) * guestCounter + 100 + 200 + 300) * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-            "currency": "USD",
+            "currency": "INR",
             "name": "Book Trip",
             "description": "Transaction",
             "image": "/logo.svg",
