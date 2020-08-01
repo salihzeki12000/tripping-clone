@@ -153,7 +153,7 @@ class TempCard extends React.Component {
         }
 
 
-        axios.get("https://d9e34f5ae330.ngrok.io/entity/check_dates", {
+        axios.get("https://0bec60d8d8c8.ngrok.io/entity/check_dates", {
             params: {
                 property_id: id,
                 check_in: start,
@@ -386,10 +386,14 @@ class TempCard extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                 <div className="col-12 mt-2 mb-2" style={{height:"500px", width:"300px"}}>
-                                   {data && <EntityMap data={data} />}
-<br/>
-                                 </div>
+                                <div className="col-12 mt-4 mb-4 ">
+                                    <div className="row ml-5 mr-5">
+                                        <div className="col-12" style={{ height: "400px", width: "250px" }}>
+                                            {data && <EntityMap data={data} />}
+                                        </div>
+                                    </div>
+
+                                </div>
                                 <div className='col-12 mt-2 mb-2'>
                                     <div className='row ml-5 mr-5'>
                                         <hr className="col-12"></hr>

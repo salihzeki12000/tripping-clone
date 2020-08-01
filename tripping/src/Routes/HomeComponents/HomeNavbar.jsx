@@ -18,7 +18,7 @@ function HomeNavbar(props) {
                     </Link>
                 </div>
                 <form class="form-inline">
-                    {user.success && <>  <img src={user.image} width='80px' height='80px' style={{ borderRadius: '50%' }} /><p style={{ fontSize: '25px', color: '#FB8C00' }}>{user.firstName + " " + user.lastName}</p></>}
+                    {user.success && <>  <img src={user.image} width='40px' height='30px' style={{ borderRadius: '50%' }} /><p style={{ fontSize: '20px', color: '#FB8C00' }}>{user.firstName + " " + user.lastName}</p></>}
 
                     {!user.success && <>
 

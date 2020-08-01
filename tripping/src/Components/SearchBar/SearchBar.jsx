@@ -97,7 +97,7 @@ class SearchBar extends React.Component {
                             
                                 <Autocomplete
                                     className="input mt-2 p-1 py-2"
-                                    style={{ width: '100%', border: 'none', fontSize: "23px" }}
+                                    style={{ width: '100%', border: 'none', fontSize: "20px" }}
                                     value={region}
                                     onChange={(e) => this.setState({ region: e.target.value })}
                                     onPlaceSelected={(place) => {

@@ -24,7 +24,7 @@ export const getToken = payload => ({
 
 export const userDataRequest = payload => {
         
-     axios.get("http://b234016388a7.ngrok.io/auth/get_user_info?auth_token=",+ payload )
+     axios.get("https://0bec60d8d8c8.ngrok.io/auth/get_user_info?auth_token=",+ payload )
      .then(res => res.data)
     dispatch(getToken(payload))
 

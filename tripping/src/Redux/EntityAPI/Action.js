@@ -35,7 +35,7 @@ export const bookingRequest = (payload) => ({
 export const getImageRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
   console.log(payload)
-    axios.get("https://d9e34f5ae330.ngrok.io/entity/images/" + payload)
+    axios.get("https://0bec60d8d8c8.ngrok.io/entity/images/" + payload)
         .then(res => res.data)
         .then(res => dispatch(imageRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
@@ -44,7 +44,7 @@ export const getImageRequest = (payload) => dispatch => {
 export const getDataRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
     console.log(payload)
-    axios.get("https://d9e34f5ae330.ngrok.io/entity/basic_detail/" + payload)
+    axios.get("https://0bec60d8d8c8.ngrok.io/entity/basic_detail/" + payload)
         .then(res => res.data)
         .then(res => dispatch(dataRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
@@ -53,7 +53,7 @@ export const getDataRequest = (payload) => dispatch => {
 export const getReviewRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
     console.log(payload)
-    axios.get("https://d9e34f5ae330.ngrok.io/entity/review/" + payload)
+    axios.get("https://0bec60d8d8c8.ngrok.io/entity/review/" + payload)
         .then(res => res.data)
         .then(res => dispatch(reviewRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
@@ -62,7 +62,7 @@ export const getReviewRequest = (payload) => dispatch => {
 export const getRecommendRequest = (payload) => dispatch => {
     // console.log('getDataFromAPI')
     console.log(payload)
-    axios.get("https://d9e34f5ae330.ngrok.io/entity/recommendation/" + payload)
+    axios.get("https://0bec60d8d8c8.ngrok.io/entity/recommendation/" + payload)
         .then(res => res.data)
         .then(res => dispatch(recommendationRequest(res)))
         // .catch(err => dispatch(apiFailure(err)));
@@ -72,7 +72,7 @@ export const getRecommendRequest = (payload) => dispatch => {
 export const getBookingRequest = (property_id, check_in, check_out) => dispatch => {
     // console.log('getDataFromAPI')
     // console.log(payload)
-    axios.get("https://d9e34f5ae330.ngrok.io/entity/check_dates", {
+    axios.get("https://0bec60d8d8c8.ngrok.io/entity/check_dates", {
         params: {
            property_id: property_id,
            check_in: check_in,
