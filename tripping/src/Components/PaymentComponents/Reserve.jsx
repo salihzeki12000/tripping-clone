@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import BillingCard from './BillingCard'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -40,6 +40,7 @@ class Reserve extends Component {
 
         var redirectToPaymentPage = () => {
             this.props.history.push('/tripping/payment/success')
+            // <Redirect to='/tripping/payment/success' />
         }
 
         console.log(values)
@@ -49,7 +50,7 @@ class Reserve extends Component {
         let { data, guestCounter } = this.props
 
         let order_res = await axios.post("https://0bec60d8d8c8.ngrok.io/booking/order_id", {
-            "amount": (Number(data[0].price) * 3 + 100 + 200 + 300) * 100,
+            "amount": ((Number(data[0].price) * guestCounter) + 100 + 200 + 400)*100,
             "currency": "INR",
             "receipt": values.id + "#" + values.propety_name,
             "payment_capture": "1",
@@ -61,7 +62,7 @@ class Reserve extends Component {
 
         const options = {
             "key": "rzp_test_4iW8M3X7pbNUvK",      // Enter the Key ID generated from the Dashboard
-            "amount": (Number(data[0].price) * guestCounter + 100 + 200 + 300) * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "amount": ((Number(data[0].price) * guestCounter) + 100 + 200 + 400)*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
             "name": "Book Trip",
             "description": "Transaction",
@@ -78,7 +79,7 @@ class Reserve extends Component {
                     "razorpay_order_id": response.razorpay_order_id,
                     "razorpay_signature": response.razorpay_signature,
                     "property_id": data[0].property_id,
-                    "amount": Number(data[0].price) * guestCounter + 100 + 200 + 300,
+                    "amount": ((Number(data[0].price) * guestCounter) + 100 + 200 + 400)*100,
                     "booking_date": bookingDate,
                     "guest": guestCounter
                 })
@@ -87,10 +88,11 @@ class Reserve extends Component {
                     console.log('success')
                     // alert(final_res.data.message)
                     // this.props.history.push('/')
-                    redirectToPaymentPage()
+                    
                 } else {
                     console.log('failure')
                     alert(final_res.data.message)
+                    redirectToPaymentPage()
                 }
 
             },
@@ -116,33 +118,33 @@ class Reserve extends Component {
     }
 
     handleOTP = () => {
-        axios.get("https://0bec60d8d8c8.ngrok.io/booking/get_otp/91" + this.state.phone)
-            .then(res => {
-                this.setState({
-                    message: res
-                })
-            })
+        // axios.get("https://0bec60d8d8c8.ngrok.io/booking/get_otp/91" + this.state.phone)
+        //     .then(res => {
+        //         this.setState({
+        //             message: res
+        //         })
+        //     })
 
 
-        // this.setState({
-        //     message: 'dfs'
-        // })
+        this.setState({
+            message: 'dfs'
+        })
     }
 
     enterOTP = () => {
-        let {otp1, otp2,otp3,otp4} = this.state
-      var otp = otp1+otp2+otp3+otp4
-        axios.get("https://0bec60d8d8c8.ngrok.io/booking/varify_otp/" + otp)
-            .then(res => res.data)
-            .then(res => {
-                this.setState({
-                    status: res
-                })
-            })
+    //     let {otp1, otp2,otp3,otp4} = this.state
+    //   var otp = otp1+otp2+otp3+otp4
+    //     axios.get("https://0bec60d8d8c8.ngrok.io/booking/varify_otp/" + otp)
+    //         .then(res => res.data)
+    //         .then(res => {
+    //             this.setState({
+    //                 status: res
+    //             })
+    //         })
 
-        // this.setState({
-        //      status:"verified"
-        // })
+        this.setState({
+             status:"verified"
+        })
     }
 
     render() {

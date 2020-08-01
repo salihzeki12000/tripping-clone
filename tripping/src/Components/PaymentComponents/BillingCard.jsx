@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import querystring from 'query-string';
+import StarComponent from '../FilterComponents/StarRatingComponent';
 
 
 class BillingCard extends Component {
@@ -34,7 +35,8 @@ class BillingCard extends Component {
                     <div className='col-8'>
                         <h6 className='font-weight-bold'>{data.length > 0 && data[0].property_name}</h6>
                         <div className=''>located in {data.length > 0 && data[0].state}</div>
-                        <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i>{reviews && reviews.length} reviews
+                        {/* <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-half-o" aria-hidden="true"></i> */}
+                        {/* {reviews && <> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i> {reviews.length}</>} reviews  */}
                     </div>
                     <div className='col-4'>
                         <img src={data.length >0 && data[0].image[0]} width='100px' height='100px' />
@@ -57,10 +59,10 @@ class BillingCard extends Component {
                             <p>Occupancy taxes and fees <i class="fa fa-question-circle  mx-2 text-muted" aria-hidden="true"></i> </p>
                         </div>
                         <div className='ml-5 pl-4'>
-                            <p><span className='mx-2'>$</span>{data.length > 0 && Number(data[0].price) * guestCounter} </p>
-                            <p ><span className='mx-2'>$</span>100.00 </p>
-                            <p><span className='mx-2'>$</span>200.00 </p>
-                            <p><span className='mx-2'>$</span>400.00 </p>
+                            <p><span className='mx-2'>	&#8377;</span>{data.length > 0 && Number(data[0].price) * guestCounter} </p>
+                            <p ><span className='mx-2'>	&#8377;</span>100.00 </p>
+                            <p><span className='mx-2'>	&#8377;</span>200.00 </p>
+                            <p><span className='mx-2'>	&#8377;</span>400.00 </p>
                         </div>
 
                     </div>
@@ -70,7 +72,7 @@ class BillingCard extends Component {
                     <br /> <br />
                     <div className='d-flex flex-row'>
                         <h5 className=' font-weight-bold'>Total(USD)</h5>
-                         <h5 className=' font-weight-bold' style={{marginLeft:'200px'}}>$ {data.length > 0 && Number(data[0].price) * guestCounter + 100 + 200 + 400}</h5>
+                         <h5 className=' font-weight-bold' style={{marginLeft:'200px'}}>	&#8377; {data.length > 0 && Number(data[0].price) * guestCounter + 100 + 200 + 400}</h5>
                     </div>
                 </div>
 

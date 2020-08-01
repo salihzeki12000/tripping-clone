@@ -22,7 +22,7 @@ function Routes() {
             <Route path='/signin' exact render={(props)=> <Signin />} />
             <Route path='/detailscard/:id'  render={(props)=> <DetailsCard {...props} />} />
             <Route path='/payment/:id'  render={(props)=> <Reserve {...props} />} />
-            <Route path='tripping/payment/success' render={(props)=> <PaymentSuccess />} />
+            <Route path='/tripping/payment/success' render={(props)=> <PaymentSuccess {...props} />} />
             </Switch>
         </div>
     )

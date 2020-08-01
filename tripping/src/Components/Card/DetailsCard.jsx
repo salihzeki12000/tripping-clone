@@ -310,7 +310,7 @@ class TempCard extends React.Component {
                                         <div className="col-5 ">
                                             <div className="row p-2 border shadow" style={{ borderRadius: "3%" }} >
                                                 <div className="col-6 d-flex flex-row">
-                                                    <span><h5 className='font-weight-bold mx-2'>$ {data.length > 0 && data[0].price}</h5></span>  <span className='mx-2'> /night</span>
+                                                    <span><h5 className='font-weight-bold mx-2'>	&#8377; {data.length > 0 && data[0].price}</h5></span>  <span className='mx-2'> /night</span>
                                                 </div>
 
                                                 <div className='mt-4 ml-5 border dateGuest'>
@@ -406,7 +406,7 @@ class TempCard extends React.Component {
                                                         <div className="card-body">
                                                             <h6 className="card-title">{item.property_name}</h6>
                                                             <div className='d-flex flex-row card-text'>
-                                                                <span className='mx-2 font-weight-bolder'>${item.price} .</span>
+                                                                <span className='mx-2 font-weight-bolder'>	&#8377; {item.price} .</span>
                                                                 <small className='mx-2'>Rooms:  {item.total_room} .</small>
                                                                 <small className='mx-2'>City:  {item.city}</small>
                                                             </div>
