@@ -26,8 +26,8 @@ class BillingCard extends Component {
     }
 
     render() {
-        let { data, images, reviews, guestCounter } = this.props
-        let { checkIn, checkOut } = this.state
+        let { data, images, reviews, guestCounter, days } = this.props
+        let {checkIn, checkOut} = this.state
         console.log(data, images, guestCounter)
         return (
             <div >
@@ -53,13 +53,13 @@ class BillingCard extends Component {
                 <div className='row my-2 ml-2 '>
                     <div className=' d-flex flex-row'>
                         <div>
-                            <p><span >&#8377;</span>{data.length > 0 && data[0].price} x 3 nights </p>
+                            <p><span >&#8377;</span>{data.length > 0 && data[0].price} x {days} nights </p>
                             <p>Cleaning fee <i class="fa fa-question-circle  mx-2 text-muted" aria-hidden="true"></i> </p>
                             <p>Service fee <i class="fa fa-question-circle  mx-2 text-muted" aria-hidden="true"></i> </p>
                             <p>Occupancy taxes and fees <i class="fa fa-question-circle  mx-2 text-muted" aria-hidden="true"></i> </p>
                         </div>
                         <div className='ml-5 pl-4'>
-                            <p><span className='mx-2'>	&#8377;</span>{data.length > 0 && Number(data[0].price) * guestCounter} </p>
+                            <p><span className='mx-2'>	&#8377;</span>{data.length > 0 && Number(data[0].price) * days} </p>
                             <p ><span className='mx-2'>	&#8377;</span>100.00 </p>
                             <p><span className='mx-2'>	&#8377;</span>200.00 </p>
                             <p><span className='mx-2'>	&#8377;</span>400.00 </p>
@@ -72,7 +72,7 @@ class BillingCard extends Component {
                     <br /> <br />
                     <div className='d-flex flex-row'>
                         <h5 className=' font-weight-bold' style={{ color: "#FB8C00" }}>Total(INR)</h5>
-                        <h5 className=' font-weight-bold' style={{ marginLeft: '200px' }} >	&#8377; {data.length > 0 && Number(data[0].price) * guestCounter + 100 + 200 + 400}</h5>
+                        <h5 className=' font-weight-bold' style={{ marginLeft: '200px' }} >	&#8377; {data.length > 0 && (Number(data[0].price) * days) + 100 + 200 + 400}</h5>
                     </div>
                 </div>
 
@@ -88,6 +88,7 @@ const mapStateToProps = state => ({
     review: state.entity.review,
     recommendations: state.entity.recommendations,
     guestCounter: state.search.guestCounter,
+    // days:state.search.days
 })
 
 

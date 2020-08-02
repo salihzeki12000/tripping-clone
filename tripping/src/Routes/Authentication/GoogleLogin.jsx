@@ -5,6 +5,10 @@ import {Redirect} from 'react-router-dom'
 import { getUser } from '../../Redux/authentication/Register/action';
 import { connect } from 'react-redux';
 
+function saveData(key,data){
+    localStorage.setItem(key,JSON.stringify(data))
+ }
+
 // const responseGoogle = (response) => {
 //     console.log(response.wc);
 
@@ -78,11 +82,12 @@ let {access_token, expires_in} = response.wc
 
     
 
-    axios.post("https://184c73637e6c.ngrok.io/auth/login", obj)
+    axios.post("https://ec285aed79cd.ngrok.io/auth/login", obj)
     .then(res => res.data)
-    .then(res => this.setState({
-        success:true
-    }))
+    .then(res => saveData('token',res.token))
+    // .then(res => this.setState({
+    //     success:true
+    // })).then(res => saveData('token',res.token))
     
     // .then(res => {
     //     axios.get("http://159c2e4f2101.ngrok.io/auth/get_user_info?auth_token=",+ res.token)

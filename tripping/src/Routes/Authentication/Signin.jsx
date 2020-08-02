@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { emailValidation } from '../../Redux/authentication/Validations/action'
-import { signinUserCheck, userDataRequest, getToken } from '../../Redux/authentication/Signin/action'
+import { signinUserCheck, userDataRequest } from '../../Redux/authentication/Signin/action'
 
 import GoogleAuthLogin from './GoogleLogin';
 import FacebookAuthLogin from './FacebookLogin';

@@ -8,6 +8,7 @@ import querystring from 'query-string';
 import MapComponent from '../Components/MapComponent';
 import { uuid } from 'uuidv4';
 import './VacationRentalsSearch'
+import {DatesData} from '../Redux/SearchBar/action'
 
 class VacationRentalsSearch extends Component {
 
@@ -25,7 +26,7 @@ class VacationRentalsSearch extends Component {
     }
 
     componentDidMount() {
-        let { getDataFromAPI } = this.props
+        let { getDataFromAPI, DatesData } = this.props
         let { loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page } = this.props
         const values = querystring.parse(this.props.location.search)
         console.log(values)
@@ -81,6 +82,7 @@ class VacationRentalsSearch extends Component {
         //             page = values[key]
         //         }
         //     }
+        // DatesData({check_in:values.check_in, check_out:values.check_out})
         getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, Number(values.bedroom), values.guest, values.sort, values.price, values.aminities, values.page, values.per_page, values.accomodation_type)
         // }
 
@@ -114,8 +116,9 @@ class VacationRentalsSearch extends Component {
         console.log(data)
         // if (data.length != 0) {
         // }
-        console.log(this.state.page)
-        console.log(total)
+        console.log(data)
+        // console.log(this.state.page)
+        // console.log(total)
         let { page } = this.state
         let items = []
         if (data) {
@@ -204,6 +207,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
     getDataFromAPI: (loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type) => dispatch(getDataFromAPI(loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type)),
+    DatesData: payload => dispatch(DatesData(payload))
 })
 
 

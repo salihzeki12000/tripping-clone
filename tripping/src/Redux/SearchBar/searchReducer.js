@@ -1,4 +1,5 @@
-import {INCREMENT,DECREMENT, SEARCHDATA} from './actionTypes'
+import {INCREMENT,DECREMENT, SEARCHDATA, DATES, NOOFDAYS} from './actionTypes'
+import { setGlobalDateMasks } from 'fecha'
 
 const initState = {
     guestCounter:1,
@@ -7,7 +8,12 @@ const initState = {
         region:'',
         startDate:'',
         endDate:''
-    }
+    },
+    dates: {
+        check_in:'',
+        check_out:''
+    },
+    days:1
 }
  
 const reducer = (state=initState,{type,payload})=>{
@@ -48,6 +54,22 @@ const reducer = (state=initState,{type,payload})=>{
         //         searchData:{...searchData, payload}
         //     }
         // }
+
+        case DATES: {
+            return {
+                ...state,
+                dates: {...state.dates, check_in:payload.check_in, check_out:payload.check_out}
+            }
+        }
+
+        case NOOFDAYS:{
+            console.log(payload)
+            return {
+                ...state,
+                days:payload
+            }
+        }
+
         default:
             return state
     }

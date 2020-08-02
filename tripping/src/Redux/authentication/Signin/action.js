@@ -17,16 +17,19 @@ export const signinUserFailure = payload =>({
     payload
 })
 
-export const getToken = payload => ({
+export const getUser = payload => ({
     type:GET_USERDATA,
     payload
 })
 
 export const userDataRequest = payload => {
         
-     axios.get("https://184c73637e6c.ngrok.io/auth/get_user_info?auth_token=",+ payload )
-     .then(res => res.data)
-    dispatch(getToken(payload))
+     axios.get("https://ec285aed79cd.ngrok.io/auth/get_user_info?auth_token=", {
+         params:{
+             token:payload
+         }
+     } )
+     .then(res => dispatch(getUser(res.data)))
 
 }
 
@@ -44,7 +47,7 @@ export const signinUserCheck = payload =>dispatch=>{
     //     data : data
     // };
 
-    axios.post("https://f5cf6c72dae5.ngrok.io/auth/login_from_app", payload)
+    axios.post("https://ec285aed79cd.ngrok.io/auth/login_from_app", payload)
         .then(res => res.data)
         .then(res => dispatch(signinUserSuccess(res)))
         .catch(err => dispatch(signinUserFailure(err)));
