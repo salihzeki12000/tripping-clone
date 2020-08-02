@@ -27,7 +27,8 @@ class SearchBar extends React.Component {
             endDay: null,
             endMonth: null,
             endYear: null,
-            dateFlag:true
+            dateFlag:true,
+            location:''
         }
     }
 
@@ -51,9 +52,19 @@ class SearchBar extends React.Component {
     }
 
     handleSearch = () => {
-        let { getDataFromAPI, guestCounter, bedroomCounter } = this.props
-        let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
+        console.log('enter in search')
+        // let { getDataFromAPI, guestCounter, bedroomCounter } = this.props
+        // let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
         let { region } = this.state
+        console.log(region, 'region search')
+
+        let x = region.split(',')
+         console.log(x[0],'search')
+
+    this.setState({
+        region:x[0]
+    })
+
         // if (x.length == 0) {
         //     getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
         // }
@@ -86,6 +97,14 @@ class SearchBar extends React.Component {
         if (startDate && endDate) {
             console.log(startDate._d.getDate(), startDate._d.getMonth(), startDate._d.getFullYear(), endDate._d.getDate(), endDate._d.getMonth(), endDate._d.getFullYear(),)
         }
+         
+     if(region) {
+            // var x = region.split(',')
+            // x = region[0]
+            var location = region.split(',')
+            location = location[0]
+         }
+        // console.log( location , 'render-loc')
         return (
 
             <div className="container-fluid-md container-lg">
@@ -101,11 +120,11 @@ class SearchBar extends React.Component {
                                     value={region}
                                     onChange={(e) => this.setState({ region: e.target.value })}
                                     onPlaceSelected={(place) => {
-                                        console.log(place);
-                                        this.setState({ location: place.formatted_address })
+                                        //console.log(place);
+                                        this.setState({ region: place.formatted_address})
                                     }}
                                     types={['(regions)']}
-                                    componentRestrictions={{ country: "us" }}
+                                    // componentRestrictions={{ country: "us" }}
                                 />
                             </div>
                             <div className='Date_div col-md-5 col-12 border' style={{ width: "200px" }}>
@@ -131,12 +150,12 @@ class SearchBar extends React.Component {
                                 </div>
                             </div>
                             <div className='searchDiv col-md-1 col-12  px-4 rounded-right text-center' >
-                                {dateFlag && <Link to={`/vacation-rentals/s/search?location=${region}`}>
+                                {dateFlag && <Link to={`/vacation-rentals/s/search?location=${location}&check_in=${''}&check_out=${''}&guest=${guestCounter}&bedroom=${bedroomCounter}&rating=${''}&aminities=${''}&page=${''}&per_page=${''}&accomodation_type=${''}&free_cancellation=${''}&price=${''}`}>
 
                                     <i class="fa fa-search text-white mt-3 " onClick={() => this.handleSearch()} style={{ fontSize: "20px" }}></i>
                                 </Link>}
 
-                                {startDate && endDate && <Link to={`/vacation-rentals/s/search?location=${region}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&guest=${guestCounter}&bedroom=${bedroomCounter}&rating=${''}&aminities=${''}&page=${''}&per_page=${''}&accomodation_type=${''}&free_cancellation=${''}&price=${''}`}>
+                                {startDate && endDate && <Link to={`/vacation-rentals/s/search?location=${location}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&guest=${guestCounter}&bedroom=${bedroomCounter}&rating=${''}&aminities=${''}&page=${''}&per_page=${''}&accomodation_type=${''}&free_cancellation=${''}&price=${''}`}>
                                     <i class="fa fa-search text-white mt-3 " onClick={() => this.handleSearch()} style={{ fontSize: "20px" }}></i>
 
                                 </Link>

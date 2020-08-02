@@ -41,13 +41,16 @@ class TempCard extends React.Component {
         console.log(values)
 
         console.log(values.check_in, values.check_out)
-        let checkIn = values.check_in.split('-')
-        let checkOut = values.check_out.split('-')
-        // console.log(checkIn)
+        if(values.check_in && values.check_out) {
 
-        let x = format(new Date(Number(checkIn[0]), Number(checkIn[1]) - 1, Number(checkIn[2])), 'isoDate')
-        let y = format(new Date(Number(checkOut[0]), Number(checkOut[1]) - 1, Number(checkOut[2])), 'isoDate')
-        console.log(x, y)
+            var checkIn = values.check_in.split('-')
+            var checkOut = values.check_out.split('-')
+            // console.log(checkIn)
+    
+            var x = format(new Date(Number(checkIn[0]), Number(checkIn[1]) - 1, Number(checkIn[2])), 'isoDate')
+            var y = format(new Date(Number(checkOut[0]), Number(checkOut[1]) - 1, Number(checkOut[2])), 'isoDate')
+            console.log(x, y)
+        }
 
         this.setState({
             data: "uday",
@@ -153,7 +156,7 @@ class TempCard extends React.Component {
         }
 
 
-        axios.get("https://f5cf6c72dae5.ngrok.io/entity/check_dates", {
+        axios.get("https://184c73637e6c.ngrok.io/entity/check_dates", {
             params: {
                 property_id: id,
                 check_in: start,
