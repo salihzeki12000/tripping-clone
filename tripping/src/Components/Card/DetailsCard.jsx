@@ -17,6 +17,7 @@ import { format } from 'fecha'
 // import MapComponent from '../MapComponent';
 import EntityMap from '../EntityMap'
 import './CarouselCard.css';
+import {DatesData} from '../../Redux/SearchBar/action'
 
 Modal.setAppElement('#root');
 class TempCard extends React.Component {
@@ -148,6 +149,8 @@ class TempCard extends React.Component {
 
             arr.push(start, end)
 
+            this.props.DatesData({check_in:`${startDate._d.getMonth()}/${startDate._d.getDate()}/${startDate._d.getFullYear()}`, check_out:`${endDate._d.getMonth()}/${endDate._d.getDate()}/${endDate._d.getFullYear()}`})
+
         }
         else {
             this.setState({
@@ -170,6 +173,9 @@ class TempCard extends React.Component {
                     bookingDate: arr
                 })
             })
+
+
+
     }
 
     render() {
@@ -445,7 +451,8 @@ const mapDispatchToProps = dispatch => ({
     getDataRequest: (payload) => dispatch(getDataRequest(payload)),
     getReviewRequest: (payload) => dispatch(getReviewRequest(payload)),
     getRecommendRequest: (payload) => dispatch(getRecommendRequest(payload)),
-    getBookingRequest: (payload) => dispatch(getBookingRequest(payload))
+    getBookingRequest: (payload) => dispatch(getBookingRequest(payload)),
+    DatesData: payload => dispatch(DatesData(payload))
 
 })
 

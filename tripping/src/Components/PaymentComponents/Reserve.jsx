@@ -4,6 +4,7 @@ import BillingCard from './BillingCard'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import querystring from 'query-string';
+import { noOfDays } from '../../Redux/SearchBar/action'
 
 
 
@@ -21,20 +22,46 @@ class Reserve extends Component {
             flag: false,
             phoneFlag: false,
             status: '',
+            days:1
 
         }
     }
- // axios.get("https://42dc6de86567.ngrok.io/booking/varify_otp/" + this.state.otp)
-        //     .then(res => res.data)
-        //     .then(res => {
-        //         this.setState({
-        //             status: res
-        //         })
-        //     })
+    // axios.get("https://42dc6de86567.ngrok.io/booking/varify_otp/" + this.state.otp)
+    //     .then(res => res.data)
+    //     .then(res => {
+    //         this.setState({
+    //             status: res
+    //         })
+    //     })
+
+    componentDidMount() {
+        let {dates} = this.props
+        const date1 = new Date(dates.check_in);
+        const date2 = new Date(dates.check_out);
+        const diffTime = Math.abs(date2 - date1);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        // noOfDays(diffDays)
+        console.log(diffDays)
+         this.setState({
+            days:diffDays
+        })
+    }
+
+
     handlePayment = async () => {
+        let { data, guestCounter, dates, noOfDays } = this.props
+        let {days} = this.state
 
+        // const date1 = new Date(dates.check_in);
+        // const date2 = new Date(dates.check_out);
+        // const diffTime = Math.abs(date2 - date1);
+        // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
+        // noOfDays(diffDays)
 
+        // this.setState({
+        //     days:diffDays
+        // })
         const values = querystring.parse(this.props.location.search)
 
 
@@ -47,10 +74,10 @@ class Reserve extends Component {
         var bookingDate = []
         bookingDate.push(values.check_in, values.check_out)
 
-        let { data, guestCounter } = this.props
+
 
         let order_res = await axios.post("https://184c73637e6c.ngrok.io/booking/order_id", {
-            "amount": ((Number(data[0].price) * guestCounter) + 100 + 200 + 400)*100,
+            "amount": ((Number(data[0].price) * days) + 100 + 200 + 400) * 100,
             "currency": "INR",
             "receipt": values.id + "#" + values.propety_name,
             "payment_capture": "1",
@@ -62,7 +89,7 @@ class Reserve extends Component {
 
         const options = {
             "key": "rzp_test_4iW8M3X7pbNUvK",      // Enter the Key ID generated from the Dashboard
-            "amount": ((Number(data[0].price) * guestCounter) + 100 + 200 + 400)*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "amount": ((Number(data[0].price) * days) + 100 + 200 + 400) * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
             "name": "Book Trip",
             "description": "Transaction",
@@ -79,7 +106,7 @@ class Reserve extends Component {
                     "razorpay_order_id": response.razorpay_order_id,
                     "razorpay_signature": response.razorpay_signature,
                     "property_id": data[0].property_id,
-                    "amount": ((Number(data[0].price) * guestCounter) + 100 + 200 + 400)*100,
+                    "amount": ((Number(data[0].price) * days) + 100 + 200 + 400) * 100,
                     "booking_date": bookingDate,
                     "guest": guestCounter
                 })
@@ -88,7 +115,7 @@ class Reserve extends Component {
                     console.log('success')
                     // alert(final_res.data.message)
                     // this.props.history.push('/')
-                    
+
                 } else {
                     console.log('failure')
                     alert(final_res.data.message)
@@ -126,12 +153,12 @@ class Reserve extends Component {
             })
 
 
-      
+
     }
 
     enterOTP = () => {
-        let {otp1, otp2,otp3,otp4} = this.state
-      var otp = otp1+otp2+otp3+otp4
+        let { otp1, otp2, otp3, otp4 } = this.state
+        var otp = otp1 + otp2 + otp3 + otp4
         axios.get("https://184c73637e6c.ngrok.io/booking/varify_otp/" + otp)
             .then(res => res.data)
             .then(res => {
@@ -140,11 +167,11 @@ class Reserve extends Component {
                 })
             })
 
-        
+
     }
 
     render() {
-        let {otp1, otp2,otp3,otp4} = this.state
+        let { otp1, otp2, otp3, otp4 } = this.state
 
         return (
             <div className='container-fluid '>
@@ -191,10 +218,10 @@ class Reserve extends Component {
                           />
                           <ResendOTP onResendClick={() => console.log("Resend clicked")} /> */}
                                 <div className='d-flex flex-row text-center'>
-                                    <input type="text" value={otp1} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e)=> this.setState({otp1:e.target.value}) } />
-                                    <input type="text" value={otp2} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e)=> this.setState({otp2:e.target.value}) } />
-                                    <input type="text" value={otp3} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e)=> this.setState({otp3:e.target.value}) } />
-                                    <input type="text" value={otp4} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e)=> this.setState({otp4:e.target.value}) } />
+                                    <input type="text" value={otp1} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp1: e.target.value })} />
+                                    <input type="text" value={otp2} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp2: e.target.value })} />
+                                    <input type="text" value={otp3} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp3: e.target.value })} />
+                                    <input type="text" value={otp4} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp4: e.target.value })} />
                                 </div>
 
                                 <p className='text-center text-info my-2 text-decoration-underline' onClick={() => this.handleOTP()}>ResendOTP</p>
@@ -204,18 +231,20 @@ class Reserve extends Component {
                             }
                             <br />
 
-                            {this.state.status == "verified" && <div> 
+                            {this.state.status == "verified" && <div>
                                 <div className='d-flex flex-row'>
-                                <input type='checkbox' className='mt-1 w-20 h-20' /> 
-                                <span className='ml-3'>I Agree all the terms and conditions</span>
+                                    <input type='checkbox' className='mt-1 w-20 h-20' />
+                                    <span className='ml-3'>I Agree all the terms and conditions</span>
                                 </div>
-                            <button className="btn btn-block reserve my-3" onClick={() => this.handlePayment()}>Procedd to Pay</button>
+                                <button className="btn btn-block reserve my-3" onClick={() => this.handlePayment()}>Procedd to Pay</button>
 
                                 {/* <button className="btn btn-block reserve my-3" onClick={()=> this.handlePayment()}>Procedd to Pay</button> */}
                             </div>}
                         </div>
                         <div className='col-5 offset-1 '>
-                            <BillingCard location={this.props.location} />
+                            <BillingCard location={this.props.location}
+                             days ={this.state.days}
+                              />
                         </div>
                     </div>
 
@@ -235,14 +264,16 @@ const mapStateToProps = state => ({
     review: state.entity.review,
     recommendations: state.entity.recommendations,
     guestCounter: state.search.guestCounter,
+    dates: state.search.dates
 })
 
-// const mapDispatchToProps = dispatch => ({
-//     getImageRequest: (payload) => dispatch(getImageRequest(payload)),
-//     getDataRequest: (payload) => dispatch(getDataRequest(payload)),
-//     getReviewRequest: (payload) => dispatch(getReviewRequest(payload)),
-//     getRecommendRequest: (payload) => dispatch(getRecommendRequest(payload))
+const mapDispatchToProps = dispatch => ({
+    // getImageRequest: (payload) => dispatch(getImageRequest(payload)),
+    // getDataRequest: (payload) => dispatch(getDataRequest(payload)),
+    // getReviewRequest: (payload) => dispatch(getReviewRequest(payload)),
+    // getRecommendRequest: (payload) => dispatch(getRecommendRequest(payload))
+    noOfDays: (payload) => dispatch(noOfDays(payload))
 
-// })
+})
 
 export default connect(mapStateToProps, null)(Reserve)

@@ -9,6 +9,7 @@ import './react-dates-overrides.css';
 import GuestManager from './GuestManager';
 import { getDataFromAPI } from '../../Redux/SearchApi/Action'
 import Autocomplete from 'react-google-autocomplete';
+import {DatesData} from '../../Redux/SearchBar/action'
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -58,12 +59,12 @@ class SearchBar extends React.Component {
         let { region } = this.state
         console.log(region, 'region search')
 
-        let x = region.split(',')
-         console.log(x[0],'search')
+        // let x = region.split(',')
+        //  console.log(x[0],'search')
 
-    this.setState({
-        region:x[0]
-    })
+    // this.setState({
+    //     region:x[0]
+    // })
 
         // if (x.length == 0) {
         //     getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
@@ -84,6 +85,8 @@ class SearchBar extends React.Component {
         // guest = guestCounter
         // loc = region
         // getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+
+        
     }
 
     render() {
@@ -259,6 +262,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getDataFromAPI: (loc, free_cancellation, rating, bedroom, guest, sort, price, aminities) => dispatch(getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)),
+    DatesData: payload => dispatch(DatesData(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
