@@ -29,7 +29,7 @@ class SearchBar extends React.Component {
             endMonth: null,
             endYear: null,
             dateFlag:true,
-            location:''
+        
         }
     }
 
@@ -52,58 +52,16 @@ class SearchBar extends React.Component {
         })
     }
 
-    handleSearch = () => {
-        console.log('enter in search')
-        // let { getDataFromAPI, guestCounter, bedroomCounter } = this.props
-        // let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-        let { region } = this.state
-        console.log(region, 'region search')
-
-        // let x = region.split(',')
-        //  console.log(x[0],'search')
-
-    // this.setState({
-    //     region:x[0]
-    // })
-
-        // if (x.length == 0) {
-        //     getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
-        // }
-        // else {
-        //     for (var key in values) {
-        //         if (key == "location") {
-        //             loc = values[key]
-        //         }
-        //         else if (key == "free_cancellation") {
-        //             free_cancellation = Number(values[key])
-        //         }
-        //         else if (key == "rating") {
-        //             rating = Number(values[key])
-        //         }
-        //     }
-        // bedroom = bedroomCounter
-        // guest = guestCounter
-        // loc = region
-        // getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
-
-        
-    }
+   
 
     render() {
 
         let { locationFlag, guestsFlag, region, guests, startDate, endDate, startDay, startMonth, dateFlag } = this.state
         let { guestCounter, bedroomCounter } = this.props;
-        console.log(region)
-        console.log(guestCounter, bedroomCounter)
-        // console.log(startDate._d.getDay,startDate._d.getMonth, startDate._d.getfullYear , endDate)
-        console.log(startDay, startMonth)
-        if (startDate && endDate) {
-            console.log(startDate._d.getDate(), startDate._d.getMonth(), startDate._d.getFullYear(), endDate._d.getDate(), endDate._d.getMonth(), endDate._d.getFullYear(),)
-        }
+      
          
      if(region) {
-            // var x = region.split(',')
-            // x = region[0]
+            
             var location = region.split(',')
             location = location[0]
          }
@@ -155,7 +113,7 @@ class SearchBar extends React.Component {
                             <div className='searchDiv col-md-1 col-12  px-4 rounded-right text-center' >
                                 {dateFlag && <Link to={`/vacation-rentals/s/search?location=${location}&check_in=${''}&check_out=${''}&guest=${guestCounter}&bedroom=${bedroomCounter}&rating=${''}&aminities=${''}&page=${''}&per_page=${''}&accomodation_type=${''}&free_cancellation=${''}&price=${''}`}>
 
-                                    <i class="fa fa-search text-white mt-3 " onClick={() => this.handleSearch()} style={{ fontSize: "20px" }}></i>
+                                    <i class="fa fa-search text-white mt-3 "  style={{ fontSize: "20px" }}></i>
                                 </Link>}
 
                                 {startDate && endDate && <Link to={`/vacation-rentals/s/search?location=${location}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&guest=${guestCounter}&bedroom=${bedroomCounter}&rating=${''}&aminities=${''}&page=${''}&per_page=${''}&accomodation_type=${''}&free_cancellation=${''}&price=${''}`}>
@@ -170,74 +128,11 @@ class SearchBar extends React.Component {
                     </div>
 
                 </div>
-                {/* <div className="ml-5">
-                    <div className="divContainer ml-5 mt-5">
-                        <div className="border ml-5 regionDiv" onClick={() => this.handleLocation()}> */}
-                {/* <input
-                                placeholder="Enter a location"
-                                className="input mt-2 p-1"
-                                value={region}
-                                onChange={this.handleChange}
-                            /> */}
-                {/* 
-                            <Autocomplete
-                             className="input mt-2 p-1"
-                                style={{ width: '90%' }}
-                                value={region}
-                                onChange={(e)=> this.setState({region:e.target.value})}
-                                onPlaceSelected={(place) => {
-                                    console.log(place);
-                                    this.setState({location:place.formatted_address})
-                                }}
-                                types={['(regions)']}
-                                componentRestrictions={{ country: "us" }}
-                            />
-
-                            <i class="fas fa-times cross" onClick={this.handleClear}></i>
-                        </div> */}
-                {/* <div className="border">
-                            <DateRangePicker
-                                startDate={startDate}
-                                startDateId="your_unique_start_date_id"
-                                endDate={endDate}
-                                endDateId="your_unique_end_date_id"
-                                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
-                                focusedInput={this.state.focusedInput}
-                                onFocusChange={focusedInput => this.setState({ focusedInput })}
-                            />
-                        </div> */}
-                {/* <div className="border guests text-center" onClick={this.handleGuests}>
-                            <i class="fas fa-male mt-2 ml-2 mr-1 float-left mt-3"></i>
-                            <p className="guests mt-2"> {guestCounter} guests</p>
-                        </div> */}
-
-                {/* {!startDate && !endDate && <Link to={`/vacation-rentals/s/search?location=${region}`}>
-                                <div className="border">
-                                    <button className="btn btn-block search" onClick={() => this.handleSearch()}><i className="fas fa-search text-white"></i></button>
-                                </div>
-                            </Link>}
-
-                        {startDate && endDate &&
-                            <Link to={`/vacation-rentals/s/search?location=${region}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&guest=${guestCounter}&bedroom=${bedroomCounter}&rating=${''}&aminities=${''}&page=${''}&per_page=${''}&accomodation_type=${''}&free_cancellation=${''}&price=${''}`}>
-                                <div className="border">
-                                    <button className="btn btn-block search" onClick={() => this.handleSearch()}><i className="fas fa-search text-white"></i></button>
-                                </div>
-                            </Link>
-                     } 
-                    </div> */}
+              
                 <div className="absolute">
                     {guestsFlag && <GuestManager />}
                 </div>
-                {/* <div className='row mx-4 '>
-                        {
-                            locationFlag && <div className='col-3'>
-                                <div className='borderDivDown mt-1 text-secondary bg-white'>
-                                    <p className='text-left ml-3 pt-3'>Recent Searches</p>
-                                </div>
-                            </div>
-                        }
-                    </div> */}
-                {/* </div> */}
+            
             </div>
 
         )
@@ -249,15 +144,7 @@ class SearchBar extends React.Component {
 const mapStateToProps = state => ({
     guestCounter: state.search.guestCounter,
     bedroomCounter: state.search.bedroomCounter,
-    loc: state.data.loc,
-    free_cancellation: state.data.free_cancellation,
-    rating: state.data.rating,
-    bedroom: state.data.bedroom,
-    guest: state.data.guest,
-    sort: state.data.sort,
-    price: state.data.price,
-    aminities: state.data.aminities,
-    data: state.data.data
+ 
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -27,7 +27,6 @@ class VacationRentalsSearch extends Component {
 
     componentDidMount() {
         let { getDataFromAPI, DatesData } = this.props
-        let { loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page } = this.props
         const values = querystring.parse(this.props.location.search)
         console.log(values)
 
@@ -35,57 +34,12 @@ class VacationRentalsSearch extends Component {
             loc: values.location,
             check_in: values.check_in,
             check_out: values.check_out,
-            // page: values.page,
-            // per_page: values.per_page
+           
         })
 
-        // let checkIn = values.check_in
-        // console.log(checkIn)
-        //  check_in = "2020-07-28"
-        //  check_out = "2020-07-31"
-        // page = this.state.page
-        // per_page = this.state.per_page
-        console.log(values.page, values.accomodation_type, 'search')
-        let x = Object.keys(values)
-        // if (x.length == 0) {
-        //     getDataFromAPI(loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page)
-        // } else {
-        //     for (var key in values) {
-        //         if (key == "location") {
-        //             loc = values[key]
-        //         }
-        //         else if (key == "free_cancellation") {
-        //             if (typeof (values[key]) != "number") {
-        //                 free_cancellation = ''
-        //             } else {
-        //                 free_cancellation = Number(values[key])
-        //             }
-        //         }
-        //         else if (key == "rating") {
-        //             rating = values[key]
-        //         }
-        //         else if (key == 'guest') {
-        //             guest = values[key]
-        //         }
-        //         else if (key == 'bedroom') {
-        //             bedroom = values[key]
-        //         } else if (key == 'price') {
-        //             price = values[key]
-        //         }
-        //         else if (key == "aminities") {
-        //             aminities = values[key]
-        //         } else if (key == 'check_in') {
-        //             check_in = values[key]
-        //         } else if (key == 'check_out') {
-        //             check_out = values[key]
-        //         } else if (key == 'page') {
-        //             page = values[key]
-        //         }
-        //     }
-        // DatesData({check_in:values.check_in, check_out:values.check_out})
+     
         getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, Number(values.bedroom), values.guest, values.sort, values.price, values.aminities, values.page, values.per_page, values.accomodation_type)
-        // }
-
+        
 
     }
 
@@ -94,19 +48,15 @@ class VacationRentalsSearch extends Component {
         this.setState({
             page: id
         })
-        console.log(id, 'id')
+        // console.log(id, 'id')
         let { getDataFromAPI, history } = this.props
-        // let { loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, per_page } = this.props
 
         const values = querystring.parse(this.props.location.search)
         console.log(values)
 
-        console.log(values.accomodation_type, 'pageCLick')
 
-        // getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, Number(values.bedroom), values.guest, values.sort, values.price, values.aminities, 1, values.per_page, values.accomodation_type)
         getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, Number(values.bedroom), values.guest, values.sort, values.price, values.aminities, id, values.per_page, values.accomodation_type)
         var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${values.rating}&aminities=${values.aminities}&page=${id}&per_page=${values.per_page}&accomodation_type=${values.accomodation_type}&free_cancellation=${values.free_cancellation}&price=${values.price}`
-
         history.push(url)
     }
 
@@ -170,7 +120,7 @@ class VacationRentalsSearch extends Component {
                                 <ol className="pagination">
                                     {
                                         items && items.map(item =>
-                                            <li key={item} className={this.state.page === item ? "page-item active" : "page-item"}><button className="page-link m-2" onClick={() => this.handleClick(item)}>{item}</button></li>
+                                            <li key={item} className={this.state.page === item ? "page-item active" : "page-item"}><button className="page-link m-2" >{item}</button></li>
                                         )
                                     }
                                 </ol>
@@ -190,20 +140,10 @@ class VacationRentalsSearch extends Component {
 
 
 const mapStateToProps = state => ({
-    loc: state.data.loc,
-    check_in: state.data.check_in,
-    check_out: state.data.check_out,
-    free_cancellation: state.data.free_cancellation,
-    rating: state.data.rating,
-    bedroom: state.data.bedroom,
-    guest: state.data.guest,
-    sort: state.data.sort,
-    price: state.data.price,
-    aminities: state.data.aminities,
+
     data: state.data.data,
     total: state.data.total,
-    page: state.data.page,
-    per_page: state.data.per_page
+    
 })
 const mapDispatchToProps = dispatch => ({
     getDataFromAPI: (loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type) => dispatch(getDataFromAPI(loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type)),

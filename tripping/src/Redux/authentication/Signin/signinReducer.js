@@ -2,13 +2,7 @@
 import {SIGNIN_USER_FAILURE,SIGNIN_USER_REQUEST,SIGNIN_USER_SUCCESS , GET_USERDATA} from './actionTypes'
 
 
-// import axios from 'axios'
-// const token = () => {
-//    var x = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwiZmlyc3RfbmFtZSI6Ikd1bmFqYW4iLCJsYXN0X25hbWUiOiJNYWhhamFuIiwiY3JlYXRlZF9hdCI6IjIwMjAtMDctMjQgMTk6MDg6NTguODk0MzYxIiwiZXhwaXJlX2F0IjoiMjAyMC0wNy0yNSAxOTowODo1OC44OTQzODkifQ.naubi-GtpCtP0cpB8l4fX6xTldV_xEmMxGl_dbmWHno"
-//     axios.get("http://159c2e4f2101.ngrok.io/auth/get_user_info?auth_token=",+ x )
-//             .then(res => res.data)
-//             .then(res => console.log(res))
-// } 
+
 
 function getData(key){
     try{

@@ -27,8 +27,7 @@ class PriceFilter extends Component {
     this.state = {
       price: 100,
       open: false,
-      // min:null,
-      // max:null
+      
     }
   }
 
@@ -43,57 +42,7 @@ class PriceFilter extends Component {
     this.setState({
       open: !this.state.open
     })
-    // console.log('handle Price')
-    // let { history, getDataFromAPI, location } = this.props
-    // console.log(location, 'path')
-    // let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-    // const values = querystring.parse(this.props.location.search)
-    // console.log(values)
-    // // let x = Object.keys(values)
-
-    // if (values['price']) {
-    //   console.log('if')
-    //   price = this.state.price
-    // }
-    // else {
-    //   console.log('else')
-
-    //   price = this.state.price
-    //   var url = location.search + `&price=${this.state.price}`
-    //   history.push(url)
-    // }
-
-
-    // for (var key in values) {
-    //   if (key == "location") {
-    //     loc = values[key]
-    //   }
-    //   else if (key == "free_cancellation") {
-    //     free_cancellation = Number(values[key])
-    //   }
-    //   else if (key == 'guest') {
-    //     guest = Number(values[key])
-    //   }
-    //   else if (key == 'bedroom') {
-    //     bedroom = Number(values[key])
-    //   }
-    //   else if (key == "rating") {
-    //     rating = Number(values[key])
-    //   }
-    //   else if (key == "free_cancellation") {
-    //     if (typeof (values[key]) != "number") {
-    //       free_cancellation = ''
-    //     } else {
-    //       free_cancellation = Number(values[key])
-    //     }
-    //   }
-    //   else if (key == "aminities") {
-    //     aminities = values[key]
-    //   }
-
-    // }
-
-    // getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+  
     const values = querystring.parse(this.props.location.search)
     console.log(values)
     let { history, getDataFromAPI, location } = this.props
@@ -164,20 +113,10 @@ class PriceFilter extends Component {
 }
 
 
-const mapStateToProps = state => ({
-  loc: state.data.loc,
-  free_cancellation: state.data.free_cancellation,
-  rating: state.data.rating,
-  bedroom: state.data.bedroom,
-  guest: state.data.guest,
-  sort: state.data.sort,
-  price: state.data.price,
-  aminities: state.data.aminities,
-  data: state.data.data
-})
+
 
 const mapDispatchToProps = dispatch => ({
   getDataFromAPI: (loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type) => dispatch(getDataFromAPI(loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PriceFilter)
+export default connect(null, mapDispatchToProps)(PriceFilter)

@@ -96,16 +96,7 @@ export class MapComponent extends Component {
         let { data } = this.props;
         const MapWithAMarker = withScriptjs(withGoogleMap(props =>
             <div>
-                {/* <GoogleMap
-                    defaultZoom={8}
-                    defaultCenter={{ lat: -34.397, lng: 150.644 }}
-                >
-                    <Marker
-                        draggable={true}
-                        onDragEnd={this.onMarkerDrag}
-                        position={{ lat: -34.397, lng: 150.644 }}
-                    />
-                </GoogleMap> */}
+             
                 {
                     data.map(ele =>
                         <GoogleMap
