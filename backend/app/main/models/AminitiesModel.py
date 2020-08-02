@@ -4,8 +4,12 @@ from .PropertyModel import Property
 
 class Aminities(db.Model):
     __table__name = 'aminities'
-    id = db.Column(db.Integer, primary_key = True)
-    property_id = db.Column(db.Integer, db.ForeignKey(Property.id), unique=True)
+    id = db.Column(db.Integer, primary_key=True)
+
+    property_id = db.Column(
+        db.Integer, db.ForeignKey(Property.id), unique=True
+        )
+
     pool = db.Column(db.Boolean)
     internet = db.Column(db.Boolean)
     tv = db.Column(db.Boolean)

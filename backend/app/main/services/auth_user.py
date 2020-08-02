@@ -8,7 +8,7 @@ from instance.config import SECRET_KEY as key
 from ..util.auth_token import check_auth_token
 
 
-def create_token(first_name,last_name,email,expire_at=""):
+def create_token(first_name, last_name, email, expire_at=""):
     # if expire_at == "":
     #     expire_at =  str(datetime.datetime.utcnow()
     #                         + datetime.timedelta(days=1))
@@ -16,12 +16,13 @@ def create_token(first_name,last_name,email,expire_at=""):
     #     expire_at =  str(datetime.datetime.utcnow()
     #                         + datetime.timedelta(days=2))
 
-    obj = {"email": email,
-            "first_name":first_name,
-            "last_name":last_name,
-            "created_at": str(datetime.datetime.utcnow()),
-            "expire_at": str(datetime.datetime.utcnow()
-                        + datetime.timedelta(days=1))
+    obj = {
+        "email": email,
+        "first_name": first_name,
+        "last_name": last_name,
+        "created_at": str(datetime.datetime.utcnow()),
+        "expire_at": str(
+            datetime.datetime.utcnow() + datetime.timedelta(days=1))
         }
     encode_jwt = jwt.encode(obj, key, algorithm='HS256')
 
@@ -34,7 +35,7 @@ def signup_from_app(data):
         last_name = data['last_name']
         email = data['email']
         password = data['password']
-        
+
         if data is not None:
             user = Users(
                 first_name=first_name,
@@ -45,15 +46,16 @@ def signup_from_app(data):
             db.session.add(user)
             db.session.commit()
 
-            encode_jwt = create_token(first_name,last_name,email)
+            encode_jwt = create_token(first_name, last_name, email)
 
-            return json.dumps(
-                {'error': False, 'message': 'signup successfully',
-                'token':encode_jwt.decode()}
-            )
+            return json.dumps({
+                'error': False, 'message': 'signup successfully',
+                'token': encode_jwt.decode()
+                })
         else:
-            return json.dumps({"error": True,
-                'message':'Please enter valid email and password'})
+            return json.dumps({
+                "error": True,
+                'message': 'Please enter valid email and password'})
     except Exception as err:
         return {'error': True, 'error_found': format(err)}
 
@@ -66,8 +68,9 @@ def login_from_app(data):
         check_data = Users.query.filter(Users.email == email).first()
 
         if check_data is not None:
-            if check_data.password == None:
-                return json.dumps({"error": True,
+            if check_data.password is None:
+                return json.dumps({
+                "error": True,
                 'message':'Please change your password'})
             elif check_data.password == password:
                 encode_jwt = create_token(check_data.first_name,check_data.last_name,email)
@@ -138,16 +141,18 @@ def login_from_google(data):
 
                 encode_jwt = create_token(first_name,last_name,email,expired_in)
 
-                return json.dumps(
-                    {'error': False, 'message': 'login successfully',
-                    'token':encode_jwt.decode()}
+                return json.dumps({
+                    'error': False, 'message': 'login successfully',
+                    'token': encode_jwt.decode()}
                 )
             else:
-                return json.dumps({"error": True,
-                               "message":"You have entered wrong email or password"})
+                return json.dumps({
+                    "error": True,
+                    "message": "You have entered wrong email or password"})
         else:
-            return json.dumps({"error": True,
-                               "message":"You have entered wrong email or password"})
+            return json.dumps({
+                "error": True,
+                "message": "You have entered wrong email or password"})
     except Exception as err:
         return {'error': True, 'error_found': format(err)}
 
@@ -156,6 +161,6 @@ def get_user_info(token):
     state, res = check_auth_token(token)
 
     if res:
-        return json.dumps({'error':False, 'data':res})
+        return json.dumps({'error': False, 'data':res})
     else:
-        return json.dumps({'error':True, 'data':res})
+        return json.dumps({'error': True, 'data':res})

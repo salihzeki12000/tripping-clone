@@ -4,7 +4,7 @@ import datetime
 
 class Property(db.Model):
     __table__name = 'property'
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     property_name = db.Column(db.String(255))
     image = db.Column(db.JSON)
     description = db.Column(db.String(500))
@@ -13,4 +13,3 @@ class Property(db.Model):
     deleted = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
-   

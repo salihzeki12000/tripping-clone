@@ -91,6 +91,7 @@ def search_uisng_filter(data):
                 curr_date = datetime.date.today().strftime("%Y-%m-%d")
                 last_date = datetime.date.today() + datetime.timedelta(days=31)
                 last_date = last_date.strftime("%Y-%m-%d")
+            
                 
                 query1 = '''SELECT booking_date FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
                             AND CAST('%s' as date) AND property_id = %d 
@@ -98,8 +99,9 @@ def search_uisng_filter(data):
                 booked_status = db.session.execute(query1).fetchall()
                 count = 0
 
-                for k in booked_status:
-                    count = count +1
+                if booked_status is not None:
+                    for k in booked_status:
+                        count = count +1
 
             obj={}
             obj['country'] = i['country']
@@ -128,7 +130,7 @@ def search_uisng_filter(data):
             if count == 0:
                 obj['booked_status'] = 1
             else:
-                obj['booked_status'] = count+1
+                obj['booked_status'] = count + 1
 
             obj['aminities'] = {}
             if i['air_conditioning']:

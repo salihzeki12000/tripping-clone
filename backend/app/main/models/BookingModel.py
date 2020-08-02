@@ -6,7 +6,7 @@ import datetime
 
 class Booking(db.Model):
     __table__name = 'booking'
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     property_id = db.Column(db.Integer, db.ForeignKey(Property.id))
     booked_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
     total_guest = db.Column(db.Integer)
@@ -15,4 +15,3 @@ class Booking(db.Model):
     order_id = db.Column(db.String(255))
     payment_id = db.Column(db.String(255))
     is_cancelled = db.Column(db.Boolean)
-    

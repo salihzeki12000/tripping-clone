@@ -9,8 +9,7 @@ def booking_home():
     return 'booking home'
 
 
-
-@booking.route('/order_id',methods=['POST'])
+@booking.route('/order_id', methods=['POST'])
 def payment():
 
     res = order_id(request.json)
@@ -18,7 +17,7 @@ def payment():
     return res
 
 
-@booking.route('/varification',methods=['POST'])
+@booking.route('/varification', methods=['POST'])
 def varify_payment():
 
     res = varification(request.json)
@@ -48,9 +47,3 @@ def booking_msg():
     res = send_booking_msg(request.json)
 
     return res
-
-# @booking.route("/send_mail")
-# def mails():
-#     res = send_email()
-
-#     return res
