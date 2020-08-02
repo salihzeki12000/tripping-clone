@@ -91,61 +91,6 @@ class TempCard extends React.Component {
     }
 
 
-    // handlePayment = async () => {
-    //     let { data } = this.props
-    //     let order_res = await axios.post("http://ac26c3ee3bc6.ngrok.io/booking/order_id", {
-    //         "amount": 9000,
-    //         "currency": "INR",
-    //         "receipt": 32 + "#" + "uday",
-    //         "payment_capture": "1"
-
-    //     })
-
-
-    //     const options = {
-    //         "key": "rzp_test_sG3R7ERqPCjPFP",      // Enter the Key ID generated from the Dashboard
-    //         "amount": "9000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-    //         "currency": "INR",
-    //         "name": "Book Trip",
-    //         "description": "Transaction",
-    //         "image": "/logo.svg",
-    //         "order_id": order_res.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    //         handler: async function (response) {
-    //             // alert(response.razorpay_payment_id);
-    //             // alert(response.razorpay_order_id);
-    //             // alert(response.razorpay_signature)
-    //             console.log(response)
-    //             let final_res = await axios.post("http://ac26c3ee3bc6.ngrok.io/booking/varification", {
-    //                 ...response
-    //             })
-
-    //             if (final_res.data.result == 'success') {
-    //                 alert(final_res.data.message)
-    //                 this.props.history.push('/')
-    //             } else {
-    //                 alert(final_res.data.message)
-    //             }
-
-    //         },
-    //         "prefill": {
-    //             "name": "Uday",
-    //             "email": "",
-    //             "contact": ""
-    //         },
-    //         // "notes": {
-    //         //     "address": ""
-    //         // },
-    //         "theme": {
-    //             "color": "#F37254"
-    //         }
-    //     };
-
-
-
-    //     const paymentObject = new window.Razorpay(options)
-    //     paymentObject.open()}
-
-
     handleAvailabity = () => {
         let { startDate, endDate, id } = this.state
 
@@ -208,14 +153,11 @@ class TempCard extends React.Component {
 
     render() {
 
-
-
         let { user, review, data, recommendations, guestCounter, bookingResponse } = this.props;
         let { startDate, endDate, click, open, counter, dateFlag, bookingRes, tokenFlag } = this.state
-        console.log(data, review, recommendations)
-        // console.log(data[0].hotel_name)
-        console.log(bookingRes, bookingResponse)
-        console.log(user.success, user.image, user)
+        // console.log(data, review, recommendations)
+        // console.log(bookingRes, bookingResponse)
+        // console.log(user.success, user.image, user)
         return (
             <>
                 <div className='container-fluid'>
@@ -385,12 +327,12 @@ class TempCard extends React.Component {
                                                     </div>
                                                     <div className='ml-5 p-2 text-danger'>
                                                         {bookingRes && bookingRes.error && <> <h5>{bookingRes.message}</h5> <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
-                                        {!bookingRes && !dateFlag && <> {tokenFlag && <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button>}</>}
+                                                        {!bookingRes && !dateFlag && <>  <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
                                                     </div>
                                                     <div className='ml-5'>
                                                         {/* {data.length>0 && startDate && endDate && <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link>} */}
                                                         {/* {!dateFlag && <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button>} */}
-                                        {bookingRes && !bookingRes.error && <> <h5 className="text-success">{bookingRes.message}</h5>  <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" onClick={()=> this.handleReserve()} >Reserve</button></Link></>}
+                                        {bookingRes && !bookingRes.error && <> <h5 className="text-success">{bookingRes.message}</h5> {tokenFlag && <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" onClick={()=> this.handleReserve()} >Reserve</button></Link>}</>}
                                                     </div>
                                                 </div>
                                             </div>
