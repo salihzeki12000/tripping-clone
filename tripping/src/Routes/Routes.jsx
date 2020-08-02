@@ -19,7 +19,7 @@ function Routes() {
             <Route path='/' exact render={()=> <Home />} />
             <Route path='/vacation-rentals/s/:id' render= {(props)=> <VacationRentalsSearch {...props} />} />
             <Route path='/register' exact render={()=> <Register />} />
-            <Route path='/signin' exact render={(props)=> <Signin />} />
+            <Route path='/signin' exact render={(props)=> <Signin {...props}/>} />
             <Route path='/detailscard/:id'  render={(props)=> <DetailsCard {...props} />} />
             <Route path='/payment/:id'  render={(props)=> <Reserve {...props} />} />
             <Route path='/tripping/payment/success' render={(props)=> <PaymentSuccess {...props} />} />

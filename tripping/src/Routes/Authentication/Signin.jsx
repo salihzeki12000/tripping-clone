@@ -108,7 +108,7 @@ class Signin extends Component {
                                 <FacebookAuthLogin />
                             </div>
                             <div className='col-6'>
-                                <GoogleAuthLogin />
+                                <GoogleAuthLogin history={this.props.history}/>
                             </div>
                         </div>
                         <div className='mt-4'>

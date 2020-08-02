@@ -104,7 +104,7 @@ render() {
         console.log(this.state.success)
         return (
             
-            <Redirect to='/' />
+            <Redirect to={this.props.history.go(-1)} />
         )
     }
 
