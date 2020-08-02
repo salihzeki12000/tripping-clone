@@ -2,10 +2,42 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import ReactGa from 'react-ga';
+import axios from 'axios'
 
 
-function HomeNavbar(props) {
-    let { user } = props
+function getData(key){
+    try{
+      let data = localStorage.getItem(key)  
+      data  = JSON.parse(data)
+      return data
+    }
+    catch{
+      return undefined
+    }
+}
+
+
+class HomeNavbar extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            user:''
+        }
+    }
+
+    componentDidMount() {
+        axios.get("https://ec285aed79cd.ngrok.io/auth/get_user_info", {
+            params:{
+              auth_token:  getData('token')
+            }
+        } )
+        .then(res => res.data)
+        .then(res => this.setState({
+            user:res.data
+        }))
+    }
+    render() {
+        let {user} = this.state
     return (
         <div className='container-fluid'>
 
@@ -18,9 +50,9 @@ function HomeNavbar(props) {
                     </Link>
                 </div>
                 <form class="form-inline">
-                    {user.success && <>  <img src={user.image} width='40px' height='30px' style={{ borderRadius: '50%' }} /><p style={{ fontSize: '20px', color: '#FB8C00' }}>{user.firstName + " " + user.lastName}</p></>}
+                    {user && <>  <p style={{ fontSize: '20px', color: '#FB8C00' }}>{user.first_name + " " + user.last_name}</p></>}
 
-                    {!user.success && <>
+                    {!user && <>
 
                         <Link to='/register'><button className='btn text-white mx-1 font-weight-bold' style={{ backgroundColor: "#FB8C00" }} onClick={() => ReactGa.event({ category: 'register button', action: 'user clicked register button' })}>Register</button></Link>
                         <Link to='/signin'><button className='btn text-white mx-1 font-weight-bold' style={{ backgroundColor: "#FB8C00" }} onClick={() => ReactGa.event({ category: 'signin button', action: 'user clicked signin button' })}>Sign in</button></Link>
@@ -32,6 +64,7 @@ function HomeNavbar(props) {
 
         </div>
     )
+}
 }
 
 

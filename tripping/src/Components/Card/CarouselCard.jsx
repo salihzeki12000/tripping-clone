@@ -10,9 +10,9 @@ export class CarouselCard extends Component {
             country, guest, property_name,
             price, state, rating, image,
             property_id, area, locality,
-            check_in, check_out } = this.props;
+            check_in, check_out, booked_status } = this.props;
 
-
+        console.log(booked_status, 'booked-status')
         return (
             <div className="col-md-6 col-sm-12 col-lg-4 mt-3">
                 <div className="card shadow rounded border">
@@ -73,6 +73,13 @@ export class CarouselCard extends Component {
                                     : rating > 2 && rating <= 3 ? <small className="orange">{rating} Good</small>
                                         : rating > 3 && rating <= 4 ? <small className="orange">{rating} Outstanding</small>
                                             : <small className="orange">{rating} Excellent</small>
+                        }
+                    </div>
+                    <div className="position-absolute rounded pl-1 pr-1 shadow-sm" style={{ marginTop: "180px" , marginLeft:"190px", backgroundColor: "white" }}>
+                        {
+                            booked_status & booked_status === 1 ? <small className="text-success">available</small>
+                                : <small className="text-danger">{booked_status} days booked</small>
+                                   
                         }
                     </div>
 

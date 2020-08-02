@@ -14,78 +14,68 @@ import smtplib
 import email.utils
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import boto3
+from botocore.exceptions import ClientError
+
 
 # send email from aws smtp
 def send_email():
-    SENDER = 'gunjan6788@gmail.com'  
-    SENDERNAME = 'Tripping rent property website'
-
-    RECIPIENT  = 'gunjanmahajan6788@gmail.com'
-
-    # Replace smtp_username with your Amazon SES SMTP user name.
-    USERNAME_SMTP = "ses-smtp-user.20200731-111127"
-
-    # Replace smtp_password with your Amazon SES SMTP password.
-    PASSWORD_SMTP = "AKIAQULGPBG3Z56V6B2D,BErIMYwjVCB3hrZgBAg48DtyephkeVV5sJ+SM2z4Mhdi"
-
-    HOST = "email-smtp.us-east-1.amazonaws.com"
-    PORT = 587
-
-    # The subject line of the email.
-    SUBJECT = 'Bill of Tripping.com'
-
-    # The email body for recipients with non-HTML email clients.
-    BODY_TEXT = ("Bill of booking through tripping.com"
-                "This email was sent through the tripping.com "
+    SENDER = "contact@gunjan.tech"
+    RECIPIENT = "gunjan6788@gmail.com"
+    AWS_REGION = "us-east-1"
+    SUBJECT = "Bill from tripping.com"
+    BODY_TEXT = ("Thank you booking from our website"
+                "Your booking details are shown bellow"
                 )
-
-    # The HTML body of the email.
-    HTML = """<html>
+    CHARSET = "UTF-8"
+    client = boto3.client('ses',region_name=AWS_REGION)
+    BODY_HTML = """<html>
     <head></head>
     <body>
-    <h1>Total Bill</h1>
-    <p>Booking Date: '%s' To '%s'</p>
-    <p>Booking amount: %d </p>
-    <p>Total guest: %d</p>
-    <p>Order id: '%s'</p>
+    <h1>Amazon SES Test (SDK for Python)</h1>
+    <p>This email was sent with
+        <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
+        <a href='https://aws.amazon.com/sdk-for-python/'>
+        AWS SDK for Python (Boto)</a>.</p>
     </body>
-    </html>"""
+    </html>"""            
 
-    BODY_HTML = HTML % ("2020-08-01", "2020-08-03", 3000, 2, "order_FKpDSkE84Nar4r")
-
-    # Create message container - the correct MIME type is multipart/alternative.
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = SUBJECT
-    msg['From'] = email.utils.formataddr((SENDERNAME, SENDER))
-    msg['To'] = RECIPIENT
-    # Comment or delete the next line if you are not using a configuration set
-    #msg.add_header('X-SES-CONFIGURATION-SET',CONFIGURATION_SET)
-
-    # Record the MIME types of both parts - text/plain and text/html.
-    part1 = MIMEText(BODY_TEXT, 'plain')
-    part2 = MIMEText(BODY_HTML, 'html')
-
-    # Attach parts into message container.
-    # According to RFC 2046, the last part of a multipart message, in this case
-    # the HTML message, is best and preferred.
-    msg.attach(part1)
-    msg.attach(part2)
-
-    # Try to send the message.
-    try:  
-        server = smtplib.SMTP(HOST, PORT)
-        server.ehlo()
-        server.starttls()
-        #stmplib docs recommend calling ehlo() before & after starttls()
-        server.ehlo()
-        server.login(USERNAME_SMTP, PASSWORD_SMTP)
-        server.sendmail(SENDER, RECIPIENT, msg.as_string())
-        server.close()
-    # Display an error message if something goes wrong.
-    except Exception as e:
-        print ("Error: ", e)
+    # Try to send the email.
+    try:
+        #Provide the contents of the email.
+        response = client.send_email(
+            Destination={
+                'ToAddresses': [
+                    RECIPIENT,
+                ],
+            },
+            Message={
+                'Body': {
+                    'Html': {
+                        'Charset': CHARSET,
+                        'Data': BODY_HTML,
+                    },
+                    'Text': {
+                        'Charset': CHARSET,
+                        'Data': BODY_TEXT,
+                    },
+                },
+                'Subject': {
+                    'Charset': CHARSET,
+                    'Data': SUBJECT,
+                },
+            },
+            Source=SENDER,
+            # If you are not using a configuration set, comment or delete the
+            # following line
+            # ConfigurationSetName=CONFIGURATION_SET,
+        )
+    # Display an error if something goes wrong.	
+    except ClientError as e:
+        return (e.response['Error']['Message'])
     else:
-        print ("Email sent!")
+        print("Email sent! Message ID:"),
+        return(response['MessageId'])
 
 
 #create otp for first time
@@ -96,8 +86,8 @@ def change_otp(*args):
     otp = random.randint(1000,9999)
     return otp
 
-r = Timer(40.0,change_otp)
-
+r = Timer(30.0,change_otp)
+    
 
 # create otp message
 def get_mobile_otp(no):
@@ -122,7 +112,6 @@ def varify_mobile_otp(no):
     global otp
 
     if otp == int(no):
-        send_email()
         return 'verified'
     else:
         return 'you have entered wrong otp'

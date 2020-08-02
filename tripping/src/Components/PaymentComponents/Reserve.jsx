@@ -5,7 +5,9 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import querystring from 'query-string';
 import { noOfDays } from '../../Redux/SearchBar/action'
+import { emailValidation } from '../../Redux/authentication/Validations/action'
 
+import HomeNavbar from '../../Routes/HomeComponents/HomeNavbar'
 
 
 class Reserve extends Component {
@@ -22,7 +24,14 @@ class Reserve extends Component {
             flag: false,
             phoneFlag: false,
             status: '',
-            days:1
+            days:1,
+            firstName:'',
+            lastName:'',
+            email:'',
+            fNameFlag:false,
+            lNameFlag:false,
+            emailFlag:false,
+            
 
         }
     }
@@ -50,7 +59,7 @@ class Reserve extends Component {
 
     handlePayment = async () => {
         let { data, guestCounter, dates, noOfDays } = this.props
-        let {days} = this.state
+        let {days, firstName, lastName, email} = this.state
 
         // const date1 = new Date(dates.check_in);
         // const date2 = new Date(dates.check_out);
@@ -76,13 +85,11 @@ class Reserve extends Component {
 
 
 
-        let order_res = await axios.post("https://184c73637e6c.ngrok.io/booking/order_id", {
+        let order_res = await axios.post("https://ec285aed79cd.ngrok.io/booking/order_id", {
             "amount": ((Number(data[0].price) * days) + 100 + 200 + 400) * 100,
             "currency": "INR",
             "receipt": values.id + "#" + values.propety_name,
             "payment_capture": "1",
-
-
         })
 
 
@@ -100,7 +107,7 @@ class Reserve extends Component {
                 // alert(response.razorpay_order_id);
                 // alert(response.razorpay_signature)
                 console.log(response)
-                let final_res = await axios.post("https://184c73637e6c.ngrok.io/booking/varification", {
+                let final_res = await axios.post("https://ec285aed79cd.ngrok.io/booking/varification", {
                     // ...response, 
                     "razorpay_payment_id": response.razorpay_payment_id,
                     "razorpay_order_id": response.razorpay_order_id,
@@ -108,7 +115,11 @@ class Reserve extends Component {
                     "property_id": data[0].property_id,
                     "amount": ((Number(data[0].price) * days) + 100 + 200 + 400) * 100,
                     "booking_date": bookingDate,
-                    "guest": guestCounter
+                    "guest": guestCounter,
+                    email:email,
+                    first_name:firstName,
+                    last_name:lastName,
+                    
                 })
 
                 if (final_res.data.result == 'success') {
@@ -145,21 +156,70 @@ class Reserve extends Component {
     }
 
     handleOTP = () => {
-        axios.get("https://184c73637e6c.ngrok.io/booking/get_otp/91" + this.state.phone)
+       let {firstName, lastName, email, phone, fNameFlag, lNameFlag, emailFlag, phoneFlag} = this.state
+       let {checkEmailFlag, emailValidation} = this.props
+
+       if(firstName.length>2) {
+            this.setState({
+                fNameFlag: false
+            })
+       }else {
+        this.setState({
+            fNameFlag: true
+        })
+       }
+
+       if(lastName.length>2) {
+        this.setState({
+            lNameFlag: false
+        })
+     }else {
+        this.setState({
+            lNameFlag: true
+        })
+     }
+
+
+    //  emailValidation(email)
+
+    //  if (!checkEmailFlag) {
+    //     this.setState({
+    //         emailFlag: true
+    //     })
+
+    // } else {
+    //     this.setState({
+    //         emailFlag: false
+    //     })
+    // }
+
+     if(phone && phone.length==10) {
+        this.setState({
+            phoneFlag: false
+        })
+     }else {
+        this.setState({
+            phoneFlag: true
+        })
+     }
+
+
+    //   if(fNameFlag && lNameFlag  && phoneFlag) {
+        axios.get("https://ec285aed79cd.ngrok.io/booking/get_otp/91" + this.state.phone)
             .then(res => {
                 this.setState({
                     message: res
                 })
             })
 
-
+        // }
 
     }
 
     enterOTP = () => {
         let { otp1, otp2, otp3, otp4 } = this.state
         var otp = otp1 + otp2 + otp3 + otp4
-        axios.get("https://184c73637e6c.ngrok.io/booking/varify_otp/" + otp)
+        axios.get("https://ec285aed79cd.ngrok.io/booking/varify_otp/" + otp)
             .then(res => res.data)
             .then(res => {
                 this.setState({
@@ -171,38 +231,65 @@ class Reserve extends Component {
     }
 
     render() {
-        let { otp1, otp2, otp3, otp4 } = this.state
+        let { otp1, otp2, otp3, otp4, firstName, lastName, email, phone, fNameFlag, lNameFlag, emailFlag, phoneFlag } = this.state
 
         return (
             <div className='container-fluid '>
-                <br />
-                <div className='d-flex flex-row mx-2'>
-                    <Link to='/'><img src='/logo1.png' alt='/' width='80px' height='30px' /></Link>
-                    <h5 className='mx-5 text-secondary '>Payment</h5>
-                </div>
+                <HomeNavbar />
+                <div className='row'>
+                    <div className='col-6'>
 
-                <div className='container mt-3'>
-                    <div className='row'>
-                        <div className='col-5'>
+                        <div className="jumbotron" style={{ backgroundColor: "white", border: "1px solid #FB8C00", color: "#FB8C00" }}>
+                            <div className="container">
+                                <h6 className="font-weight-lighter">Book Tension Free</h6>
+                                <ul className="font-weight-bold">
+                                    <li><small>Your payments are secured by tripping</small></li>
+                                    <li><small>The amounts are realeased to verified owners in advance while new owners are paid post your check-in and conformation</small></li>
+                                    <li><small>You can contact us if you face any isues during checkin or your stay.</small></li>
+                                </ul>
+                            </div>
+                        </div>
 
-                            {this.state.status != "verified" && !this.state.message && <>
-                                <h3 className='my-3 text-muted'>
-                                    Confirm Mobile Number:
-                            </h3>
-                                <div className='d-flex flex-row'>
-                                    <span className='border p-2 mr-3'>+91</span>
-                                    <input type='Number' value={this.state.phone} className='form-control' onChange={(e) => this.setState({ phone: e.target.value })} />
+                        <div className=" offset-1 col-9 p-5 shadow">
+                            <div className="row">
+                                <i className="fa fa-user" aria-hidden="true"></i>
+                                <h6 className="ml-3">Enter Your contact information</h6>
+                            </div>
+                            <form>
+                                <div class="form-row mt-3">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control" placeholder="First name" value={firstName} onChange={(e)=> this.setState({firstName:e.target.value})} />
+        {fNameFlag && <small className='text-danger'>please enter first name</small> }
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control" placeholder="Last name" value={lastName} onChange={(e)=> this.setState({lastName:e.target.value})} />
+                                      {lNameFlag && <small className='text-danger'>please enter last name</small>}
+                                    </div>
+                                    <div className="col-12 mt-3 mb-3">
+                                        <input type="email" class="form-control" placeholder="Please enter your email here..." value={email} onChange={(e)=> this.setState({email:e.target.value})}></input>
+        { emailFlag && <small className='text-danger'>please enter valid email</small> }
+                                    </div>
                                 </div>
+                            </form>
+                            {this.state.status != "verified" && !this.state.message && <>
+                                <h5 className='my-3 ' style={{ color: "#FB8C00" }}>
+                                    Confirm Mobile Number:
+                                </h5>
+                                <div className='d-flex flex-row'>
+                                    <span className='border p-1 mr-3 rounded'>+91</span>
+                                    <input type='Number' value={phone} placeholder="Enter mobile no..." className='form-control' onChange={(e) => this.setState({ phone: e.target.value })} />
+                        
+                                </div>
+        {phoneFlag && <small className='text-danger'>please enter valid phone number</small> }
 
-
-                                <button className='btn btn-info px-2  my-3 form-control' onClick={() => this.handleOTP()} >Get OTP</button>
+                                <button className='btn mt-2 form-control' onClick={() => this.handleOTP()} style={{ backgroundColor: "#FB8C00" }}>Get OTP</button>
 
 
                             </>}
                             {this.state.status != "verified" && this.state.message && <div>
-                                <h3 className='my-3 text-muted'>
+                                <h5 className='my-3 ' style={{ backgroundColor: "#FB8C00" }}>
                                     Enter OTP:
-                            </h3>
+                            </h5>
                                 {/* <input type='Number' value={this.state.otp} className='' onChange={(e) => this.setState({ otp: e.target.value })} />
 
                                 <button className='btn btn-secondary px-2 ml-2' onClick={() => this.enterOTP()} >Submit</button> */}
@@ -218,14 +305,14 @@ class Reserve extends Component {
                           />
                           <ResendOTP onResendClick={() => console.log("Resend clicked")} /> */}
                                 <div className='d-flex flex-row text-center'>
-                                    <input type="text" value={otp1} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp1: e.target.value })} />
-                                    <input type="text" value={otp2} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp2: e.target.value })} />
-                                    <input type="text" value={otp3} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp3: e.target.value })} />
-                                    <input type="text" value={otp4} class="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp4: e.target.value })} />
+                                    <input type="text" value={otp1} className="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp1: e.target.value })} />
+                                    <input type="text" value={otp2} className="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp2: e.target.value })} />
+                                    <input type="text" value={otp3} className="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp3: e.target.value })} />
+                                    <input type="text" value={otp4} className="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp4: e.target.value })} />
                                 </div>
 
-                                <p className='text-center text-info my-2 text-decoration-underline' onClick={() => this.handleOTP()}>ResendOTP</p>
-                                <button className='btn btn-secondary form-control px-2 ml-2' onClick={() => this.enterOTP()} >Submit</button>
+                                <p className='text-center mt-2' onClick={() => this.handleOTP()}>ResendOTP</p>
+                                <button className='btn mt-3' onClick={() => this.enterOTP()} style={{ backgroundColor: "#FB8C00" }}>Submit</button>
 
                             </div>
                             }
@@ -236,20 +323,17 @@ class Reserve extends Component {
                                     <input type='checkbox' className='mt-1 w-20 h-20' />
                                     <span className='ml-3'>I Agree all the terms and conditions</span>
                                 </div>
-                                <button className="btn btn-block reserve my-3" onClick={() => this.handlePayment()}>Procedd to Pay</button>
+                                <button className="btn btn-block reserve my-3" onClick={() => this.handlePayment()} style={{ backgroundColor: "#FB8C00" }} >Procedd to Pay</button>
 
                                 {/* <button className="btn btn-block reserve my-3" onClick={()=> this.handlePayment()}>Procedd to Pay</button> */}
                             </div>}
                         </div>
-                        <div className='col-5 offset-1 '>
-                            <BillingCard location={this.props.location}
-                             days ={this.state.days}
-                              />
-                        </div>
+
                     </div>
-
+                    <div className='offset-1 col-4 mt-5 shadow p-5 '>
+                        <BillingCard location={this.props.location} days={this.state.days} />
+                    </div>
                 </div>
-
             </div>
         )
     }
@@ -264,7 +348,8 @@ const mapStateToProps = state => ({
     review: state.entity.review,
     recommendations: state.entity.recommendations,
     guestCounter: state.search.guestCounter,
-    dates: state.search.dates
+    dates: state.search.dates,
+    checkEmailFlag: state.validation.checkEmailFlag,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -272,7 +357,8 @@ const mapDispatchToProps = dispatch => ({
     // getDataRequest: (payload) => dispatch(getDataRequest(payload)),
     // getReviewRequest: (payload) => dispatch(getReviewRequest(payload)),
     // getRecommendRequest: (payload) => dispatch(getRecommendRequest(payload))
-    noOfDays: (payload) => dispatch(noOfDays(payload))
+    noOfDays: (payload) => dispatch(noOfDays(payload)),
+    emailValidation: (payload) => dispatch(emailValidation(payload)),
 
 })
 

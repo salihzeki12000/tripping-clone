@@ -1,5 +1,21 @@
 import {SIGNUP_USER_FAILURE, SIGNUP_USER_REQUEST, SIGNUP_USER_SUCCESS, GET_USER} from './actionTypes'
  
+ function getData(key){
+    try{
+      let data = localStorage.getItem(key)  
+      data  = JSON.parse(data)
+      return data
+    }
+    catch{
+      return undefined
+    }
+}
+
+
+function saveData(key,data){
+   localStorage.setItem(key,JSON.stringify(data))
+}
+
 const initState = {
     isSignup:'abc',
     messageSignup:"",
@@ -15,6 +31,7 @@ const signupReducer = (state = initState, {type,payload})=>{
             }
         case SIGNUP_USER_SUCCESS:
             console.log(payload, 'reducer')
+            saveData('token', payload.token)
             return{
                 ...state,
                 isSignup:payload.error,

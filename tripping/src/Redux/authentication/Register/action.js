@@ -37,7 +37,7 @@ export const signupUserCheck = payload =>dispatch=>{
     //     data : data
     // };
 
-    axios.post("https://184c73637e6c.ngrok.io/auth/signup_from_app", payload)
+    axios.post("https://ec285aed79cd.ngrok.io/auth/signup_from_app", payload)
         .then(res => res.data)
         .then(res => dispatch(signupUserSuccess(res)))
         .catch(err => dispatch(signupUserFailure(err)));

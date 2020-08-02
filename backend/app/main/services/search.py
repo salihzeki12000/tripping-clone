@@ -53,6 +53,7 @@ def search_uisng_filter(data):
     
         if aminities:
             aminities = aminities.split(',')
+    
             for i in aminities:
                 query = query + ' AND aa.%s=true'%(i)
         
@@ -68,9 +69,38 @@ def search_uisng_filter(data):
 
         res = db.session.execute(query)
 
+
         for i in res:
             rate = db.session.execute('''SELECT AVG(rating) AS rating FROM review where property_id=%d'''%(int(i['property_id']))).first()
-            
+            count = 0 
+            if check_in and check_out:
+                start = datetime.datetime.strptime(check_in, "%Y-%m-%d")
+                end = datetime.datetime.strptime(check_out, "%Y-%m-%d")
+
+                query1 = '''SELECT booking_date 
+                            FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
+                            AND CAST('%s' as date) AND property_id = %d 
+                            GROUP BY booking_date,property_id;'''%(start, end, int(i['id']))
+                
+                booked_status = db.session.execute(query1).fetchall()
+                # return jsonify({'result': [dict(row) for row in booked_status]})
+                count = 0
+                for j in booked_status:
+                    count = count +1
+            else:
+                curr_date = datetime.date.today().strftime("%Y-%m-%d")
+                last_date = datetime.date.today() + datetime.timedelta(days=31)
+                last_date = last_date.strftime("%Y-%m-%d")
+                
+                query1 = '''SELECT booking_date FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
+                            AND CAST('%s' as date) AND property_id = %d 
+                            GROUP BY booking_date,property_id;'''%(curr_date, last_date, int(i['id']))
+                booked_status = db.session.execute(query1).fetchall()
+                count = 0
+
+                for k in booked_status:
+                    count = count +1
+
             obj={}
             obj['country'] = i['country']
             obj['state'] = i['state']
@@ -91,8 +121,14 @@ def search_uisng_filter(data):
                 obj['rating'] = rate
             else:
                 obj['rating'] = 0
+            
             image = json.loads(i['image'])
             obj['image'] = image
+
+            if count == 0:
+                obj['booked_status'] = 1
+            else:
+                obj['booked_status'] = count+1
 
             obj['aminities'] = {}
             if i['air_conditioning']:
@@ -133,11 +169,6 @@ def search_uisng_filter(data):
         return json.dumps({'error': True, 'message': format(err)})
 
 
-            # total_booked_room = db.session.execute('''SELECT COUNT(*),SUM(booked_room) as booked,booking_date
-            #     FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
-            #     AND CAST('%s' as date) AND property_id = %d 
-            #     AND room_type = '%s'
-            #     GROUP BY booking_date,property_id;'''%(start, end, int(i[id])))
 
 
 def send_all_location(location):
