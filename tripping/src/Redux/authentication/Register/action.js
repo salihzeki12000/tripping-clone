@@ -26,16 +26,7 @@ export const getUser = payload => ({
 export const signupUserCheck = payload =>dispatch=>{
     dispatch(signupUserRequest(payload))
     console.log(payload, 'called signin')
-    // var data = JSON.stringify(payload);
-
-    // var config = {
-    //     method: 'post',signupUserRequestsignupUserRequest
-    //     url: 'http://a52b28395722.ngrok.io/auth/login_from_app',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     data : data
-    // };
+  
 
     axios.post("https://ec285aed79cd.ngrok.io/auth/signup_from_app", payload)
         .then(res => res.data)

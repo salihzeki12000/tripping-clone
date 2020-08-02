@@ -12,20 +12,17 @@ class Accommodation extends React.Component {
             accomodation: '',
             open: false
         }
-        // this.handleChange = this.handleChange.bind(this);
     }
     handleChange = (e) => {
         console.log(e.target.id)
-        //if (e.target.checked) {
         this.setState({
             accomodation:e.target.id
         })
-        //}
 
     }
 
     handleAcc = () => {
-console.log(this.state.accomodation)
+// console.log(this.state.accomodation)
         this.setState({
             open: !this.state.open
         })
@@ -37,7 +34,6 @@ console.log(this.state.accomodation)
         var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${values.rating}&aminities=${values.aminities}&page=${values.page}&per_page=${values.per_page}&accomodation_type=${this.state.accomodation}&free_cancellation=${values.free_cancellation}&price=${values.price}`
 
         history.push(url)
-
 
     }
 
@@ -108,23 +104,10 @@ console.log(this.state.accomodation)
     }
 }
 
-const mapStateToProps = state => ({
-    country: state.data.country,
-    state: state.data.state,
-    city: state.data.city,
-    free_cancellation: state.data.free_cancellation,
-    rating: state.data.rating,
-    bedroom: state.data.bedroom,
-    guest: state.data.guest,
-    sort: state.data.sort,
-    price: state.data.price,
-    aminities: state.data.aminities,
-    page: state.data.page,
-    per_page: state.data.page
-})
+
 const mapDispatchToProps = dispatch => ({
     getDataFromAPI: (loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type) => dispatch(getDataFromAPI(loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type)),
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Accommodation)
+export default connect(null, mapDispatchToProps)(Accommodation)

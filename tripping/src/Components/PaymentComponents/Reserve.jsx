@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
 import BillingCard from './BillingCard'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -35,13 +34,7 @@ class Reserve extends Component {
 
         }
     }
-    // axios.get("https://42dc6de86567.ngrok.io/booking/varify_otp/" + this.state.otp)
-    //     .then(res => res.data)
-    //     .then(res => {
-    //         this.setState({
-    //             status: res
-    //         })
-    //     })
+   
 
     componentDidMount() {
         let {dates} = this.props
@@ -61,16 +54,7 @@ class Reserve extends Component {
         let { data, guestCounter, dates, noOfDays } = this.props
         let {days, firstName, lastName, email} = this.state
 
-        // const date1 = new Date(dates.check_in);
-        // const date2 = new Date(dates.check_out);
-        // const diffTime = Math.abs(date2 - date1);
-        // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        // noOfDays(diffDays)
-
-        // this.setState({
-        //     days:diffDays
-        // })
+      
         const values = querystring.parse(this.props.location.search)
 
 
@@ -180,18 +164,18 @@ class Reserve extends Component {
      }
 
 
-    //  emailValidation(email)
+     emailValidation(email)
 
-    //  if (!checkEmailFlag) {
-    //     this.setState({
-    //         emailFlag: true
-    //     })
+     if (!checkEmailFlag) {
+        this.setState({
+            emailFlag: true
+        })
 
-    // } else {
-    //     this.setState({
-    //         emailFlag: false
-    //     })
-    // }
+    } else {
+        this.setState({
+            emailFlag: false
+        })
+    }
 
      if(phone && phone.length==10) {
         this.setState({
@@ -290,20 +274,7 @@ class Reserve extends Component {
                                 <h5 className='my-3 ' style={{ backgroundColor: "#FB8C00" }}>
                                     Enter OTP:
                             </h5>
-                                {/* <input type='Number' value={this.state.otp} className='' onChange={(e) => this.setState({ otp: e.target.value })} />
-
-                                <button className='btn btn-secondary px-2 ml-2' onClick={() => this.enterOTP()} >Submit</button> */}
-
-                                {/* <OTPInput
-                            value={OTP}
-                            onChange={setOTP}
-                            autoFocus
-                            OTPLength={4}
-                            otpType="number"
-                            disabled={false}
-                            secure
-                          />
-                          <ResendOTP onResendClick={() => console.log("Resend clicked")} /> */}
+                              
                                 <div className='d-flex flex-row text-center'>
                                     <input type="text" value={otp1} className="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp1: e.target.value })} />
                                     <input type="text" value={otp2} className="form-control py-4 text-center mx-2" maxlength="1" onChange={(e) => this.setState({ otp2: e.target.value })} />
@@ -342,8 +313,6 @@ class Reserve extends Component {
 
 
 const mapStateToProps = state => ({
-    user: state.signup.user,
-    images: state.entity.images,
     data: state.entity.data,
     review: state.entity.review,
     recommendations: state.entity.recommendations,
@@ -353,13 +322,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    // getImageRequest: (payload) => dispatch(getImageRequest(payload)),
-    // getDataRequest: (payload) => dispatch(getDataRequest(payload)),
-    // getReviewRequest: (payload) => dispatch(getReviewRequest(payload)),
-    // getRecommendRequest: (payload) => dispatch(getRecommendRequest(payload))
+  
     noOfDays: (payload) => dispatch(noOfDays(payload)),
     emailValidation: (payload) => dispatch(emailValidation(payload)),
 
 })
 
-export default connect(mapStateToProps, null)(Reserve)
+export default connect(mapStateToProps, mapDispatchToProps)(Reserve)

@@ -83,9 +83,7 @@ export default class SearchLogo extends Component {
                             </div>
                         </div>
                     </div>
-                    {/* <div className='col-1 border-bottom' onClick={() => this.handleSearch()}>
-                        <div className="" style={{ backgroundColor: "orange", color: "white" }}>search</div>
-                    </div> */}
+                   
                 </div>
             </>
 

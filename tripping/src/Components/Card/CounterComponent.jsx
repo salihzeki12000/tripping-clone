@@ -45,24 +45,11 @@ export class CounterComponent extends Component {
                         <span className='text-center mx-2'>{guestCounter}</span>
                         <span className='mx-2 text-center ' onClick={() => this.handleIncrement('guest')}><i className='fas fa-plus math orange p-1'></i></span>
                     </div>
-                    {/* <div className="d-flex flex-row ml-3 mt-2">
-                        <div>
-                            <i class="fa fa-child"></i>
-                        </div>
-                        <div>
-                            <p className='pl-2 pr-4'>Bedrooms</p>
-                        </div>
-                        <span className='borderDec ml-4 mr-2 text-center' onClick={() => this.handleDecrement('bedrooms')}><i className='fas fa-minus math black'></i></span>
-                        <span className=' text-center'>{bedroomCounter}</span>
-                        <span className='borderInc mx-2 text-center' onClick={() => this.handleIncrement('bedrooms')}><i className='fas fa-plus math orange'></i></span>
-                    </div> */}
+                   
                     <h6 className="ml-3 text-muted">5 guests maximum. Infants don’t count toward the number of guests</h6>
                     <button className="closeButton font-weight-bold" onClick={clickHandler}>Close</button>
                 </div>
 
-                {/* <div>
-                    <Payment handlePayment = {this.props.handlePayment}/>
-                </div> */}
             </div>
         )
     }

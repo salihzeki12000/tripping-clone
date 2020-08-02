@@ -49,8 +49,8 @@ def booking_msg():
 
     return res
 
-@booking.route("/send_mail")
-def mails():
-    res = send_email()
+# @booking.route("/send_mail")
+# def mails():
+#     res = send_email()
 
-    return res
+#     return res

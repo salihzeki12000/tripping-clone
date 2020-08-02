@@ -6,18 +6,15 @@ import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
 import Modal from 'react-modal';
 import CounterComponent from './CounterComponent';
-import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import axios from 'axios';
-import { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest, reviewRequest, getBookingRequest } from '../../Redux/EntityAPI/Action'
+import {  getDataRequest, getReviewRequest, getRecommendRequest, reviewRequest, getBookingRequest } from '../../Redux/EntityAPI/Action'
 import querystring from 'query-string';
-import SearchBar from '../SearchBar/SearchBar';
-import Amenities from '../FilterComponents/Amenities';
 import { format } from 'fecha'
-// import MapComponent from '../MapComponent';
 import EntityMap from '../EntityMap'
 import './CarouselCard.css';
 import {DatesData} from '../../Redux/SearchBar/action'
+import HomeNavBar from '../../Routes/HomeComponents/HomeNavbar'
 
 function getData(key){
     try{
@@ -71,7 +68,7 @@ class TempCard extends React.Component {
             id: Number(values.id)
         })
 
-        const { getImageRequest, getDataRequest, getReviewRequest, getRecommendRequest, getBookingRequest } = this.props
+        const {  getDataRequest, getReviewRequest, getRecommendRequest, getBookingRequest } = this.props
 
         // getImageRequest(Number(values.id))
         getReviewRequest(Number(values.id))
@@ -153,18 +150,17 @@ class TempCard extends React.Component {
 
     render() {
 
-        let { user, review, data, recommendations, guestCounter, bookingResponse } = this.props;
+        let {  review, data, recommendations, guestCounter, bookingResponse } = this.props;
         let { startDate, endDate, click, open, counter, dateFlag, bookingRes, tokenFlag } = this.state
         // console.log(data, review, recommendations)
         // console.log(bookingRes, bookingResponse)
         // console.log(user.success, user.image, user)
         return (
             <>
+               <HomeNavBar />
                 <div className='container-fluid'>
                     <div className="row">
-                        <div className='offset-2'>
-                            <Link to='/'><img src='/logo1.png' alt='/' width='80px' height='30px' className="ml-5 mr-5 mt-3" /></Link>
-                        </div>
+ 
                         <hr className="col-12" />
                         <div className='container'>
                             <div className='row'>
@@ -280,11 +276,7 @@ class TempCard extends React.Component {
                                                 </div>
                                             </div>
 
-                                            {/* <div className='mt-3'>
-                                                <h4 className='font-weight-bold'>Select checkout date</h4>
-                                                <small>Minimum stay: 2 nights</small>
-                                                <DayPicker numberOfMonths={2} />
-                                            </div> */}
+                                        
                                         </div>
                                         <div className="col-5 ">
                                             <div className="row p-2 border shadow" style={{ borderRadius: "3%" }} >
@@ -330,9 +322,17 @@ class TempCard extends React.Component {
                                                         {!bookingRes && !dateFlag && <>  <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button></>}
                                                     </div>
                                                     <div className='ml-5'>
-                                                        {/* {data.length>0 && startDate && endDate && <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" >Reserve</button></Link>} */}
-                                                        {/* {!dateFlag && <button className="btn btn-block  reserve " onClick={() => this.handleAvailabity()}>Check Availability</button>} */}
-                                        {bookingRes && !bookingRes.error && <> <h5 className="text-success">{bookingRes.message}</h5> {tokenFlag && <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  ><button className="btn btn-block reserve" onClick={()=> this.handleReserve()} >Reserve</button></Link>}</>}
+ 
+                                                        {bookingRes && !bookingRes.error && <> <h5 className="text-success">{bookingRes.message}</h5>
+                                                            <button className="btn btn-block reserve" onClick={() => this.handleReserve()} >
+                                                                {
+                                                                    tokenFlag ?
+                                                                        <Link to={`/payment/tripping/?id=${data[0].property_id}&property_name=${data[0].property_name}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&country=${data[0].country}&state=${data[0].state}&locality=${data[0].locality}&area=${data[0].area}&accomodation=${data[0].accomodation_type}`}  >
+                                                                            Reserve
+                                                                    </Link>
+                                                                        : "Reserve"
+                                                                }
+                                                            </button></>}
                                                     </div>
                                                 </div>
                                             </div>
@@ -407,7 +407,6 @@ class TempCard extends React.Component {
 
 
 const mapStateToProps = state => ({
-    user: state.signup.user,
     images: state.entity.images,
     data: state.entity.data,
     review: state.entity.review,
@@ -417,7 +416,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    getImageRequest: (payload) => dispatch(getImageRequest(payload)),
     getDataRequest: (payload) => dispatch(getDataRequest(payload)),
     getReviewRequest: (payload) => dispatch(getReviewRequest(payload)),
     getRecommendRequest: (payload) => dispatch(getRecommendRequest(payload)),

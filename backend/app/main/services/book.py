@@ -19,9 +19,17 @@ from botocore.exceptions import ClientError
 
 
 # send email from aws smtp
-def send_email():
+def send_email(data,property_name):
+    order_id = data['razorpay_order_id']
+    amount = int(data['amount'])
+    guest = int(data['guest'])
+    check_in = datetime.datetime.strptime(data['booking_date'][0], "%Y-%m-%d")
+    check_out = datetime.datetime.strptime(data['booking_date'][1], "%Y-%m-%d")
+    first_name = data['first_name']
+    last_name = data['last_name']
+
     SENDER = "contact@gunjan.tech"
-    RECIPIENT = "gunjan6788@gmail.com"
+    RECIPIENT = data['email']
     AWS_REGION = "us-east-1"
     SUBJECT = "Bill from tripping.com"
     BODY_TEXT = ("Thank you booking from our website"
@@ -29,16 +37,22 @@ def send_email():
                 )
     CHARSET = "UTF-8"
     client = boto3.client('ses',region_name=AWS_REGION)
-    BODY_HTML = """<html>
+    HTML = """<html>
     <head></head>
     <body>
-    <h1>Amazon SES Test (SDK for Python)</h1>
-    <p>This email was sent with
-        <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
-        <a href='https://aws.amazon.com/sdk-for-python/'>
-        AWS SDK for Python (Boto)</a>.</p>
+    <h1>Payment Details</h1>
+    <p>Propert_name: "%s"</p>
+    <p>First Name: "%s"</p>
+    <p>Last Name: "%s"</p>
+    <p>Amount Paid: %d</p>
+    <p>Guest: %d<p>
+    <p>Check-in: "%s"</p>
+    <p>check-out: "%s"<p>
+    <p>Order Id: "%s"</p>
     </body>
     </html>"""            
+
+    BODY_HTML = HTML %(property_name, first_name, last_name, amount, guest, check_in, check_out, order_id)
 
     # Try to send the email.
     try:
@@ -91,7 +105,7 @@ r = Timer(30.0,change_otp)
 
 # create otp message
 def get_mobile_otp(no):
-    r.start()
+    # r.start()
 
     account_sid = "ACca1b6a88ec9fe84c5fafb1c7476d3453"
     auth_token = "460a0d10053eaa2c4ba870dc187e4243"
@@ -132,8 +146,9 @@ def send_booking_msg(data,property_name):
 
     client.messages.create(
         body="Your Tripping.com booking is confirmed: \
+            property_name = %s \
             order id =%s, amount paid = %d, guest=%d, \
-            check_in = %s , check_out=%s"%(order_id, amount,guest,check_in,check_out ),
+            check_in = %s , check_out=%s"%(property_name,order_id, amount,guest,check_in,check_out ),
         from_="+13016059121",
         to="+919545847906"
     )
@@ -181,8 +196,8 @@ def varification(validate_data):
         property_name = db.session.execute('''SELECT property_name 
                     FROM property WHERE id=%d'''%(int(validate_data['property_id']))).first()
         time.sleep(1)
-        send_booking_msg(validate_data, property_name)
-
+        send_booking_msg(validate_data, property_name[0])
+        send_email(validate_data,property_name[0])
         return{
             "status":"success",
             "message":"payment successfull"

@@ -48,48 +48,9 @@ class Amenities extends React.Component {
         console.log('handle Apply')
         let { history, getDataFromAPI, location } = this.props
         console.log(location, 'path')
-        let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
         const values = querystring.parse(this.props.location.search)
         console.log(values)
-        // let x = Object.keys(values)
 
-        // if (values['aminities']) {
-        //     console.log('if')
-        //     aminities = this.state.amenities.join(',')
-        // }
-        // else {
-        //     console.log('else')
-        //     aminities = this.state.amenities.join(',')
-        //     var url = location.search + `&aminities=${this.state.amenities.join(',')}`
-        //     // history.push(`&rating=${this.state.rating}`)
-        //     history.push(url)
-        // }
-
-
-        // for (var key in values) {
-        //     if (key == "location") {
-        //         loc = values[key]
-        //     }
-        //     else if (key == "free_cancellation") {
-        //         free_cancellation = Number(values[key])
-        //     }
-        //     else if (key == 'guest') {
-        //         guest = Number(values[key])
-        //     }
-        //     else if (key == 'bedroom') {
-        //         bedroom = Number(values[key])
-        //     } else if (key == 'price') {
-        //         price = Number(values[key])
-        //     }
-        //     else if (key == "free_cancellation") {
-        //         if (typeof (values[key]) != "number") {
-        //             free_cancellation = ''
-        //         } else {
-        //             free_cancellation = Number(values[key])
-        //         }
-        //     }
-        // }
-        // getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
 
         getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, values.bedroom, values.guest, values.sort, values.price, this.state.amenities.join(','), values.page, values.per_page, values.accomodation_type)
 
@@ -182,20 +143,9 @@ class Amenities extends React.Component {
 }
 
 
-const mapStateToProps = state => ({
-    country: state.data.country,
-    state: state.data.state,
-    city: state.data.city,
-    free_cancellation: state.data.free_cancellation,
-    rating: state.data.rating,
-    bedroom: state.data.bedroom,
-    guest: state.data.guest,
-    sort: state.data.sort,
-    price: state.data.price,
-    aminities: state.data.aminities
-})
+
 const mapDispatchToProps = dispatch => ({
     getDataFromAPI: (loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type) => dispatch(getDataFromAPI(loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Amenities)
+export default connect(null, mapDispatchToProps)(Amenities)
