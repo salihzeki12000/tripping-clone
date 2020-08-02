@@ -97,8 +97,8 @@ class PriceFilter extends Component {
     const values = querystring.parse(this.props.location.search)
     console.log(values)
     let { history, getDataFromAPI, location } = this.props
-    getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, values.bedroom, values.guest, values.sort, (100,this.state.price), values.aminities, values.page, values.per_page, values.accomodation_type)
-    var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${values.rating}&aminities=${values.aminities}&page=${values.page}&per_page=${values.per_page}&accomodation_type=${values.accomodation_type}&free_cancellation=${values.free_cancellation}&price=${0,this.state.price}`
+    getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, values.bedroom, values.guest, values.sort, `0,${this.state.price}`, values.aminities, values.page, values.per_page, values.accomodation_type)
+    var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${values.rating}&aminities=${values.aminities}&page=${values.page}&per_page=${values.per_page}&accomodation_type=${values.accomodation_type}&free_cancellation=${values.free_cancellation}&price=${`0,${this.state.price}`}`
             
     history.push(url)
 
