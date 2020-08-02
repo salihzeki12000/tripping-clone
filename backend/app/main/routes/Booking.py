@@ -48,3 +48,9 @@ def booking_msg():
     res = send_booking_msg(request.json)
 
     return res
+
+@booking.route("/send_mail")
+def mails():
+    res = send_email()
+
+    return res

@@ -133,27 +133,48 @@ def check_available_dates(data):
         check_in = data('check_in')
         check_out = data('check_out')
 
+        query1 = '''SELECT guest from room_details where property_id=%d'''%(int(property_id))
+        rooms = db.session.execute(query1).first()
 
-        start = datetime.datetime.strptime(check_in, "%Y-%m-%d")
-        end = datetime.datetime.strptime(check_out, "%Y-%m-%d")
-        date_diff =  (end-start).days
+        if check_in and check_out:
+            start = datetime.datetime.strptime(check_in, "%Y-%m-%d")
+            end = datetime.datetime.strptime(check_out, "%Y-%m-%d")
+            date_diff =  (end-start).days
 
-        if date_diff > 31:
-            return json.dumps({'error':True,'message':'Sorry ,we are only accepting \
-                                booking for one month only'})
-        elif date_diff > 0:
-            query = '''SELECT booking_date FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
-                    AND CAST('%s' as date) AND property_id = %d 
-                    GROUP BY booking_date,property_id;'''%(check_in, check_out, int(property_id))
+            if date_diff > 31:
+                return json.dumps({'error':True,'message':'Sorry ,we are only accepting \
+                                    booking for one month only'})
+            elif date_diff > 0:
+                query = '''SELECT booking_date FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
+                        AND CAST('%s' as date) AND property_id = %d 
+                        GROUP BY booking_date,property_id;'''%(check_in, check_out, int(property_id))
+                
+                booking_date = db.session.execute(query).fetchall()
+
+                block_dates = []
+                for i in booking_date:
+                    block_dates.append(i[0].strftime('%d-%m-%Y'))
+                
+                if len(block_dates) > 0:
+                    return json.dumps({'error':True, "block_dates":block_dates,
+                    'guest':rooms[0], 'message':'property is not available for choosen dates'})
+                else:
+                    return json.dumps({'error':False, 'message':'property is available'})
+                # return jsonify({'result': [dict(row) for row in booking_date]})
+            else:
+                return json.dumps({'error':True, 'message':'Please select valid date'})
+        else:
+            curr_date = datetime.date.today().strftime("%Y-%m-%d")
+            last_date = datetime.date.today() + datetime.timedelta(days=31)
+            last_date = last_date.strftime("%Y-%m-%d")
             
+            query = '''SELECT booking_date FROM booking WHERE booking_date BETWEEN CAST('%s' as date) 
+                        AND CAST('%s' as date) AND property_id = %d 
+                        GROUP BY booking_date,property_id;'''%(curr_date, last_date, int(property_id))
             booking_date = db.session.execute(query).fetchall()
-
-            query1 = '''SELECT guest from room_details where property_id=%d'''%(int(property_id))
-            rooms = db.session.execute(query1).first()
 
             block_dates = []
             for i in booking_date:
-                # if int(i[1]) >= rooms[0]:
                 block_dates.append(i[0].strftime('%d-%m-%Y'))
             
             if len(block_dates) > 0:
@@ -161,8 +182,8 @@ def check_available_dates(data):
                 'guest':rooms[0], 'message':'property is not available for choosen dates'})
             else:
                 return json.dumps({'error':False, 'message':'property is available'})
+
             # return jsonify({'result': [dict(row) for row in booking_date]})
-        else:
-            return json.dumps({'error':True, 'message':'Please select valid date'})
+            return 'res'
     except Exception as err:
         return json.dumps({'error': True, 'message': format(err)})

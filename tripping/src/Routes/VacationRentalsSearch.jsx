@@ -111,8 +111,8 @@ class VacationRentalsSearch extends Component {
 
     render() {
         let { history, data, location, total } = this.props
+        console.log(data)
         // if (data.length != 0) {
-        //     console.log(data)
         // }
         console.log(this.state.page)
         console.log(total)
@@ -140,6 +140,7 @@ class VacationRentalsSearch extends Component {
                             <small className='text-center col-12'>{!data && "Please wait Data is Loading..."}</small>
                             {
                                 data && data ? data.map(elem => <CarouselCard key={uuid()}
+                                    booked_status={elem.booked_status}
                                     city={elem.city}
                                     bedroom={elem.bedroom}
                                     accomodation_type={elem.accomodation_type}
