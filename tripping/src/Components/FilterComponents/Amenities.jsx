@@ -93,13 +93,9 @@ class Amenities extends React.Component {
 
         getDataFromAPI(values.location, values.check_in, values.check_out, values.free_cancellation, values.rating, values.bedroom, values.guest, values.sort, values.price, this.state.amenities.join(','), values.page, values.per_page, values.accomodation_type)
 
-
-
         var url = `/vacation-rentals/s/search?location=${values.location}&check_in=${values.check_in}&check_out=${values.check_out}&guest=${values.guest}&bedroom=${values.bedroom}&rating=${values.rating}&aminities=${this.state.amenities.join(',')}&page=${values.page}&per_page=${values.per_page}&accomodation_type=${values.accomodation_type}&free_cancellation=${values.free_cancellation}&price=${values.price}`
         
         history.push(url)
-
-       
 
     }
 
