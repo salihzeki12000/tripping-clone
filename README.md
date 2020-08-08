@@ -5,9 +5,9 @@ This project was created with React[Create React App](https://github.com/faceboo
 
 React Tripping clone is inspired from Tripping website offering housing properties on rent for different destinations.
 
-<p><img src = "./Frontend/vbro-app/public/home.png"/></p>
+<p><img src = "./tripping/public/img1.png"/></p>
 
-**Tripping Web link:**https://www.Tripping.com/
+**Tripping Web link:**https://www.tripping.com/
 
 **Tripping clone demo:** 
 
@@ -48,4 +48,33 @@ cd Tripping-app
 ```
 
 install all the dependencies
+```bash
+npm install
+```
+
+### Step 3: Start Development Server
+
+Then start the development Server
+```
+npm start
+```
+After running the development server the site should be running on https://localhost:3000
 ` 
+
+### Dependecies 
+
+1.react-elastic-carousel
+<br> 
+2.react-google-login 
+<br> 
+3.email-validator 
+<br> 
+4.password-validator 
+<br> 
+5.query-string 
+<br> 
+6.react-google-map 
+<br> 
+7.react date-time parser
+<br> 
+8.react-airbnb date-picker 
