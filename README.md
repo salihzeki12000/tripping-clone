@@ -11,13 +11,14 @@ React Tripping clone is inspired from Tripping website offering housing properti
 
 **Tripping clone demo:** 
 
-![React Tripping clone](<>)
+![React Tripping clone](http://tripping.gunjan.tech/#/)
 
 ### :wrench: Tools Used
 - [React](http://reactjs.org/)
 - [Styled Components](https://www.npmjs.com/package/react-responsive-carousel)
 - [Css](https://getbootstrap.com/)
-
+- [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+- [MySql](https://www.mysql.com/)
 
 ## :v: Contributing
 Great!, 
@@ -26,13 +27,14 @@ after cloning & setting up the local project you can push the changes to your gi
 -----
 
 **local development**
+**Frontend React App**
 
 ### Step 1: Clone The Repo
 
 Fork the repository. then clone the repo locally by doing -
 
 ```bash
-git clone https://github.com/pandayzyx/TrippingClone.git
+git clone https://github.com/Gunjan6788/tripping-clone.git
 ```
 
 ### Step 2: Install Dependencies
@@ -60,6 +62,7 @@ npm start
 ```
 After running the development server the site should be running on https://localhost:3000
 ` 
+**Frontend React App**
 
 ### Dependecies 
 
@@ -78,3 +81,4 @@ After running the development server the site should be running on https://local
 7.react date-time parser
 <br> 
 8.react-airbnb date-picker 
+
