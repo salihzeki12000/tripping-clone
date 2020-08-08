@@ -125,7 +125,7 @@ class TempCard extends React.Component {
             alert("please login before booking")
         }
 
-        axios.get("https://ec285aed79cd.ngrok.io/entity/check_dates", {
+        axios.get("http://trippingbackend.gunjan.tech/entity/check_dates", {
             params: {
                 property_id: id,
                 check_in: start,

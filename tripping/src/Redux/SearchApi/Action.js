@@ -25,7 +25,7 @@ export const getDataFromAPI = (loc,check_in,check_out,free_cancellation, rating,
     console.log('getDataFromAPI')
     dispatch(apiRequest(loc,check_in,check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type))
     console.log(loc,'location',bedroom, guest, rating, 'rating', free_cancellation,'free_cancellation', page, 'page', price, 'price')
-    axios.get("https://ec285aed79cd.ngrok.io/search/s", {
+    axios.get("http://trippingbackend.gunjan.tech/search/s", {
         params: {
             location:loc,
             check_in:check_in,

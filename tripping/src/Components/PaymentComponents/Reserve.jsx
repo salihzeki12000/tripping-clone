@@ -24,14 +24,14 @@ class Reserve extends Component {
             flag: false,
             phoneFlag: false,
             status: '',
-            days:1,
-            firstName:'',
-            lastName:'',
-            email:'',
-            fNameFlag:false,
-            lNameFlag:false,
-            emailFlag:false,
-            
+            days: 1,
+            firstName: '',
+            lastName: '',
+            email: '',
+            fNameFlag: false,
+            lNameFlag: false,
+            emailFlag: false,
+
 
         }
     }
@@ -44,22 +44,22 @@ class Reserve extends Component {
     //     })
 
     componentDidMount() {
-        let {dates} = this.props
+        let { dates } = this.props
         const date1 = new Date(dates.check_in);
         const date2 = new Date(dates.check_out);
         const diffTime = Math.abs(date2 - date1);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         // noOfDays(diffDays)
         console.log(diffDays)
-         this.setState({
-            days:diffDays
+        this.setState({
+            days: diffDays
         })
     }
 
 
     handlePayment = async () => {
         let { data, guestCounter, dates, noOfDays } = this.props
-        let {days, firstName, lastName, email} = this.state
+        let { days, firstName, lastName, email } = this.state
 
         // const date1 = new Date(dates.check_in);
         // const date2 = new Date(dates.check_out);
@@ -85,7 +85,7 @@ class Reserve extends Component {
 
 
 
-        let order_res = await axios.post("https://ec285aed79cd.ngrok.io/booking/order_id", {
+        let order_res = await axios.post("http://trippingbackend.gunjan.tech/booking/order_id", {
             "amount": ((Number(data[0].price) * days) + 100 + 200 + 400) * 100,
             "currency": "INR",
             "receipt": values.id + "#" + values.propety_name,
@@ -107,7 +107,7 @@ class Reserve extends Component {
                 // alert(response.razorpay_order_id);
                 // alert(response.razorpay_signature)
                 console.log(response)
-                let final_res = await axios.post("https://ec285aed79cd.ngrok.io/booking/varification", {
+                let final_res = await axios.post("http://trippingbackend.gunjan.tech/booking/varification", {
                     // ...response, 
                     "razorpay_payment_id": response.razorpay_payment_id,
                     "razorpay_order_id": response.razorpay_order_id,
@@ -116,10 +116,10 @@ class Reserve extends Component {
                     "amount": ((Number(data[0].price) * days) + 100 + 200 + 400) * 100,
                     "booking_date": bookingDate,
                     "guest": guestCounter,
-                    email:email,
-                    first_name:firstName,
-                    last_name:lastName,
-                    
+                    email: email,
+                    first_name: firstName,
+                    last_name: lastName,
+
                 })
 
                 if (final_res.data.result == 'success') {
@@ -156,56 +156,56 @@ class Reserve extends Component {
     }
 
     handleOTP = () => {
-       let {firstName, lastName, email, phone, fNameFlag, lNameFlag, emailFlag, phoneFlag} = this.state
-       let {checkEmailFlag, emailValidation} = this.props
+        let { firstName, lastName, email, phone, fNameFlag, lNameFlag, emailFlag, phoneFlag } = this.state
+        let { checkEmailFlag, emailValidation } = this.props
 
-       if(firstName.length>2) {
+        if (firstName.length > 2) {
             this.setState({
                 fNameFlag: false
             })
-       }else {
-        this.setState({
-            fNameFlag: true
-        })
-       }
+        } else {
+            this.setState({
+                fNameFlag: true
+            })
+        }
 
-       if(lastName.length>2) {
-        this.setState({
-            lNameFlag: false
-        })
-     }else {
-        this.setState({
-            lNameFlag: true
-        })
-     }
-
-
-    //  emailValidation(email)
-
-    //  if (!checkEmailFlag) {
-    //     this.setState({
-    //         emailFlag: true
-    //     })
-
-    // } else {
-    //     this.setState({
-    //         emailFlag: false
-    //     })
-    // }
-
-     if(phone && phone.length==10) {
-        this.setState({
-            phoneFlag: false
-        })
-     }else {
-        this.setState({
-            phoneFlag: true
-        })
-     }
+        if (lastName.length > 2) {
+            this.setState({
+                lNameFlag: false
+            })
+        } else {
+            this.setState({
+                lNameFlag: true
+            })
+        }
 
 
-    //   if(fNameFlag && lNameFlag  && phoneFlag) {
-        axios.get("https://ec285aed79cd.ngrok.io/booking/get_otp/91" + this.state.phone)
+        //  emailValidation(email)
+
+        //  if (!checkEmailFlag) {
+        //     this.setState({
+        //         emailFlag: true
+        //     })
+
+        // } else {
+        //     this.setState({
+        //         emailFlag: false
+        //     })
+        // }
+
+        if (phone && phone.length == 10) {
+            this.setState({
+                phoneFlag: false
+            })
+        } else {
+            this.setState({
+                phoneFlag: true
+            })
+        }
+
+
+        //   if(fNameFlag && lNameFlag  && phoneFlag) {
+        axios.get("http://trippingbackend.gunjan.tech/booking/get_otp/91" + this.state.phone)
             .then(res => {
                 this.setState({
                     message: res
@@ -219,15 +219,13 @@ class Reserve extends Component {
     enterOTP = () => {
         let { otp1, otp2, otp3, otp4 } = this.state
         var otp = otp1 + otp2 + otp3 + otp4
-        axios.get("https://ec285aed79cd.ngrok.io/booking/varify_otp/" + otp)
+        axios.get("http://trippingbackend.gunjan.tech/booking/varify_otp/" + otp)
             .then(res => res.data)
             .then(res => {
                 this.setState({
                     status: res
                 })
             })
-
-
     }
 
     render() {
@@ -258,16 +256,16 @@ class Reserve extends Component {
                             <form>
                                 <div class="form-row mt-3">
                                     <div class="col-6">
-                                        <input type="text" class="form-control" placeholder="First name" value={firstName} onChange={(e)=> this.setState({firstName:e.target.value})} />
-        {fNameFlag && <small className='text-danger'>please enter first name</small> }
+                                        <input type="text" class="form-control" placeholder="First name" value={firstName} onChange={(e) => this.setState({ firstName: e.target.value })} />
+                                        {fNameFlag && <small className='text-danger'>please enter first name</small>}
                                     </div>
                                     <div class="col-6">
-                                        <input type="text" class="form-control" placeholder="Last name" value={lastName} onChange={(e)=> this.setState({lastName:e.target.value})} />
-                                      {lNameFlag && <small className='text-danger'>please enter last name</small>}
+                                        <input type="text" class="form-control" placeholder="Last name" value={lastName} onChange={(e) => this.setState({ lastName: e.target.value })} />
+                                        {lNameFlag && <small className='text-danger'>please enter last name</small>}
                                     </div>
                                     <div className="col-12 mt-3 mb-3">
-                                        <input type="email" class="form-control" placeholder="Please enter your email here..." value={email} onChange={(e)=> this.setState({email:e.target.value})}></input>
-        { emailFlag && <small className='text-danger'>please enter valid email</small> }
+                                        <input type="email" class="form-control" placeholder="Please enter your email here..." value={email} onChange={(e) => this.setState({ email: e.target.value })}></input>
+                                        {emailFlag && <small className='text-danger'>please enter valid email</small>}
                                     </div>
                                 </div>
                             </form>
@@ -278,9 +276,9 @@ class Reserve extends Component {
                                 <div className='d-flex flex-row'>
                                     <span className='border p-1 mr-3 rounded'>+91</span>
                                     <input type='Number' value={phone} placeholder="Enter mobile no..." className='form-control' onChange={(e) => this.setState({ phone: e.target.value })} />
-                        
+
                                 </div>
-        {phoneFlag && <small className='text-danger'>please enter valid phone number</small> }
+                                {phoneFlag && <small className='text-danger'>please enter valid phone number</small>}
 
                                 <button className='btn mt-2 form-control' onClick={() => this.handleOTP()} style={{ backgroundColor: "#FB8C00" }}>Get OTP</button>
 

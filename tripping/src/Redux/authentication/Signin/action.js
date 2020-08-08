@@ -24,7 +24,7 @@ export const getUser = payload => ({
 
 export const userDataRequest = payload => {
         
-     axios.get("https://ec285aed79cd.ngrok.io/auth/get_user_info?auth_token=", {
+     axios.get("http://trippingbackend.gunjan.tech/auth/get_user_info?auth_token=", {
          params:{
              token:payload
          }
@@ -47,7 +47,7 @@ export const signinUserCheck = payload =>dispatch=>{
     //     data : data
     // };
 
-    axios.post("https://ec285aed79cd.ngrok.io/auth/login_from_app", payload)
+    axios.post("http://trippingbackend.gunjan.tech/auth/login_from_app", payload)
         .then(res => res.data)
         .then(res => dispatch(signinUserSuccess(res)))
         .catch(err => dispatch(signinUserFailure(err)));
