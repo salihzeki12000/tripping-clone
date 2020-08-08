@@ -42,15 +42,6 @@ export class CarouselCard extends Component {
                                     <img src={image[4]} className="d-block w-100 h-100 img-fluid imgDim" alt="..." />
                                 </div>
 
-                                {/* <div class="carousel-item active">
-                                    <img src="https:encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSB4c0q25JcnrvhS7GKyMrssoc9JootgZLoPA&usqp=CAU" class="d-block w-100" alt="..." />
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https:encrypted-tbn0.gstati5.com/images?q=tbn%3AANd9GcT465Z5vP_r7x9I2nM3szL4Xww8oX372YEDfQ&usqp=CAU" class="d-block w-100" alt="..." />
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https:encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSrhYAE0NiGAGVe3lvbQQ8uL9qwRj5i3jcU6g&usqp=CAU" class="d-block w-100" alt="..." />
-                                </div> */}
                             </div>
                         </div>
                         <a class="carousel-control-prev" href={"#" + "carouselExampleCaptions" + property_id} role="button" data-slide="prev">

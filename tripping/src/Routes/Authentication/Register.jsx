@@ -47,11 +47,7 @@ class Register extends React.Component {
         this.props.passValidation(this.state.newPass)
            
         if (this.props.checkPassFlag) {
-            // this.setState({
-            //     passFlag: false,
-
-            // })
-
+         
             if (newPass == confirmPass) {
                 let {email, firstName, lastName, confirmPass} = this.state
                  this.props.signupUserCheck({ email: email, password: confirmPass, first_name:firstName, last_name:lastName })
@@ -68,20 +64,13 @@ class Register extends React.Component {
     }
     render() {
         let { emailFlag, email, newPass, confirmPass, passFlag, passCompareFlag, firstName, lastName } = this.state
-        // console.log(email)
         let { checkEmailFlag, checkPassFlag, isSignup } = this.props
-        console.log(checkEmailFlag, checkPassFlag)
-        console.log(isSignup)
+        // console.log(checkEmailFlag, checkPassFlag)
+        // console.log(isSignup)
         if (!isSignup) {
             return (
-                // <div className='container marginTop-Reg'>
-                //     <div className='row'>
-                //         <div className='col-4 offset-4 text-center'>
-                //             <h1>Register Succesfully with the {email}</h1>
-                //         </div>
-                //     </div>
-                // </div>
-                 <Redirect to='/' />
+              
+                 <Redirect to={this.props.history.go(-1)} />
             )
         }
 
@@ -123,10 +112,10 @@ class Register extends React.Component {
 
                         <small className='text-muted text-center '>or sign in with one click</small>
                         <div className='row my-3'>
-                            <div className='col-6'>
+                            {/* <div className='col-6'>
                                 <FacebookAuthLogin />
-                            </div>
-                            <div className='col-6'>
+                            </div> */}
+                            <div className='col-12'>
                                 <GoogleAuthLogin />
                             </div>
                         </div>

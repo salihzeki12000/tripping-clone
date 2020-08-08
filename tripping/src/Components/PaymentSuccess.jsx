@@ -24,13 +24,6 @@ export default class Payment extends Component {
 
     render() {
 
-        // setTimeout(()=> {
-        //     <Redirect to='/' />
-        // }, 5000)
-
-        // if(flag) {
-        //     <Redirect to='/' />
-        // }
             
         return (
             <div className='text-center'>

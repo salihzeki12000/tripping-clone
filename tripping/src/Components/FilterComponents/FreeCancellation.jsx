@@ -23,53 +23,8 @@ class FreeCancellation extends Component {
         this.setState({
             open: !this.state.open
         })
-        // console.log('handle free')
         let { history, getDataFromAPI, location } = this.props
-        // console.log(location, 'path')
-        // let { loc, free_cancellation, rating, bedroom, guest, sort, price, aminities } = this.props
-        // const values = querystring.parse(this.props.location.search)
-        // console.log(values)
-        // // let x = Object.keys(values)
-
-
-
-        // if (values['free_cancellation']) {
-        //     console.log('if')
-        //     if (this.state.checked) {
-        //         free_cancellation = 1
-        //     } else {
-        //         free_cancellation = ''
-        //     }
-        // }
-        // else {
-        //     console.log('else')
-        //     if (this.state.checked) {
-        //         free_cancellation = 1
-        //     } else {
-        //         free_cancellation = ''
-        //     }
-        //     var url = location.search + `&free_cancellation=${free_cancellation}`
-        //     history.push(url)
-        // }
-
-
-        // for (var key in values) {
-        //     if (key == "location") {
-        //         loc = values[key]
-        //     }
-        //     else if (key == 'guest') {
-        //         guest = Number(values[key])
-        //     }
-        //     else if (key == 'bedroom') {
-        //         bedroom = Number(values[key])
-        //     }
-        //     else if (key == "rating") {
-        //         rating = Number(values[key])
-        //     } else if (key == "aminities") {
-        //         aminities = values[key]
-        //     }
-        // }
-        // getDataFromAPI(loc, free_cancellation, rating, bedroom, guest, sort, price, aminities)
+  
 
 var free_cancellation = ''
         if (this.state.checked) {
@@ -78,7 +33,7 @@ var free_cancellation = ''
             free_cancellation = ''
         }
 
-        console.log(free_cancellation)
+        // console.log(free_cancellation)
 
         const values = querystring.parse(this.props.location.search)
 
@@ -96,9 +51,6 @@ var free_cancellation = ''
     render() {
 
         const { open, checked } = this.state
-
-
-        // free_cancellation ? history.push(`?freecancellation=${free_cancellation}&rating=${rating}`) : ""
 
         return (
             <div>
@@ -143,21 +95,10 @@ var free_cancellation = ''
     }
 }
 
-const mapStateToProps = state => ({
-    country: state.data.country,
-    state: state.data.state,
-    city: state.data.city,
-    free_cancellation: state.data.free_cancellation,
-    rating: state.data.rating,
-    bedroom: state.data.bedroom,
-    guest: state.data.guest,
-    sort: state.data.sort,
-    price: state.data.price,
-    aminities: state.data.aminities
-})
+
 const mapDispatchToProps = dispatch => ({
     getDataFromAPI: (loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type) => dispatch(getDataFromAPI(loc, check_in, check_out, free_cancellation, rating, bedroom, guest, sort, price, aminities, page, per_page, accomodation_type)),
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(FreeCancellation)
+export default connect(null, mapDispatchToProps)(FreeCancellation)

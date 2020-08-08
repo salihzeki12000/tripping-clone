@@ -26,9 +26,9 @@ class BillingCard extends Component {
     }
 
     render() {
-        let { data, images, reviews, guestCounter, days } = this.props
+        let { data,  review, guestCounter, days } = this.props
         let {checkIn, checkOut} = this.state
-        console.log(data, images, guestCounter)
+        // console.log(data, images, guestCounter)
         return (
             <div >
                 <div className='row'>
@@ -82,13 +82,10 @@ class BillingCard extends Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.signup.user,
-    images: state.entity.images,
     data: state.entity.data,
     review: state.entity.review,
     recommendations: state.entity.recommendations,
     guestCounter: state.search.guestCounter,
-    // days:state.search.days
 })
 
 

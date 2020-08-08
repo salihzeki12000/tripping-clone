@@ -36,16 +36,7 @@ export const userDataRequest = payload => {
 export const signinUserCheck = payload =>dispatch=>{
     dispatch(signinUserRequest(payload))
     console.log(payload, 'called signin')
-    // var data = JSON.stringify(payload);
-
-    // var config = {
-    //     method: 'post',
-    //     url: 'http://a52b28395722.ngrok.io/auth/login_from_app',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     data : data
-    // };
+ 
 
     axios.post("http://trippingbackend.gunjan.tech/auth/login_from_app", payload)
         .then(res => res.data)
