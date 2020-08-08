@@ -27,7 +27,7 @@ after cloning & setting up the local project you can push the changes to your gi
 -----
 
 **local development**
-**Frontend React App**
+## Frontend React App
 
 ### Step 1: Clone The Repo
 
@@ -62,7 +62,7 @@ npm start
 ```
 After running the development server the site should be running on https://localhost:3000
 
-**Backend**
+## Backend
 
 ### Step 1: Install virtual env
 
