@@ -11,7 +11,7 @@ React Tripping clone is inspired from Tripping website offering housing properti
 
 **Tripping clone demo:** 
 
-![React Tripping clone](http://tripping.gunjan.tech/#/)
+- [React Tripping clone](http://tripping.gunjan.tech/#/)
 
 ### :wrench: Tools Used
 - [React](http://reactjs.org/)
@@ -61,8 +61,38 @@ Then start the development Server
 npm start
 ```
 After running the development server the site should be running on https://localhost:3000
-` 
-**Frontend React App**
+
+**Backend**
+
+### Step 1: Install virtual env
+
+```
+python3 -m venv venv
+```
+activate the virtual env
+```
+. venv/bin/activate
+```
+
+### Step 2: Install Requirements
+
+install all dependancies
+```
+pip install -r requirement.txt
+```
+
+### Step 2: Run Flask in development
+
+```
+export FLASK_APP=server.py
+```
+```
+export FLASK_Env=development
+```
+```
+flask run
+```
+
 
 ### Dependecies 
 
