@@ -10,7 +10,7 @@ import GeoCode from 'react-geocode';
 import { uuid } from 'uuidv4';
 
 
-GeoCode.setApiKey('AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M')
+GeoCode.setApiKey(process.env.REACT_APP_API_KEY)
 export class MapComponent extends Component {
     constructor(props) {
         super(props)
@@ -121,7 +121,7 @@ export class MapComponent extends Component {
         ));
         return (
             <MapWithAMarker
-                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M&v=3.exp&libraries=geometry,drawing,places"
+                googleMapURL= {`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `100%`, width: '100%' }} />}
                 mapElement={<div style={{ height: `100%`, width:`100%`}} />}
