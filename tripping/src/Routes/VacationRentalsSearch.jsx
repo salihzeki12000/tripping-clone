@@ -120,7 +120,7 @@ class VacationRentalsSearch extends Component {
                                 <ol className="pagination">
                                     {
                                         items && items.map(item =>
-                                            <li key={item} className={this.state.page === item ? "page-item active" : "page-item"}><button className="page-link m-2" >{item}</button></li>
+                                            <li key={item} className={this.state.page === item ? "page-item active" : "page-item"}><button className="page-link m-2" onClick={(e,id)=> this.handleClick(id)} >{item}</button></li>
                                         )
                                     }
                                 </ol>

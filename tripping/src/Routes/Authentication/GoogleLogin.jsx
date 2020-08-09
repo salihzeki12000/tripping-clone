@@ -40,7 +40,7 @@ let {access_token, expires_in} = response.wc
 
     
 
-    axios.post("https://ec285aed79cd.ngrok.io/auth/login", obj)
+    axios.post("http://trippingbackend.gunjan.tech/auth/login", obj)
     .then(res => res.data)
     .then(res => saveData('token',res.token))
     }
