@@ -5,14 +5,14 @@ import ReactGa from 'react-ga';
 import axios from 'axios'
 
 
-function getData(key){
-    try{
-      let data = localStorage.getItem(key)  
-      data  = JSON.parse(data)
-      return data
+function getData(key) {
+    try {
+        let data = localStorage.getItem(key)
+        data = JSON.parse(data)
+        return data
     }
     catch{
-      return undefined
+        return undefined
     }
 }
 
@@ -21,50 +21,53 @@ class HomeNavbar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            user:''
+            user: ''
         }
     }
 
     componentDidMount() {
-        axios.get("https://ec285aed79cd.ngrok.io/auth/get_user_info", {
-            params:{
-              auth_token:  getData('token')
-            }
-        } )
-        .then(res => res.data)
-        .then(res => this.setState({
-            user:res.data
-        }))
+        console.log(getData('token'))
+        // if (getData('token')) {
+        //     axios.get("http://tripping.gunjan.tech/auth/get_user_info", {
+        //         params: {
+        //             auth_token: getData('token')
+        //         }
+        //     })
+        //         .then(res => res.data)
+        //         .then(res => this.setState({
+        //             user: res.data
+        //         }))
+        // }
     }
     render() {
-        let {user} = this.state
-    return (
-        <div className='container-fluid'>
+        let { user } = this.state
+        return (
+            <div className='container-fluid'>
 
-            <nav class="navbar bg-light">
-                <div>
-                    <Link to='/'>
-                        <p onClick={() => ReactGa.event({ category: 'Logo', action: 'user clicked Logo' })} className="logo">
-                            <img src='/logo1.png' alt='/' width='80px' height='30px' />
-                        </p>
-                    </Link>
-                </div>
-                <form class="form-inline">
-                    {user && <>  <p style={{ fontSize: '20px', color: '#FB8C00' }}>{user.first_name + " " + user.last_name}</p></>}
+                <nav class="navbar bg-light">
+                    <div>
+                        <Link to='/'>
+                            <p onClick={() => ReactGa.event({ category: 'Logo', action: 'user clicked Logo' })} className="logo">
+                                <img src='/logo1.png' alt='/' width='80px' height='30px' />
+                            </p>
+                        </Link>
+                    </div>
+                    <form class="form-inline">
+                        {user && <>  <p style={{ fontSize: '20px', color: '#FB8C00' }}>{user.first_name + " " + user.last_name}</p></>}
 
-                    {!user && <>
+                        {!user && <>
 
-                        <Link to='/register'><button className='btn text-white mx-1 font-weight-bold' style={{ backgroundColor: "#FB8C00" }} onClick={() => ReactGa.event({ category: 'register button', action: 'user clicked register button' })}>Register</button></Link>
-                        <Link to='/signin'><button className='btn text-white mx-1 font-weight-bold' style={{ backgroundColor: "#FB8C00" }} onClick={() => ReactGa.event({ category: 'signin button', action: 'user clicked signin button' })}>Sign in</button></Link>
-                    </>}
+                            <Link to='/register'><button className='btn text-white mx-1 font-weight-bold' style={{ backgroundColor: "#FB8C00" }} onClick={() => ReactGa.event({ category: 'register button', action: 'user clicked register button' })}>Register</button></Link>
+                            <Link to='/signin'><button className='btn text-white mx-1 font-weight-bold' style={{ backgroundColor: "#FB8C00" }} onClick={() => ReactGa.event({ category: 'signin button', action: 'user clicked signin button' })}>Sign in</button></Link>
+                        </>}
 
-                </form>
-            </nav>
+                    </form>
+                </nav>
 
 
-        </div>
-    )
-}
+            </div>
+        )
+    }
 }
 
 

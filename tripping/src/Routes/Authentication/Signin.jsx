@@ -95,8 +95,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     emailValidation: (payload) => dispatch(emailValidation(payload)),
     signinUserCheck: (payload) => dispatch(signinUserCheck(payload)),
-
-
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signin)
