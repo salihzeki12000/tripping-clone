@@ -117,7 +117,7 @@ class SearchBar extends React.Component {
                                 </Link>}
 
                                 {startDate && endDate && <Link to={`/vacation-rentals/s/search?location=${location}&check_in=${startDate._d.getFullYear() + "-" + (1 + Number(startDate._d.getMonth())) + "-" + startDate._d.getDate()}&check_out=${endDate._d.getFullYear() + "-" + (1 + Number(endDate._d.getMonth())) + "-" + endDate._d.getDate()}&guest=${guestCounter}&bedroom=${bedroomCounter}&rating=${''}&aminities=${''}&page=${''}&per_page=${''}&accomodation_type=${''}&free_cancellation=${''}&price=${''}`}>
-                                    <i class="fa fa-search text-white mt-3 " onClick={() => this.handleSearch()} style={{ fontSize: "20px" }}></i>
+                                    <i class="fa fa-search text-white mt-3 " style={{ fontSize: "20px" }}></i>
 
                                 </Link>
                                 }

@@ -48,7 +48,7 @@ class VacationRentalsSearch extends Component {
         this.setState({
             page: id
         })
-        // console.log(id, 'id')
+        console.log(id, 'id')
         let { getDataFromAPI, history } = this.props
 
         const values = querystring.parse(this.props.location.search)
@@ -120,7 +120,7 @@ class VacationRentalsSearch extends Component {
                                 <ol className="pagination">
                                     {
                                         items && items.map(item =>
-                                            <li key={item} className={this.state.page === item ? "page-item active" : "page-item"}><button className="page-link m-2" >{item}</button></li>
+                                            <li key={item} className={this.state.page === item ? "page-item active" : "page-item"}><button className="page-link m-2" onClick={()=>this.handleClick(item)} >{item}</button></li>
                                         )
                                     }
                                 </ol>
