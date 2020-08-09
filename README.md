@@ -81,7 +81,18 @@ install all dependancies
 pip install -r requirement.txt
 ```
 
-### Step 2: Run Flask in development
+### Step 3: Create the database in MySql and upgrade the tables.
+```
+flask db init
+```
+```
+flask db migrate
+```
+```
+flask db upgrade
+```
+ 
+### Step 4: Run Flask in development
 
 ```
 export FLASK_APP=server.py
