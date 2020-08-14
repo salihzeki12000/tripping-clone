@@ -1,15 +1,12 @@
 import React from 'react'
 import GoogleLogin from 'react-google-login';
-import axios from 'axios'
-import { Redirect } from 'react-router-dom';
-import { getUser } from '../../Redux/authentication/Register/action';
+import { googleLogin } from '../../Redux/authentication/Signin/action';
 import { connect } from 'react-redux';
 
 
-function saveData(key, data) {
-    localStorage.setItem(key, JSON.stringify(data))
-}
-
+// function saveData(key, data) {
+//     localStorage.setItem(key, JSON.stringify(data))
+// }
 
 
 class GoogleAuthLogin extends React.Component {
@@ -35,24 +32,28 @@ class GoogleAuthLogin extends React.Component {
             "image_url": imageUrl,
             "expired_in": expires_in
         }
+        console.log(obj)
 
-        this.props.getUser({ firstName: givenName, lastName: familyName, success: true, image: imageUrl })
+        this.props.googleLogin(obj)
+        // this.props.getUser({ firstName: givenName, lastName: familyName, success: true, image: imageUrl })
 
-
-    axios.post("http://trippingbackend.gunjan.tech/auth/login", obj)
-    .then(res => res.data)
-    .then(res => saveData('token',res.token))
+    // axios.post("http://trippingbackend.gunjan.tech/auth/login", obj)
+    // .then(res => res.data)
+    // .then(res => saveData('token',res.token))
 
         // axios.post("http://tripping.gunjan.tech/auth/login", obj)
         //     .then(res => res.data)
         //     .then(res => saveData('token', res.token))
+        // axios.post("http://trippingbackend.gunjan.tech/auth/login", obj)
+        //     .then(res => res.data)
+        //     .then(res => dispatch(this.props.userDataRequest(res.token)))
     }
-
 
 
     render() {
 
         //console.log(localStorage.getItem('token'))
+        // console.log(localStorage.getItem('token'))
         return (
             <div>
                 <GoogleLogin
@@ -71,7 +72,7 @@ class GoogleAuthLogin extends React.Component {
 
 
 const mapDispatchToProps = dispatch => ({
-    getUser: (payload) => dispatch(getUser(payload))
+    googleLogin: (payload) => dispatch(googleLogin(payload))
 })
 
 export default connect(null, mapDispatchToProps)(GoogleAuthLogin)

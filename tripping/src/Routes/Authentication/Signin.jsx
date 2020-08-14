@@ -31,10 +31,10 @@ class Signin extends Component {
 
     render() {
         let { email, emailFlag, password, } = this.state
-        let { isLogin, user} = this.props
+        let { isLogin, userData} = this.props
 
 
-        if (isLogin == false || user.success) {
+        if (!isLogin) {
 
             <Redirect to={this.props.history.go(-1)} />
 
@@ -90,7 +90,7 @@ class Signin extends Component {
 const mapStateToProps = state => ({
     isLogin: state.signin.isLogin,
     checkEmailFlag: state.validation.checkEmailFlag,
-    user:state.signup.user
+    userData:state.signin.user
 })
 const mapDispatchToProps = dispatch => ({
     emailValidation: (payload) => dispatch(emailValidation(payload)),

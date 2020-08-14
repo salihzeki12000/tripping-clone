@@ -113,7 +113,7 @@ class TempCard extends React.Component {
             })
         }
 
-        if(getData('token')) {
+        if(getData('user')) {
             this.setState({
                 tokenFlag:true
             })
@@ -139,7 +139,7 @@ class TempCard extends React.Component {
     }
 
     handleReserve = () => {
-         if(getData('token')) {
+         if(getData('user')) {
              this.setState({
                  tokenFlag:true
              })
@@ -413,6 +413,7 @@ const mapStateToProps = state => ({
     bookingResponse: state.entity.bookingResponse,
     recommendations: state.entity.recommendations,
     guestCounter: state.search.guestCounter,
+    isLogin:state.signin.isLogin
 })
 
 const mapDispatchToProps = dispatch => ({

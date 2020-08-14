@@ -24,9 +24,9 @@ class Reserve extends Component {
             phoneFlag: false,
             status: '',
             days: 1,
-            firstName: '',
-            lastName: '',
-            email: '',
+            firstName: this.props.userData.first_name,
+            lastName: this.props.userData.last_name,
+            email: this.props.userData.email,
             fNameFlag: false,
             lNameFlag: false,
             emailFlag: false,
@@ -226,6 +226,15 @@ class Reserve extends Component {
 
     render() {
         let { otp1, otp2, otp3, otp4, firstName, lastName, email, phone, fNameFlag, lNameFlag, emailFlag, phoneFlag } = this.state
+        // let { isLogin} = this.props
+
+
+        // if (!isLogin) {
+
+        //     <Redirect to='/signin' />
+
+        // }
+
 
         return (
             <div className='container-fluid '>
@@ -329,6 +338,8 @@ const mapStateToProps = state => ({
     guestCounter: state.search.guestCounter,
     dates: state.search.dates,
     checkEmailFlag: state.validation.checkEmailFlag,
+    userData:state.signin.userData,
+    isLogin: state.signin.isLogin
 })
 
 const mapDispatchToProps = dispatch => ({
