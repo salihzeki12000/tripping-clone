@@ -57,9 +57,11 @@ const signinReducer = (state = initState, { type, payload }) => {
 
         case GET_USERDATA:
             console.log(payload)
+            saveData('user', payload.data)
             return {
                 ...state,
-                userData: payload
+                isLogin:payload.error,
+                userData: payload.data
             }
         default:
             return state

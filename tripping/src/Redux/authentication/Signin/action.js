@@ -22,14 +22,14 @@ export const getUser = payload => ({
     payload
 })
 
-export const userDataRequest = payload  => {
+export const userDataRequest = payload  => dispatch => {
     console.log(payload)
     axios.get("http://trippingbackend.gunjan.tech/auth/get_user_info?auth_token=", {
         params: {
             token: payload
         }
     })
-        .then(res => getUser(res.data))
+        .then(res => dispatch(getUser(res.data)))
 
 }
 
@@ -49,5 +49,5 @@ export const googleLogin = payload => dispatch => {
     console.log(payload)
     axios.post("http://trippingbackend.gunjan.tech/auth/login", payload)
         .then(res => res.data)
-        .then(res => userDataRequest(res.token))
+        .then(res => dispatch(userDataRequest(res.token)))
 }

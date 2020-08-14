@@ -95,7 +95,7 @@ class Register extends React.Component {
                             {checkEmailFlag && <>
                                 <p className='text-left'>First Name</p>
                                 <input type='text' className='form-control my-2' value={firstName} onChange={(e) => this.setState({ firstName: e.target.value })} />
-                                <p className='text-left'>First Name</p>
+                                <p className='text-left'>Last Name</p>
                                 <input type='text' className='form-control my-2' value={lastName} onChange={(e) => this.setState({ lastName: e.target.value })} />
                                 <p className='text-left'>Create password</p>
                                 <input type='password' className='form-control my-2' value={newPass} onChange={(e) => this.setState({ newPass: e.target.value })} />

@@ -37,6 +37,13 @@ class GoogleAuthLogin extends React.Component {
         this.props.googleLogin(obj)
         // this.props.getUser({ firstName: givenName, lastName: familyName, success: true, image: imageUrl })
 
+    // axios.post("http://trippingbackend.gunjan.tech/auth/login", obj)
+    // .then(res => res.data)
+    // .then(res => saveData('token',res.token))
+
+        // axios.post("http://tripping.gunjan.tech/auth/login", obj)
+        //     .then(res => res.data)
+        //     .then(res => saveData('token', res.token))
         // axios.post("http://trippingbackend.gunjan.tech/auth/login", obj)
         //     .then(res => res.data)
         //     .then(res => dispatch(this.props.userDataRequest(res.token)))
@@ -45,6 +52,7 @@ class GoogleAuthLogin extends React.Component {
 
     render() {
 
+        //console.log(localStorage.getItem('token'))
         // console.log(localStorage.getItem('token'))
         return (
             <div>

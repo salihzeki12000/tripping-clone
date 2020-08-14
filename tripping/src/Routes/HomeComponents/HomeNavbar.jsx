@@ -26,20 +26,24 @@ class HomeNavbar extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     if(getData('token')){
-    //         axios.get("http://trippingbackend.gunjan.tech/auth/get_user_info", {
-    //             params: {
-    //                 token: getData('token')
-    //             }
-    //         })
-    //             .then(res => res.data)
-    //             .then(res => this.setState({
-    //                 user: res.data
-    //             }))
-    //     }
+    componentDidMount() {
+       // if(getData('token')){
+            // axios.get("http://trippingbackend.gunjan.tech/auth/get_user_info", {
+            //     params: {
+            //         token: getData('token')
+            //     }
+            // })
+                // .then(res => res.data)
+                // .then(res => this.setState({
+                //     user: res.data
+                // }))
+       // }
 
-    // }
+       this.setState({
+           user: getData('user')
+       })
+
+    }
 
         
     render() {
