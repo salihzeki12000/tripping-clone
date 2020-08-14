@@ -96,19 +96,23 @@ flask run
 
 ### Dependecies 
 
-1.react-elastic-carousel
-<br> 
-2.react-google-login 
-<br> 
-3.email-validator 
-<br> 
-4.password-validator 
-<br> 
-5.query-string 
-<br> 
-6.react-google-map 
-<br> 
-7.react date-time parser
-<br> 
-8.react-airbnb date-picker 
+1. react-elastic-carousel
+2. react-google-login 
+3. email-validator 
+4. password-validator 
+5. query-string 
+6. axios
+7. react dates
+8. react-airbnb date-picker 
+9. react-router-dom
+10. fecha
+11. react-redux
+12. react-google-maps
+13. uuidv4
+15. react-modal
+16. react-star-rating-component
+17. @material-ui/core/Slider
+18. react-google-autocomplete
+19. redux
+20. redux-thunk
 
