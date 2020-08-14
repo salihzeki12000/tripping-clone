@@ -21,26 +21,30 @@ class HomeNavbar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: ''
+            user: this.props.userData,
+            flag:false
         }
     }
 
-    componentDidMount() {
-        console.log(getData('token'))
-        // if (getData('token')) {
-        //     axios.get("http://tripping.gunjan.tech/auth/get_user_info", {
-        //         params: {
-        //             auth_token: getData('token')
-        //         }
-        //     })
-        //         .then(res => res.data)
-        //         .then(res => this.setState({
-        //             user: res.data
-        //         }))
-        // }
-    }
+    // componentDidMount() {
+    //     if(getData('token')){
+    //         axios.get("http://trippingbackend.gunjan.tech/auth/get_user_info", {
+    //             params: {
+    //                 token: getData('token')
+    //             }
+    //         })
+    //             .then(res => res.data)
+    //             .then(res => this.setState({
+    //                 user: res.data
+    //             }))
+    //     }
+
+    // }
+
+        
     render() {
         let { user } = this.state
+        console.log(user)
         return (
             <div className='container-fluid'>
 
@@ -72,7 +76,8 @@ class HomeNavbar extends React.Component {
 
 
 const mapStateToProps = state => ({
-    user: state.signup.user
+    // user: state.signup.user,
+    userData: state.signin.userData
 })
 
 export default connect(mapStateToProps)(HomeNavbar)

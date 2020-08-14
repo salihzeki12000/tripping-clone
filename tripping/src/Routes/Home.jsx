@@ -10,17 +10,22 @@ import HomeNavbar from './HomeComponents/HomeNavbar'
 import Payment from '../Components/PaymentSuccess'
 // import { Link } from 'react-router-dom'
 
-export default function Home() {
-    return (
-        <div>
-            <HomeNavbar />
-            <HomeSearchBar />
-            <Subscribe />
-            <PopularDestinations />
-            <TopLocations />
-            <TopCountries />
-            <TrippingDescription />
-            <VacationRental />
-        </div>
-    )
+class Home extends React.Component {
+
+    render(){
+        return (
+            <div>
+                <HomeNavbar />
+                <HomeSearchBar />
+                <Subscribe />
+                <PopularDestinations />
+                <TopLocations />
+                <TopCountries />
+                <TrippingDescription />
+                <VacationRental />
+            </div>
+        )
+    }
 }
+
+export default Home
