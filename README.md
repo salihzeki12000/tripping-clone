@@ -12,6 +12,7 @@ React Tripping clone is inspired from Tripping website offering housing properti
 **Tripping clone demo:** 
 
 - [React Tripping clone](http://tripping.gunjan.tech/#/)
+- location available to search: Texas
 
 ### :wrench: Tools Used
 - [React](http://reactjs.org/)
